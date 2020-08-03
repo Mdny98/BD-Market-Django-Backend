@@ -1,4 +1,4 @@
-venv/
+BDENV/
 requirements.txt
 ### Django ###
 *.log
@@ -17,7 +17,7 @@ local_settings.py
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-.vscode
+
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
 .history

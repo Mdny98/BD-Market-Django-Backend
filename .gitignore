@@ -1,5 +1,4 @@
 BDENV/
-
 ### Django ###
 *.log
 *.pot
@@ -13,6 +12,7 @@ local_settings.py
 
 ### VisualStudioCode ###
 .vscode/*
+
 
 
 ### VisualStudioCode Patch ###

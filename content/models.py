@@ -40,7 +40,7 @@ class Product(models.Model):
     subcategory_id = models.ForeignKey(
         SubCategory, on_delete=models.SET_NULL, blank=True, null=True)
     unit_price = models.IntegerField(blank=True, null=True)
-    image = models.ImageField(upload_to='content/images/')
+    image = models.ImageField(upload_to='content/images/', blank=True, null=True)
 
     def __str__(self):
         return self.product_name

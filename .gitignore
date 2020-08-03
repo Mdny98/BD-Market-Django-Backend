@@ -1,4 +1,5 @@
 BDENV/
+
 ### Django ###
 *.log
 *.pot
@@ -14,9 +15,9 @@ local_settings.py
 .vscode/*
 
 
-
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
 .history
 
 # End of https://www.gitignore.io/api/visualstudiocode
+.vscode/settings.json

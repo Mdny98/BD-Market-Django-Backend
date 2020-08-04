@@ -68,3 +68,5 @@ class Cat_Attr(models.Model):
     int_value = models.IntegerField(blank=True, null=True)
     text_value = models.TextField(max_length=250, blank=True, null=True)
     bool_value = models.BooleanField(blank=True, null=True)
+
+

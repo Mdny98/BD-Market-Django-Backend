@@ -1,7 +1,3 @@
 {
-<<<<<<< HEAD
     "python.pythonPath": "BDENV/bin/python"
-=======
-    "python.pythonPath": "BDENV\\Scripts\\python.exe"
->>>>>>> 42b2ea9a219f63b16440fc9790cc6c6083ae9a56
 }

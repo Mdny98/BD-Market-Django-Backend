@@ -14,3 +14,6 @@ class Customer(models.Model):
    username= models.CharField(max_length=250)
    password= models.IntegerField(max_length=250)
    dateentered= models.DateTimeField(max_length=250)
+
+   def __str__(self):
+        return self.lastname ,self.firstname

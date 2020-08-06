@@ -1,0 +1,33 @@
+{% extends 'content/base.html' %}
+
+
+{% block content %}
+
+<div>
+{{ subs|unordered_list }}
+    {% comment %} {% for sub in subs %}
+        {% if sub.inner_sub_id is NULL %}
+        <a href='#'>{{ sub.cat_name }}</a>
+        <ul>
+        {% for sub2 in subs %}
+            {% if sub2.inner_sub_id == sub %}
+                <li><a href="#">{{ sub2.cat_name }}</a></li>
+            {% endif %}
+        {% endfor %}
+        </ul>
+        {% endif %}
+    {% endfor %} {% endcomment %}
+    
+
+</div>
+
+{% comment %} <div>
+    <h3>address</h3>
+    <ul>
+        {% for elm in address%}
+            <li>city : {{elm.city}} </li>
+        {% endfor %}
+    </ul>
+</div> {% endcomment %}
+
+{% endblock %}

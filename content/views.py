@@ -8,7 +8,7 @@ def home(request):
         def list_generator(subs, parent = None):
             lst = []
             for sub in subs:
-                if sub.inner_sub_id == parent:
+                if sub.parent_category == parent:
                     lst.append(sub)
                     tmp = list_generator(subs, sub)
                     if tmp:

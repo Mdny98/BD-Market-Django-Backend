@@ -10,7 +10,7 @@ class SubCategory(models.Model):
     """
     cat_name = models.CharField(max_length=50)
     parent_category = models.ForeignKey(
-        "self", on_delete=models.SET_NULL, blank=True, null=True)
+        "self", on_delete=models.SET_NULL, blank=True, null=True, related_name="child_categories")
 
     def __str__(self):
         return self.cat_name

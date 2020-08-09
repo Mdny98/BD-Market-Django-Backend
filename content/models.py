@@ -9,8 +9,8 @@ class SubCategory(models.Model):
         and "Electrical appliances" and "Refrigerator" with a self-referential foreign key
     """
     cat_name = models.CharField(max_length=50)
-    inner_sub_id = models.ForeignKey(
-        "self", on_delete=models.SET_NULL, blank=True, null=True)
+    parent_category = models.ForeignKey(
+        "self", on_delete=models.SET_NULL, blank=True, null=True, related_name="child_categories")
 
     def __str__(self):
         return self.cat_name
@@ -35,13 +35,13 @@ class Product(models.Model):
     product_name = models.CharField(max_length=250)
     product_description = models.TextField(
         max_length=1000, blank=True, null=True)
-    brand_id = models.ForeignKey(
-        Brand, on_delete=models.SET_NULL, blank=True, null=True)
-    subcategory_id = models.ForeignKey(
-        SubCategory, on_delete=models.SET_NULL, blank=True, null=True)
     unit_price = models.IntegerField(blank=True, null=True)
     image = models.ImageField(
         upload_to='content/images/', blank=True, null=True)
+    subcategory_id = models.ForeignKey(
+        SubCategory, on_delete=models.SET_NULL, blank=True, null=True)
+    brand_id = models.ForeignKey(
+        Brand, on_delete=models.SET_NULL, blank=True, null=True)
 
     def __str__(self):
         return self.product_name
@@ -58,16 +58,40 @@ class Attribute(models.Model):
     def __str__(self):
         return self.attr_title
 
-
-class Product_Attr(models.Model):
+Value_Type_CHOICES = [
+    ('INT', 'Integer'),
+    ('TXT', 'Text'),
+    ('BOOL', 'Bool'),
+]
+class ProductAttr(models.Model):
     """
         Handle products attributes
     """
-    product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
-    attr_id = models.ForeignKey(Attribute, on_delete=models.CASCADE)
-    value_type = models.CharField(max_length=250)
+    value_type = models.CharField(max_length=4, choices=Value_Type_CHOICES)
     int_value = models.IntegerField(blank=True, null=True)
     text_value = models.TextField(max_length=250, blank=True, null=True)
     bool_value = models.BooleanField(blank=True, null=True)
+    product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
+    attr_id = models.ForeignKey(Attribute, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f'{self.product_id} - {self.attr_id}'
 
+Rate_CHOICES = [
+    (1, '1'),
+    (2, '2'),
+    (3, '3'),
+    (4, '4'),
+    (5, '5'),
+]
+class Feedback(models.Model):
+    """
+        Represent each user comment and rate to a specific product.
+    """
+    comment = models.TextField(max_length=250, blank=True, null=True)
+    rate = models.IntegerField(choices=Rate_CHOICES, default=5)
+    # custumer_id = models.ForeignKey(Customer, on_delete=models.SET_NULL, blank=True, null=True)
+    product_id = models.ForeignKey(Product, on_delete=models.SET_NULL, blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.product_id} - {self.custumer_id}'

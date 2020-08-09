@@ -35,7 +35,7 @@ class Product(models.Model):
     product_name = models.CharField(max_length=250)
     product_description = models.TextField(
         max_length=1000, blank=True, null=True)
-    unit_price = models.IntegerField(blank=True, null=True)
+    
     image = models.ImageField(
         upload_to='content/images/', blank=True, null=True)
     subcategory_id = models.ForeignKey(

@@ -21,8 +21,7 @@ class Cart(models.Model):
     """    
     customer_id = models.OneToOneField(CustomerProfile, on_delete=models.CASCADE)
     delivery_id = models.OneToOneField(Delivery, on_delete=models.CASCADE)
-    price = models.IntegerField()
-    # add finance to inja
+    total_price = models.FloatField(default=0)
 
 
 
@@ -32,6 +31,7 @@ class OrderItem(models.Model):
     """    
     cart_id = models.OneToOneField(Cart, on_delete=models.CASCADE)   
     product_supplier_id = models.OneToOneField(Product_Supplier, on_delete=models.CASCADE)
+    price = models.ForeignKey(Product_Supplier.unit_price, on_delete=models.CASCADE)
     number = models.IntegerField(default=0)
 
     def __str__(self):

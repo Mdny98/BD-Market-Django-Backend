@@ -32,3 +32,4 @@ class Product_Supplier(models.Model):
     supplier_id = models.ForeignKey(Supplier_Profile, on_delete=models.CASCADE)
     product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
     stock = models.IntegerField(default=0)
+    unit_price = models.IntegerField(blank=True, null=True)

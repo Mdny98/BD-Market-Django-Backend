@@ -1,19 +1,22 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
-class Customer(models.Model):
+class CustomerProfile(models.Model):
    """
       Represent Customers Informations 
    """
-   firstname= models.CharField(max_length=250)
-   lastname= models.CharField(max_length=250)
-   city= models.CharField(max_length=250)
-   postalcode= models.IntegerField(max_length=250)
-   phone= models.IntegerField(max_length=250)
-   email= models.CharField(max_length=250)
-   username= models.CharField(max_length=250)
-   password= models.IntegerField(max_length=250)
-   dateentered= models.DateTimeField(max_length=250)
+   user_id = models.OneToOneField(User, on_delete= models.CASCADE)
+   gender_choices = [
+         ('M', 'Male'), 
+         ('F', 'Female')
+      ]
+   phone= models.IntegerField(blank=True, null=True)
 
-   def __str__(self):
-        return self.lastname ,self.firstname
+class CustomerAddress(models.Model):
+   """
+      Represent adresses of customers
+   """
+   address=city= models.CharField(max_length=250)
+   customer_id=models.ForeignKey(CustomerProfile, on_delete=models.CASCADE)
+   city= models.CharField(max_length=250)
+   postalcode= models.IntegerField(blank=True, null=True)

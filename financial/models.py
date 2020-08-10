@@ -4,12 +4,10 @@ from cart.models import Cart
 # Create your models here.
 
 
-class PeymentMethod(models.Moled):
+class PeymentMethod(models.Model):
     """
     identify Payment method
     """
-    method_id = models.ForeignKey(
-        Payment, on_delete=model.CASCADE, blank=True, null=True)
     method_title = models.CharField(max_length=250)
 
 

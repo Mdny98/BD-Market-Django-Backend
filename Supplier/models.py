@@ -5,7 +5,7 @@ from content.models import Product
 # Create your models here.
 
 
-class Supplier_Profile(models.Model):
+class SupplierProfile(models.Model):
     """
         a table for all supplier
     """
@@ -15,7 +15,7 @@ class Supplier_Profile(models.Model):
         ('rasht', 'Rasht'),
         ('kerman', 'Kerman'),
         ('ahvaz', 'Ahvaz')
-    ]  # to baghie sharha namayandeghi nadarim
+    ]  # to baghie shahrha namayandeghi nadarim
     supplier = models.OneToOneField(User, on_delete=models.CASCADE)
     company_name = models.CharField(max_length=50)
     address = models.TextField(max_length=500)
@@ -25,11 +25,11 @@ class Supplier_Profile(models.Model):
         return self.company_name
 
 
-class Product_Supplier(models.Model):
+class ProductSupplier(models.Model):
     """
     a table between products and supplier
     """
-    supplier_id = models.ForeignKey(Supplier_Profile, on_delete=models.CASCADE)
+    supplier_id = models.ForeignKey(SupplierProfile, on_delete=models.CASCADE)
     product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
     stock = models.IntegerField(default=0)
-    unit_price = models.IntegerField(blank=True, null=True)
+    unit_price = models.FloatField(blank=True, null=True)

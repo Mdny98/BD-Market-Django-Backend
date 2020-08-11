@@ -19,3 +19,4 @@ class Payment(models.Model):
     cart_id = models.ForeignKey(Cart, on_delete=models.CASCADE)
     payment_method = models.ForeignKey(
         PeymentMethod, on_delete=models.SET_NULL, blank=True, null=True)
+    

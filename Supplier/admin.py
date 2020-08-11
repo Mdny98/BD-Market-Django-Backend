@@ -1,5 +1,5 @@
 from django.contrib import admin
-from Supplier.models import  Supplier_Profile , Product_Supplier
+from Supplier.models import  SupplierProfile , ProductSupplier
 # Register your models here.
-admin.site.register(Supplier_Profile)
-admin.site.register(Product_Supplier)
+admin.site.register(SupplierProfile)
+admin.site.register(ProductSupplier)

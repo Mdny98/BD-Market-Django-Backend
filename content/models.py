@@ -1,6 +1,5 @@
 from django.db import models
-
-# Create your models here.
+from customer.models import CustomerProfile
 
 
 class SubCategory(models.Model):
@@ -58,15 +57,15 @@ class Attribute(models.Model):
     def __str__(self):
         return self.attr_title
 
-Value_Type_CHOICES = [
-    ('INT', 'Integer'),
-    ('TXT', 'Text'),
-    ('BOOL', 'Bool'),
-]
 class ProductAttr(models.Model):
     """
         Handle products attributes
     """
+    Value_Type_CHOICES = [
+        ('INT', 'Integer'),
+        ('TXT', 'Text'),
+        ('BOOL', 'Bool'),
+    ]
     value_type = models.CharField(max_length=4, choices=Value_Type_CHOICES)
     int_value = models.IntegerField(blank=True, null=True)
     text_value = models.TextField(max_length=250, blank=True, null=True)
@@ -77,20 +76,20 @@ class ProductAttr(models.Model):
     def __str__(self):
         return f'{self.product_id} - {self.attr_id}'
 
-Rate_CHOICES = [
-    (1, '1'),
-    (2, '2'),
-    (3, '3'),
-    (4, '4'),
-    (5, '5'),
-]
 class Feedback(models.Model):
     """
         Represent each user comment and rate to a specific product.
     """
+    Rate_CHOICES = [
+        (1, '1'),
+        (2, '2'),
+        (3, '3'),
+        (4, '4'),
+        (5, '5'),
+    ]
     comment = models.TextField(max_length=250, blank=True, null=True)
     rate = models.IntegerField(choices=Rate_CHOICES, default=5)
-    # custumer_id = models.ForeignKey(Customer, on_delete=models.SET_NULL, blank=True, null=True)
+    custumer_id = models.ForeignKey(CustomerProfile, on_delete=models.SET_NULL, blank=True, null=True)
     product_id = models.ForeignKey(Product, on_delete=models.SET_NULL, blank=True, null=True)
 
     def __str__(self):

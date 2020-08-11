@@ -20,3 +20,8 @@ def home(request):
     else:
         pass
 
+def categories(request):
+    if request.method == 'GET':
+        all_cats = SubCategory.objects.all()
+        main_cats = all_cats.filter(parent_category = None)
+        return render(request, 'content/categories.html', {'all_cats':all_cats, 'main_cats':main_cats})

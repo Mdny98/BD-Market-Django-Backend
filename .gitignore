@@ -6,7 +6,7 @@ BDENV/
 *.pyc
 __pycache__/
 local_settings.py
-/static/
+# /static/
 
 # Created by https://www.gitignore.io/api/visualstudiocode
 # Edit at https://www.gitignore.io/?templates=visualstudiocode

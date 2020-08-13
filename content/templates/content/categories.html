@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
+{% load static %}
 <head>
 
 
@@ -73,7 +73,7 @@
 
     /* Create an active/current "tab button" class */
     .tab button.active {
-      background-color: #ccc;
+      background-color: #ffc107;
     }
 
     /* Style the tab content */
@@ -84,6 +84,8 @@
       width: 80%;
       border-right: none;
       height: calc(100vh - 60px);
+          background-color: #fcffb4;
+    padding: 30px;
     }
   </style>
 </head>
@@ -118,17 +120,16 @@
       <div class="item">
         <div class="card">
           <img
-            src="..."
+            src="{% static 'img/noimage.jpeg' %}"
             class="card-img-top"
             alt="..."
           >
           <div class="card-body">
             <h5 class="card-title">
               {{ cat2.cat_name }}
-
             </h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card 's
-              content. </p>
+            {% comment %} <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card 's {% endcomment %}
+              {% comment %} content. </p> {% endcomment %}
           </div>
           <ul class="list-group list-group-flush">
             {% for cat3 in all_cats %}

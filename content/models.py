@@ -8,6 +8,10 @@ class SubCategory(models.Model):
         and "Electrical appliances" and "Refrigerator" with a self-referential foreign key
     """
     cat_name = models.CharField(max_length=50)
+    # cat_description = models.TextField(
+    #     max_length=1000, blank=True, null=True)
+    # cat_image = models.ImageField(
+    #     upload_to='content/images/', blank=True, null=True)
     parent_category = models.ForeignKey(
         "self", on_delete=models.SET_NULL, blank=True, null=True, related_name="child_categories")
 
@@ -34,13 +38,13 @@ class Product(models.Model):
     product_name = models.CharField(max_length=250)
     product_description = models.TextField(
         max_length=1000, blank=True, null=True)
-    
-    image = models.ImageField(
+    product_image = models.ImageField(
         upload_to='content/images/', blank=True, null=True)
     subcategory_id = models.ForeignKey(
         SubCategory, on_delete=models.SET_NULL, blank=True, null=True)
     brand_id = models.ForeignKey(
         Brand, on_delete=models.SET_NULL, blank=True, null=True)
+    # attribute = models.ManyToManyField(Attribute, through='ProductAttr')
 
     def __str__(self):
         return self.product_name
@@ -56,6 +60,7 @@ class Attribute(models.Model):
 
     def __str__(self):
         return self.attr_title
+
 
 class ProductAttr(models.Model):
     """
@@ -76,6 +81,7 @@ class ProductAttr(models.Model):
     def __str__(self):
         return f'{self.product_id} - {self.attr_id}'
 
+
 class Feedback(models.Model):
     """
         Represent each user comment and rate to a specific product.
@@ -89,8 +95,10 @@ class Feedback(models.Model):
     ]
     comment = models.TextField(max_length=250, blank=True, null=True)
     rate = models.IntegerField(choices=Rate_CHOICES, default=5)
-    custumer_id = models.ForeignKey(CustomerProfile, on_delete=models.SET_NULL, blank=True, null=True)
-    product_id = models.ForeignKey(Product, on_delete=models.SET_NULL, blank=True, null=True)
+    custumer_id = models.ForeignKey(
+        CustomerProfile, on_delete=models.SET_NULL, blank=True, null=True)
+    product_id = models.ForeignKey(
+        Product, on_delete=models.SET_NULL, blank=True, null=True)
 
     def __str__(self):
         return f'{self.product_id} - {self.custumer_id}'

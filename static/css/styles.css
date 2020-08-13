@@ -14,3 +14,7 @@
     /* /* background-color: rgb(219, 226, 226); */
   }
 
+  .card {
+    min-height: 370px !important;
+  }
+

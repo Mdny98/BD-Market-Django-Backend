@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<head>
+
+
+  <script>
+    function openCity(evt, cityName) {
+      var i,
+        tabcontent,
+        tablinks;
+      tabcontent = document.getElementsByClassName("tabcontent");
+
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+
+      tablinks = document.getElementsByClassName("tablinks");
+
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+
+      document.getElementById(cityName).style.display = "block";
+      evt.currentTarget.className += " active";
+    }
+
+    // Get the element with id="defaultOpen" and click on it
+    document.getElementById("defaultOpen").click();
+  </script>
+  <style>
+    * {
+      box-sizing: border-box
+    }
+
+
+
+    /*body {
+        font-family: "Lato", sans-serif;
+      }*/
+
+
+
+    /* Style the tab */
+    .tab {
+      float: right;
+      border: 1px solid #ccc;
+      background-color: #f1f1f1;
+      width: 20%;
+      height: calc(100vh - 60px);
+    }
+
+    /* Style the buttons inside the tab */
+    .tab button {
+      display: block;
+      background-color: inherit;
+      color: black;
+      padding: 22px 16px;
+      width: 100%;
+      border: none;
+      outline: none;
+      text-align: right;
+      cursor: pointer;
+      transition: 0.3s;
+      font - size: 17px;
+    }
+
+    /* Change background color of buttons on hover */
+    .tab button:hover {
+      background-color: #ddd;
+    }
+
+    /* Create an active/current "tab button" class */
+    .tab button.active {
+      background-color: #ffc107;
+    }
+
+    /* Style the tab content */
+    .tabcontent {
+      float: right;
+      padding: 0px 12px;
+      border: 1px solid #ccc;
+      width: 80%;
+      border-right: none;
+      height: calc(100vh - 60px);
+          background-color: #fcffb4;
+    padding: 30px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="tab"> {% for cat in main_cats %}
+
+    <button
+      class="tablinks"
+      onclick="openCity(event, '{{ cat.cat_name }}')"
+      {% if forloop.first%}
+      id="defaultOpen"
+      {% endif %}
+    > {{ cat.cat_name }}
+
+    </button>
+    {%comment%}
+    {%empty%}
+    <li>Sorry,no subcategories and products in this category. </li>
+    {%endcomment%}
+    {%endfor%}
+  </div>
+  {% for cat in main_cats %}
+  <div
+    id="{{ cat.cat_name }}"
+    class="tabcontent"
+  >
+
+    <div class="owl-carousel owl-theme">
+      {% for cat2 in all_cats %}
+      {% if cat2.parent_category == cat %}
+      <div class="item">
+        <div class="card" style="min-height: 370px !important;">
+          <img
+            src="{% static 'img/noimage.jpeg' %}"
+            class="card-img-top"
+            alt="..."
+          >
+          <div class="card-body">
+            <h5 class="card-title">
+              {{ cat2.cat_name }}
+            </h5>
+            {% comment %} <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card 's {% endcomment %}
+              {% comment %} content. </p> {% endcomment %}
+          </div>
+          <ul class="list-group list-group-flush">
+            {% for cat3 in all_cats %}
+
+            {% if cat3.parent_category == cat2 %}
+
+            <li class="list-group-item">
+              <a href="#"> {{ cat3.cat_name }}
+
+              </a>
+            </li>
+            {%endif%}
+            {%endfor%}
+          </ul>
+        </div>
+      </div>
+
+      {%endif %}
+      {%endfor%}
+    </div>
+  </div>
+
+  </div>
+
+
+
+
+
+
+  {%endfor%}
+
+  {%endblock%}

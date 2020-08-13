@@ -3,12 +3,7 @@
 {% block content %}
 
 <head>
-  {% comment %}
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.3/tiny-slider.css"
-  />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script> {% endcomment %}
+
 
 <script>function openCity(evt, cityName) {
     var i,
@@ -115,14 +110,12 @@
     id="{{ cat.cat_name }}"
     class="tabcontent"
   >
-    <div class="my-slider">
-      <div>a </div>
-      <div>b </div>
-      <div>c </div>
-    </div>
+    
+    <div class="owl-carousel owl-theme">
     {% for cat2 in all_cats %}
     {% if cat2.parent_category == cat %}
-    <div
+    <div class="item">
+<div
       class="card"
       style="width: 18rem;"
     >
@@ -153,8 +146,19 @@
         {%endfor%}
       </ul>
     </div>
-    {%endif %}
+
+{%endif %}
     {%endfor%}
-  </div>
+     </div>
+    </div>
+    
+</div>
+
+    
+    
+    
+    
+ 
   {%endfor%}
+ 
   {%endblock%}

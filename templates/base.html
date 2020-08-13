@@ -27,6 +27,8 @@
       integrity="sha384-vus3nQHTD+5mpDiZ4rkEPlnkcyTP+49BhJ4wJeJunw06ZAp+wzzeBPUXr42fi8If"
       crossorigin="anonymous"
     >
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
 
 
     <link
@@ -142,12 +144,13 @@
         <p>copyright</p>
       </footer> {% endcomment %}
     </div>
-    {% comment %} <script
+     <script
       src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
       integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
       crossorigin="anonymous"
     >
     </script>
+    {% comment %}
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
       integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
@@ -172,6 +175,15 @@
       type="text/javascript"
       src="{% static 'js/main.js' %}"
     ></script> 
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+     <script>
+  $(document).ready(function(){
+  $('.owl-carousel').owlCarousel({
+
+       rtl:true,
+  });
+});
+</script>
   </body>
 
 </html>

@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+
+<h1>
+{{ cat.cat_name }}
+</h1>
+<div class="container">
+<div class="row">
+
+<div class="col-md-3 pleft-0 pright-0">
+                    <div href="#" target="_blank" class="pcard">
+                       
+                        <img src="img-2.jpg" class="img-responsive">
+                        <ul class="color-div">
+                            
+                          
+                           
+ </ul>
+                        <h6>گوشی موبایل سامسونگ مدل Galaxy A69 SM-A705FN/DS دو سیم&zwnj;کارت ظرفیت 128</h6>
+                        
+                        <ul>
+                            
+                            
+                            
+                        
+                        <li>2876000 <span class="toman">تومان</span></li>
+                               
+                                    <button>افزودن به سبد خرید</button>
+                                    
+                        </ul>
+                        
+                        <hr>
+                        <p>فروشنده :  دیجی کالا</p>
+                    </div>
+                </div>
+
+</div></div>
+
+
+<div class="card-columns">
+{% for product in all_products %}
+  <div class="card">
+    <img class="card-img-top" src="/media/{{ product_image }}" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">Card title that wraps to a new line</h5>
+      <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+    </div>
+  </div>
+{% endfor %}
+</div>
+
+{% endblock %}

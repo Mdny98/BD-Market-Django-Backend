@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import SubCategory
+from .models import SubCategory, Product
 # Create your views here.
 
 def home(request):
@@ -25,3 +25,10 @@ def categories(request):
         all_cats = SubCategory.objects.all()
         main_cats = all_cats.filter(parent_category = None)
         return render(request, 'content/categories.html', {'all_cats':all_cats, 'main_cats':main_cats})
+
+def products(request, cat_pk):
+    if request.method == 'GET':
+        all_products = Product.objects.filter(subcategory_id=cat_pk)
+        cat = SubCategory.objects.get(pk=cat_pk)
+        print(cat)
+        return render(request, 'content/products.html', {'all_products':all_products, 'cat':cat})

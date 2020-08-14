@@ -15,8 +15,8 @@
 <div class="row">
     {% for product in all_products %}
     <div class="col-md-3 mbottom-30">
-      <div
-        href="#"
+      <a
+        href="{% url 'content:productdetails' product.id %}"
         target="_blank"
         class="pcard"
       >
@@ -32,7 +32,7 @@
           <button>افزودن به سبد خرید</button>
         </ul>
 
-      </div>
+      </a>
     </div>
       {% endfor %}
   </div>

@@ -32,3 +32,12 @@ def products(request, cat_pk):
         cat = SubCategory.objects.get(pk=cat_pk)
         print(cat)
         return render(request, 'content/products.html', {'all_products':all_products, 'cat':cat})
+
+
+def error_404(request, exception):
+    data = {"name": "somthing error"}
+    return render(request,'content/bdmarket404.html', data)
+
+def error_500(request):
+    data = {"name": "somthing error"}
+    return render(request,'content/bdmarket404.html', data)

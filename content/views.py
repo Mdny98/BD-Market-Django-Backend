@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import SubCategory, Product
+from Supplier.models import ProductSupplier
 # Create your views here.
 
 def home(request):
@@ -37,4 +38,16 @@ def products(request, cat_pk):
 def productdetails(request, product_pk):
     if request.method == 'GET':
         this_product = Product.objects.get(pk=product_pk)
-        return render(request, 'content/productdetails.html', {'this_product':this_product})
+        this_product_suppliers = ProductSupplier.objects.filter(product_id=this_product)
+        catlst = []
+        f = 1
+        tmp = this_product.subcategory_id
+        catlst.append(tmp)
+        while f:
+            catlst.append(tmp.parent_category)
+            tmp = tmp.parent_category
+            if tmp.parent_category == None:
+                f = 0
+        catlst.reverse()
+        return render(request, 'content/productdetails.html', 
+        {'this_product':this_product, 'catlst':catlst, 'this_product_suppliers':this_product_suppliers})

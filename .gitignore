@@ -1,5 +1,5 @@
 BDENV/
-
+.idea
 ### Django ###
 *.log
 *.pot

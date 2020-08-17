@@ -17,4 +17,44 @@
   .card {
     min-height: 370px !important;
   }
+.pcard{
+  text-align: right !important;
+  border: 1px solid #ddd;
+  background-color: #fff !important;
+  padding: 20px 20px;
+  display: block !important;
+  min-height: 380px;
 
+  color: #444 !important;
+  text-decoration: none !important;
+}
+.pcard:hover {
+ 
+  box-shadow: 0 2px 17px 0 rgba(0, 0, 0, .1);
+  z-index: 11;
+}
+.pcard button{
+  background-color: #146500;
+  font-family: Shabnam;
+  color: #fff;
+  position: absolute;
+  bottom: 35px;
+  font-size: 11px;
+  border: none !important;
+  padding: 10px 30px;
+  border-radius: 6px;
+  margin-bottom: 0 !important;
+  margin: 20px 0;
+}
+.pcard ul li {
+  font-weight: bold;
+  text-align: left;
+  list-style: none
+}
+.pcard img{
+  height: 200px;
+}
+
+.mbottom-30{
+  margin-bottom: 30px;
+}

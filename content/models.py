@@ -30,6 +30,16 @@ class Brand(models.Model):
     def __str__(self):
         return self.brand_name
 
+class Attribute(models.Model):
+    """
+        Represent attributes of products
+    """
+    attr_title = models.CharField(max_length=50, blank=True, null=True)
+    subcategory_id = models.ForeignKey(
+        SubCategory, on_delete=models.SET_NULL, blank=True, null=True)
+
+    def __str__(self):
+        return self.attr_title
 
 class Product(models.Model):
     """
@@ -44,22 +54,12 @@ class Product(models.Model):
         SubCategory, on_delete=models.SET_NULL, blank=True, null=True)
     brand_id = models.ForeignKey(
         Brand, on_delete=models.SET_NULL, blank=True, null=True)
-    # attribute = models.ManyToManyField(Attribute, through='ProductAttr')
+    attribute = models.ManyToManyField(Attribute, through='ProductAttr')
 
     def __str__(self):
         return self.product_name
 
 
-class Attribute(models.Model):
-    """
-        Represent attributes of products
-    """
-    attr_title = models.CharField(max_length=50, blank=True, null=True)
-    subcategory_id = models.ForeignKey(
-        SubCategory, on_delete=models.SET_NULL, blank=True, null=True)
-
-    def __str__(self):
-        return self.attr_title
 
 
 class ProductAttr(models.Model):

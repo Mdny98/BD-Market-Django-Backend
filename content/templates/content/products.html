@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+
+<h1>
+  {{ cat.cat_name }}
+</h1>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-2">
+</div>
+<div class="col-md-10">
+
+<div class="row">
+    {% for product in all_products %}
+    <div class="col-md-3 mbottom-30">
+      <div
+        href="#"
+        target="_blank"
+        class="pcard"
+      >
+        <img
+          src="{{ product.product_image.url }}"
+          class="img-responsive"
+        >
+        <ul class="color-div">
+        </ul>
+        <h6>{{ product.product_name }}</h6>
+        <ul>
+          {% comment %} <li>2876000 <span class="toman">تومان</span></li> {% endcomment %}
+          <button>افزودن به سبد خرید</button>
+        </ul>
+
+      </div>
+    </div>
+      {% endfor %}
+  </div>
+
+</div>
+</div>
+
+
+  
+</div>
+
+
+{% comment %} <div class="card-columns">
+  {% for product in all_products %}
+  <div class="card">
+    <img
+      class="card-img-top"
+      src="/media/{{ product_image }}"
+      alt="Card image cap"
+    >
+    <div class="card-body">
+      <h5 class="card-title">Card title that wraps to a new line</h5>
+      <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+    </div>
+  </div>
+  {% endfor %} {% endcomment %}
+</div>
+
+{% endblock %}

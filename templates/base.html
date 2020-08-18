@@ -48,7 +48,8 @@
       <a
         class="navbar-brand"
         href="{% url 'content:home' %}"
-      >بی دی مارکت</a>
+      >بی دی مارکت
+      </a>
       <button
         class="navbar-toggler"
         type="button"
@@ -117,6 +118,8 @@
               aria-disabled="true"
             >Disabled</a>
           </li>
+          <a class="btn btn-success mb-1 mt-1 mr-auto ml-2" href="{% url 'customer:login' %}">ورود/ثبت نام مشتریان</a>
+          <a class="btn btn-warning mb-1 mt-1 mr-auto ml-2" href="{% url 'customer:login' %}">ورود/ثبت نام فروشندگان</a>
         </ul>
         <form class="form-inline my-2 my-lg-0">
           <input

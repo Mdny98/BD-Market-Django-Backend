@@ -7,41 +7,65 @@
   {{ cat.cat_name }}
 </h1>
 <div class="container-fluid">
-<div class="row">
-<div class="col-md-2">
-</div>
-<div class="col-md-10">
+  <div class="row">
 
-<div class="row">
-    {% for product in all_products %}
-    <div class="col-md-3 mbottom-30">
-      <a
-        href="{% url 'content:productdetails' product.id %}"
-        target="_blank"
-        class="pcard"
-      >
-        <img
-          src="{{ product.product_image.url }}"
-          class="img-responsive"
-        >
-        <ul class="color-div">
-        </ul>
-        <h6>{{ product.product_name }}</h6>
-        <ul>
-          {% comment %} <li>2876000 <span class="toman">تومان</span></li> {% endcomment %}
-          <button>افزودن به سبد خرید</button>
-        </ul>
+    <div class="col-md-2">
 
-      </a>
-    </div>
+    <form action="{% url 'my_url' %}?get_parameter_name={{ tag_name }}"" method="POST">
+      {% for attr in cat.attr.all %}
+      <p>{{ attr.attr_title }}: 
+      <ul class="text-list">
+      {% for pro_attr in attr.pro_attr.all %}
+      <li>
+      <input type='checkbox' name='{{ attr.attr_title }}' value=/
+                  {% if pro_attr.value_type == 'BOOL' %}
+                  {{ pro_attr.bool_value }}
+                  {% elif pro_attr.value_type == 'INT' %}
+                  {{ pro_attr.int_value }} 
+                  {% elif pro_attr.value_type == 'TXT' %}
+                  {{ pro_attr.text_value }}
+                  {% endif %}
+  />
+                </li>
       {% endfor %}
+      </ul>
+      </p>
+      {% endfor %}
+      </form>
+
+    </div>
+    <div class="col-md-10">
+
+      <div class="row">
+        {% for product in all_products %}
+        <div class="col-md-3 mbottom-30">
+          <a
+            href="{% url 'content:productdetails' product.id %}"
+            target="_blank"
+            class="pcard"
+          >
+            <img
+              src="{{ product.product_image.url }}"
+              class="img-responsive"
+            >
+            <ul class="color-div">
+            </ul>
+            <h6>{{ product.product_name }}</h6>
+            <ul>
+              {% comment %} <li>2876000 <span class="toman">تومان</span></li> {% endcomment %}
+              <button>افزودن به سبد خرید</button>
+            </ul>
+
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+
+    </div>
   </div>
 
-</div>
-</div>
 
 
-  
 </div>
 
 

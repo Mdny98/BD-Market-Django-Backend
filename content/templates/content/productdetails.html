@@ -36,7 +36,7 @@
           <li><a href="#"><i class="fa fa-bell"></i></a></li>
           <li><a href="#"><i class="fa fa-bar-chart"></i></a></li>
         </ul> {% endcomment %}
-        
+
         {% comment %} <div class="row img-list">
 
           <div class="col-md-3">
@@ -85,8 +85,8 @@
             </a>
 
           </div>
-        
-        
+
+
         </div> {% endcomment %}
       </div>
       <div class="col-md-9">
@@ -98,26 +98,26 @@
                 <li><span>دسته بندی : </span><a href="{% url 'content:products' this_product.subcategory_id.id %}">{{ this_product.subcategory_id.cat_name }}</a></li>
                 <li><span>برند : </span>{{ this_product.brand_id.brand_name }}</li>
               </ul>
-              
+
               <ul class="text-list">
-              {% for proattr in this_product.pro_attr.all %}
-                <li> {{ proattr.attr_id.attr_title }}: 
-                {% if proattr.value_type == 'BOOL' %}
+                {% for proattr in this_product.pro_attr.all %}
+                <li> {{ proattr.attr_id.attr_title }}:
+                  {% if proattr.value_type == 'BOOL' %}
                   {% if proattr.bool_value %}
                   دارد
                   {% else %}
                   ندارد
                   {% endif %}
-                {% elif proattr.value_type == 'INT' %}
+                  {% elif proattr.value_type == 'INT' %}
                   {{ proattr.int_value }} عدد
-                {% elif proattr.value_type == 'TXT' %}
-                {{ proattr.text_value }}  
-                {% endif %} 
-                
+                  {% elif proattr.value_type == 'TXT' %}
+                  {{ proattr.text_value }}
+                  {% endif %}
+
                 </li>
                 {% endfor %}
               </ul>
-              <p> {{ this_product.product_description }} </p>
+              <p>توضیحات: {{ this_product.product_description }} </p>
               <div class="row">
                 <div class="col-md-12">
                   <hr>
@@ -181,11 +181,11 @@
             <div class="col-7">
               <div class="side-details-box">
                 <table class="table table-seller">
-                {% for supplier in this_product_suppliers %}
+                  {% for supplier in this_product_suppliers %}
                   <tr>
                     <td>
                       {{ supplier.supplier_id.company_name }}
-                      </td>
+                    </td>
                     <td>{{ supplier.unit_price }} تومان</td>
                     <td>
                       <button>افزودن به سبد</button>
@@ -194,7 +194,7 @@
                   {% endfor %}
                 </table>
               </div>
-             
+
             </div>
           </div>
 
@@ -305,259 +305,61 @@
     <div class="row mright-0 mleft-0">
 
       <div class="w3-bar w3-black">
-        <button
-          class="w3-bar-item w3-button"
-          onclick="openBox('cash')"
-        ><i class="fa fa-code"></i>نقد و بررسی
-        </button>
-        <button
-          class="w3-bar-item w3-button"
-          onclick="openBox('descript')"
-        ><i class="fa fa-list"></i>مشخصات
-        </button>
+
         <button
           class="w3-bar-item w3-button"
           onclick="openBox('comment')"
         ><i class="fa fa-comment"></i>نظرات
           کاربران
         </button>
-        <button
-          class="w3-bar-item w3-button"
-          onclick="openBox('question')"
-        ><i class="fa fa-question"></i>پرسش
-          و پاسخ
-        </button>
+
       </div>
 
-      <div
-        id="cash"
-        class="w3-container tab"
-      >
-        <h2>نقد و بررسی اجمالی</h2>
-        <p>گوشی موبایل «A20s» از سری گوشی‌های A20 است که این بار با کمی به‌روزرسانی روانه بازار شده است. گوشی
-          موبایل Galaxy A20s با صفحه‌نمایش IPS طراحی شده است و ظاهر هم زیبایی دارد. سامسونگ تلاش کرده است
-          حاشیه را در این تولید جدید خود تا حد امکان کم کند. این گوشی قاب پشتی از جنس پلاستیک دارد و قاب جلویی
-          آن را شیشه پوشانده که البته جلوه‌ی زیبایی به گوشی داده است. این محصول سامسونگ با جدیدترین نسخه از
-          سیستم‌عامل اندروید (Pie) روانه بازار شده است تا از هر نظر گوشی مدرن به‌حساب بیاید. صفحه‌نمایش
-          استفاده‌شده در این گوشی 6.5 اینچ با رزولوشن HD+ است. این صفحه‌نمایش در هر اینچ 264 پیکسل را نشان
-          می‌دهد. تراشه‌ی این محصول، SDM450 Snapdragon 450 کوالکام سامسونگ است که به همراه 3 گیگابایت رم عرضه
-          می‌شود. این</p>
-        <div
-          class="img-desc"
-          style="text-align: center"
-        >
-          <img
-            src="big-img-1.jpg"
-            width="800"
-          />
-        </div>
-        <hr>
-        <h2>صفحه نمایش</h2>
-        <p>صفحه نمایش 6.4 اینچی سوپر آمولد در گلکسی A30 بسیار زیبا و بلند به نظر می‎رسد. این پنل در کمتر گوشی در
-          این گستره قیمتی دیده می‎شود. در قسمت بالای صفحه نمایش فقط یک دوربین سلفی قرار گرفته است و حاشیه‎های
-          بالایی و کناری در گلکسی A30 بسیار باریک شده به طوری که صفحه نمایش آن توانسته است 84.9% نسبت مساحت کل
-          گوشی را به خود اختصاص دهد. برای محافظت از آن هم، از جدیدترین نسخه‌ ی محافظ‌ های گوریلاگلس استفاده
-          شده است . صفحه نمایش AMOLED در این گوشی از روشنایی و شفافیت بسیار خوبی برخوردار است؛ به طوری که در
-          تنظیمات با بیشترین روشنایی (616 LUX) مشاهده عکس ‎ها و متن‎ ها حتی در نور مستقیم آفتاب نیز امکان‎
-          پذیر است. همچنین با توجه به خاموش بودن پیکسل ‎های مشکی در صفحه نمایش AMOLED، سامسونگ قابلیت Always
-          On Display را برای نمایش تاریخ و ساعت در نظر گرفته است.</p>
-        <div
-          class="img-desc"
-          style="text-align: center"
-        >
-          <img
-            src="big-img-2.jpg"
-            width="800"
-          />
-        </div>
-      </div>
 
-      <div
-        id="descript"
-        class="w3-container tab"
-        style="display:none"
-      >
-        <h2>مشخصات فنی</h2>
-        <table>
-          <tr>
-            <th><i class="fa fa-caret-left"></i>
-              مشخصات کلی
-            </th>
-          </tr>
-          <tr>
-            <td>ابعاد</td>
-            <td>8 × 77.5 × 163.3 میلی‌متر</td>
-          </tr>
-          <tr>
-            <td>توضیحات سیم کارت</td>
-            <td>
-              سایز نانو (8.8 × 12.3 میلی‌متر)
-            </td>
-          </tr>
-          <tr>
-            <td>وزن</td>
-            <td>
-              183 گرم
-            </td>
-          </tr>
-          <tr>
-            <td>ویژگی‌های خاص</td>
-            <td>مجهز به حس‌گر اثرانگشت</td>
-          </tr>
-          <tr>
-            <td>تعداد سیم کارت</td>
-            <td>دو سیم کارت</td>
-          </tr>
-
-          <tr>
-            <th><i class="fa fa-caret-left"></i>
-              پردازنده
-            </th>
-
-          </tr>
-          <tr>
-            <td>تراشه</td>
-            <td>Exynos 7884 Chipset</td>
-          </tr>
-          <tr>
-            <td>پردازنده‌ی مرکزی</td>
-            <td>Dual-Core + Hexa Core CPU</td>
-          </tr>
-        </table>
-      </div>
 
       <div
         id="comment"
         class="w3-container tab tab-comment"
-        style="display:none"
+        
       >
+        {% for feedback in this_product.feedback.all %}
         <div class="row">
           <div class="col-md-4">
             <ul class="">
               <li>
-                <h6>کورش علیزاده <span>خریدار</span></h6>
+                <h6>{{ feedback.custumer_id.user_id.get_full_name }}</h6>
               </li>
               <li class="date">در تاریخ 11 دی 1398</li>
-              <li>خرید این محصول را پیشنهاد میکنم</li>
-              <li> رنگ :
-                <div></div>
-                مشکی
-              </li>
-              <li> فروشنده : ایرانیان قائم مقام</li>
+              
+              
             </ul>
           </div>
           <div class="col-md-8">
-            <h5>گوشی موبایل سامسونگ مدل Galaxy A20 SM-A205F/DS دو سیم کارت ظرفیت 32گیگابایت</h5>
+            
 
-            <p>خیلی دنبال یه گوشی تو رنج قیمت متوسط و با کارایی بالا گشتم و خلاصه به این گوشی رسیدم البته
-              بعد از این گوشی 20 اس هم اومده ولی بخاطر پایین آوردن قیمت صفحه نمایشش و ال سی دی گذاشتن و
-              پردازنده اون هم به ای 20 نمیرسه . گوشی خوبیه و ازش راضیم . ممنون از دی جی کالا</p>
+            <p>{{ feedback.comment }}</p>
             <hr>
-            <p> آیا این نظر برایتان مفید بود ؟ <span>بله </span> <span>خیر </span></p>
+            {{ feedback.get_rate_display }}
           </div>
         </div>
+        {% endfor %}
       </div>
+
+
+
       <div
-        id="question"
-        class="w3-container tab"
-        style="display:none"
+        class="row"
+        style="text-align: center !important;"
       >
-        <div class="row">
-          <div class="col-md-12">
-            <h2>پرسش و پاسخ</h2>
-            <h5>پرسش خود را درمورد محصول مطرح نمایید !</h5>
-            <textarea
-              type="text"
-              cols="20"
-              rows="5"
-            ></textarea>
-            <button>ثبت پرسش</button>
-            <div class="label-question">
-              <label class="checkbox">
-                <input
-                  type="checkbox"
-                  value="1"
-                  name="qa[email_notification]"
-                  id="agreement-check"
-                  class=""
-                  disabled=""
-                >
-                <span class=""></span>
-              </label>
-              <label for="agreement-check">اولین پاسخی که به پرسش من داده شد، از طریق ایمیل به من اطلاع دهید. <br>
-                با انتخاب دکمه “ثبت پرسش”، موافقت خود را با <a
-                  href="#"
-                  class=""
-                >قوانین انتشار محتوا</a> در دیجی
-                کالا اعلام می کنم.</label>
 
-            </div>
-          </div>
-        </div>
-        <div class="row mtop-30">
-          <div class="col-md-12">
-            <div class="row">
-              <div class="col-md-4 pleft-0">
-                <h6 class="title-qs"><i class="fa fa-caret-left"></i>پرسش ها و پاسخ ها
-                  <span>(1 پرسش)</span></h6>
-              </div>
-              <div class="col-md-8 pright-0">
-                <ul class="order-list">
-                  <li>
-                    مرتب سازی بر اساس :
-                  </li>
-                  <li><a href="#">جدیدترین پرسش</a></li>
-                  <li><a
-                      href="#"
-                      class="active"
-                    >بیشترین پاسخ به پرسش</a></li>
-                  <li><a href="#">پرسش های شما</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="row question-box">
-            <div class="col-md-3">
-              <i class="fa fa-question-circle"></i>
-              <h6> پرسش <span>محمد ساعتی</span></h6>
-
-            </div>
-            <div class="col-md-9">
-              <p>سلام دوستان، یه سوال مهم که شاید سوال خیلی ها باشه. ایا A20 از فناوری 4.5g پشتیبانی میکنه یا
-                نه؟
-                سایت های ایرانی نوشتن پشتیبانی ندارد اما نمایندگی سامسونگ میگه پشتیبانی میکنه!</p>
-            </div>
-          </div>
-          <div class="row question-box">
-            <div class="col-md-3">
-              <i class="fa fa-question-circle"></i>
-              <h6> پرسش <span>محمد ساعتی</span></h6>
-
-            </div>
-            <div class="col-md-9">
-              <p>سلام دوستان، یه سوال مهم که شاید سوال خیلی ها باشه. ایا A20 از فناوری 4.5g پشتیبانی میکنه یا
-                نه؟
-                سایت های ایرانی نوشتن پشتیبانی ندارد اما نمایندگی سامسونگ میگه پشتیبانی میکنه!</p>
-            </div>
-          </div>
+        <div class="gototop">
+          <h6>بازگشت به بالا<span class="icon-div"> <i class="fa fa-caret-up"></i></span>
+          </h6>
         </div>
       </div>
+
     </div>
-
-
-    <div
-      class="row"
-      style="text-align: center !important;"
-    >
-
-      <div class="gototop">
-        <h6>بازگشت به بالا<span class="icon-div"> <i class="fa fa-caret-up"></i></span>
-        </h6>
-      </div>
-    </div>
-
   </div>
-</div>
 
 
-{% endblock %}
+  {% endblock %}

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'Supplier',
     'financial',
     'cart',
+    'crispy_forms',
 ]
 
 GRAPH_MODELS = {
@@ -84,26 +85,26 @@ WSGI_APPLICATION = 'BDMarket.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'dbmarket',
-#         'USER': 'admin',
-#         'PASSWORD': '1234',
-#         'HOST': '127.0.0.1',
-#         'PORT': '5432',
-#     }
-# }
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'kkpcfybt',
-        'USER': 'kkpcfybt',
-        'PASSWORD': 'JcgwBzS8SDWq81o58VorfaxfFkStNXaE',
-        'HOST': 'ruby.db.elephantsql.com',
+        'NAME': 'dbmarket',
+        'USER': 'admin',
+        'PASSWORD': '1234',
+        'HOST': '127.0.0.1',
         'PORT': '5432',
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'kkpcfybt',
+#         'USER': 'kkpcfybt',
+#         'PASSWORD': 'JcgwBzS8SDWq81o58VorfaxfFkStNXaE',
+#         'HOST': 'ruby.db.elephantsql.com',
+#         'PORT': '5432',
+#     }
+# }
 
 
 # Password validation
@@ -128,7 +129,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fa'
 
 TIME_ZONE = 'UTC'
 
@@ -151,3 +152,6 @@ STATICFILES_DIRS = [
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'

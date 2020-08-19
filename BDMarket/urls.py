@@ -19,12 +19,16 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.conf.urls import handler404 , handler500
 import content
+from django.contrib.auth import urls
+
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('content.urls'), name='content'),
     path('supplier/', include('Supplier.urls'), name='supplier'),
     path('cart/', include('cart.urls'), name='cart'),    
+    path('', include('django.contrib.auth.urls')),
 
 ]
 handler404 = content.views.error_404

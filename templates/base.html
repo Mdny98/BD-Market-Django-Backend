@@ -116,7 +116,20 @@
               tabindex="-1"
               aria-disabled="true"
             >Disabled</a>
+            
           </li>
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+          hello {{ user }}
+          </li>
+          <a class = 'btn btn-success mb-1 mt-1 ml-2'>داشبورد</a>
+          <a class = 'btn btn-success mb-1 mt-1' href = "{% url 'logout'%}">خروج</a>
+
+          {% else %}
+          <li>
+            <a class="btn btn-success mb-1 mt-1 mr-auto ml-2" href="{% url 'login' %}">ورود</a>
+          </li>
+          {% endif %}
         </ul>
         <form class="form-inline my-2 my-lg-0">
           <input

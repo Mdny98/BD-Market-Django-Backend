@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
-
+{% load crispy_forms_tags %}
 {% block content %}
 <form  method="post" >
     {% csrf_token %}
-    {{ form }}
+    {{ form |crispy }}
     <p>  آیا حساب کاربری دارید؟ <a href="/login">ورود</a></p>
+    <button class="btn btn-success">singup</button>
+</form>
 {% endblock content %}

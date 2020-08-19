@@ -110,14 +110,9 @@
             </div>
           </li>
           <li class="nav-item">
-            <a
-              class="nav-link disabled"
-              href="#"
-              tabindex="-1"
-              aria-disabled="true"
-            >Disabled</a>
+          
             
-          </li>
+          {% comment %} </li>
           {% if user.is_authenticated %}
           <li class="nav-item">
           hello {{ user }}
@@ -130,8 +125,25 @@
             <a class="btn btn-success mb-1 mt-1 mr-auto ml-2" href="{% url 'login' %}">ورود</a>
           </li>
           {% endif %}
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
+        </ul> {% endcomment %}
+
+        {% if user.is_authenticated %}
+        <div class="mr-auto">
+          {% comment %} <a class="btn btn-success mb-1 mt-1 ml-2" id="DashbordBtn" href="{% url 'profile' %}"><i
+            class="fa fa-user ml-1"></i>
+            داشبورد {{user}}</a> {% endcomment %}
+
+          <a class="btn btn-success mb-1 mt-1 ml-2" href="{% url 'logout' %}">خروج</a>
+        </div>
+        {% else %}
+
+          <a class="btn btn-success mb-1 mt-1 mr-auto ml-2" href="{% url 'login' %}">ورود</a>
+        {% endif %}
+
+
+
+
+        {% comment %} <form class="form-inline my-2 my-lg-0">
           <input
             class="form-control mr-sm-2"
             type="search"
@@ -142,10 +154,10 @@
             class="btn btn-outline-success my-2 my-sm-0"
             type="submit"
           >Search</button>
-        </form>
+        </form> {% endcomment %}
       </div>
     </nav>
-    <div>
+    <div> 
       <header>
 
       </header>

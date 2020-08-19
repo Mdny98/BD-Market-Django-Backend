@@ -21,9 +21,12 @@ body{
     padding: 20px 30px;
 }
 .txt2{
-    padding: 10px;
+    padding:5px; 
     font-family: Sahel !important;
     font-style: bold;
+    text-align:center; 
+    vertical-align: middle;
+    display: table-cell; 
 }
 .txt1{
     font-family: Sahel !important;

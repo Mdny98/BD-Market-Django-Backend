@@ -44,11 +44,11 @@ def products(request, cat_pk):
     if request.method == 'GET':
         all_products = Product.objects.filter(subcategory_id=cat_pk)
         q = all_products
-        print(request.GET)
+        # print(request.GET)
         for k, v in request.GET.items():
             tmpq = Attribute.objects.get(attr_title=k)
             qtype = tmpq.pro_attr.all()[0].value_type
-            print(f'\nqtype is {qtype}')
+            # print(f'\nqtype is {qtype}')
             if qtype == 'BOOL':
                 q = q.filter(pro_attr__attr_id__attr_title=k, pro_attr__bool_value=v)
             elif qtype == 'INT':
@@ -59,11 +59,30 @@ def products(request, cat_pk):
             # print(f'\nk is {k}')
             # print(f'\nk type is {type(k)}')
             # print(f'\nq is {q}')
+        
 
         cat = SubCategory.objects.get(pk=cat_pk)
+        uniqdict = dict()
+        tmp = []
+        attrs = cat.attr.all()
+        print(f'\nattrs is {attrs}')
+        for attr in attrs:
+            for proattr in attr.pro_attr.all():
+                if proattr.value_type == 'BOOL':
+                    tmp.append(proattr.bool_value)
+                if proattr.value_type == 'INT':
+                    tmp.append(proattr.int_value)
+                if proattr.value_type == 'TXT':
+                    tmp.append(proattr.text_value)
+                uniqtmp = list(set(tmp))
+            uniqdict[attr] = list(uniqtmp)
+            tmp.clear()
+            uniqtmp.clear()       
+        
+        print(f'\nuniqdict is {uniqdict}')
         catlst = get_parent_cats(cat)
         return render(request, 'content/products.html', 
-            {'all_products':q, 'catlst':catlst, 'cat':cat})
+            {'all_products':q, 'catlst':catlst, 'cat':cat, 'uniqdict':uniqdict})
 
 
 def productdetails(request, product_pk):

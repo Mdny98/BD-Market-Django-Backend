@@ -40,31 +40,33 @@
         method="GET"
       >
       <!-- ?get_parameter_name='{{ tag_name }}' -->
-        {% for attr in cat.attr.all %}
+        {% for attr, vlst in uniqdict.items %}
         <br>{{ attr.attr_title }}
         
         
           <ul class="pright-0">
-            {% for pro_attr in attr.pro_attr.all %}
+            {% for v in vlst %}
+            
             <li class="form-group">
               
-                {% if pro_attr.value_type == "BOOL" %}
-                {% if pro_attr.bool_value %}
+                {% if attr.pro_attr.all.first.value_type == "BOOL" %}
+                {% if v %}
                   <input type="checkbox" id="{{ attr.attr_title }}" name="{{ attr }}" value="True">
                   <label for="{{ attr.attr_title }}">دارد</label>
                 {% else %}
                   <input type="checkbox" id="{{ attr.attr_title }}" name="{{ attr }}" value="False">
                   <label for="{{ attr.attr_title }}">ندارد</label>
                 {% endif %}
-                {% elif pro_attr.value_type == 'INT' %}
-                  <input type="checkbox" id="{{ attr.attr_title }}" name="{{ attr }}" value="{{ pro_attr.int_value }}">
-                  <label for="{{ attr.attr_title }}">{{ pro_attr.int_value }} عدد</label>
-                {% elif pro_attr.value_type == 'TXT' %}
-                  <input type="checkbox" id="{{ attr.attr_title }}" name="{{ attr }}" value="{{ pro_attr.text_value }}">
-                  <label for="{{ attr.attr_title }}">{{ pro_attr.text_value }}</label>
+                {% elif attr.pro_attr.all.first.value_type == 'INT' %}
+                  <input type="checkbox" id="{{ attr.attr_title }}" name="{{ attr }}" value="{{ v }}">
+                  <label for="{{ attr.attr_title }}">{{ v }} عدد</label>
+                {% elif attr.pro_attr.all.first.value_type == 'TXT' %}
+                  <input type="checkbox" id="{{ attr.attr_title }}" name="{{ attr }}" value="{{ v }}">
+                  <label for="{{ attr.attr_title }}">{{ v }}</label>
                 {% endif %}
               
             </li>
+           
             {% endfor %}
           </ul>
         

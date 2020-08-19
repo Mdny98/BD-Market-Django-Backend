@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form  method="post" >
+    {% csrf_token %}
+    {{ form }}
+    <p>  آیا حساب کاربری دارید؟ <a href="/login">ورود</a></p>
+{% endblock content %}

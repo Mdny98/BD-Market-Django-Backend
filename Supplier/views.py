@@ -2,13 +2,16 @@ from django.shortcuts import render , redirect
 from .models import *
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate , logout
+from django.contrib.auth.forms import UserCreationForm
 
-# Create your views here.
-def show_all_suppliers(request):
-    return render(request, 'Supplier/supplier.html')
 
-def show_supplier(request):
-    pass
+
+def singup(request):
+    form = UserCreationForm()
+    return render(request, 'registration/singup.html',{'form': form})
+
+
+
 
 def logout(request):
     logout(request)

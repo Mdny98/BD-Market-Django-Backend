@@ -447,7 +447,6 @@ input[type=checkbox]:checked:after {
   position: relative;
   width: 100% !important;
   float: none;
-!important;
 }
 
 .sidebar-form i {
@@ -1379,7 +1378,7 @@ footer h5 {
 
 .social-media li {
   display: inline-block;
-  float: right;
+  /* float: right; */
   margin-left: 20px;
 
 }
@@ -1597,4 +1596,10 @@ strike{
   position: absolute;
   top: 75px;
   right: 120px;
+}
+.form-filter{
+width:100% !important;
+}
+.form-filter ul{
+  list-style: none;
 }

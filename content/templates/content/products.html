@@ -3,45 +3,110 @@
 {% block content %}
 {% load static %}
 
-<h1>
+{% comment %} <h1>
   {{ cat.cat_name }}
-</h1>
+</h1> {% endcomment %}
 <div class="container-fluid">
-<div class="row">
-<div class="col-md-2">
-</div>
-<div class="col-md-10">
 
-<div class="row">
-    {% for product in all_products %}
-    <div class="col-md-3 mbottom-30">
-      <div
-        href="#"
-        target="_blank"
-        class="pcard"
-      >
-        <img
-          src="{{ product.product_image.url }}"
-          class="img-responsive"
-        >
-        <ul class="color-div">
-        </ul>
-        <h6>{{ product.product_name }}</h6>
-        <ul>
-          {% comment %} <li>2876000 <span class="toman">تومان</span></li> {% endcomment %}
-          <button>افزودن به سبد خرید</button>
-        </ul>
 
-      </div>
+  <div
+    class="row"
+    style="background-color: #f5f5f5;"
+  >
+    <div class="col-md-12">
+      <ul class="top-list">
+        <li>
+          <a href="{% url 'content:home' %}">بی دی مارکت</a>
+          <span>/</span></li>
+        {% for cat in catlst %}
+        {% if not forloop.last %}
+        <li><a href="{% url 'content:products' cat.id %}">{{ cat.cat_name }}</a> <span>/</span></li>
+        {% else %}
+        <li>{{ cat.cat_name }}</li>
+        {% endif %}
+        {% endfor %}
+
+      </ul>
     </div>
-      {% endfor %}
   </div>
 
-</div>
-</div>
+
+  <div class="row">
+
+    <div class="col-md-2" style="direction: rtl;">
+
+       <form class="form-filter"
+        action="{% url 'content:products' cat.id %}" 
+        method="GET"
+      >
+      <!-- ?get_parameter_name='{{ tag_name }}' -->
+        {% for attr, vlst in uniqdict.items %}
+        <br>{{ attr.attr_title }}
+        
+        
+          <ul class="pright-0">
+            {% for v in vlst %}
+            
+            <li class="form-group">
+              
+                {% if attr.pro_attr.all.first.value_type == "BOOL" %}
+                {% if v %}
+                  <input type="checkbox" id="{{ attr.attr_title }}" name="{{ attr }}" value="True">
+                  <label for="{{ attr.attr_title }}">دارد</label>
+                {% else %}
+                  <input type="checkbox" id="{{ attr.attr_title }}" name="{{ attr }}" value="False">
+                  <label for="{{ attr.attr_title }}">ندارد</label>
+                {% endif %}
+                {% elif attr.pro_attr.all.first.value_type == 'INT' %}
+                  <input type="checkbox" id="{{ attr.attr_title }}" name="{{ attr }}" value="{{ v }}">
+                  <label for="{{ attr.attr_title }}">{{ v }} عدد</label>
+                {% elif attr.pro_attr.all.first.value_type == 'TXT' %}
+                  <input type="checkbox" id="{{ attr.attr_title }}" name="{{ attr }}" value="{{ v }}">
+                  <label for="{{ attr.attr_title }}">{{ v }}</label>
+                {% endif %}
+              
+            </li>
+           
+            {% endfor %}
+          </ul>
+        
+        {% endfor %}
+        <input type="submit" value="Submit" class="btn btn-primary">
+      </form> 
+
+    </div>
+    <div class="col-md-10">
+
+      <div class="row">
+        {% for product in all_products %}
+        <div class="col-md-3 mbottom-30">
+          <a
+            href="{% url 'content:productdetails' product.id %}"
+            target="_blank"
+            class="pcard"
+          >
+            <img
+              src="{{ product.product_image.url }}"
+              class="img-responsive"
+            >
+            <ul class="color-div">
+            </ul>
+            <h6>{{ product.product_name }}</h6>
+            <ul>
+              {% comment %} <li>2876000 <span class="toman">تومان</span></li> {% endcomment %}
+              <button>افزودن به سبد خرید</button>
+            </ul>
+
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+
+    </div>
+  </div>
 
 
-  
+
 </div>
 
 

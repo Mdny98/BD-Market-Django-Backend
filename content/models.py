@@ -36,7 +36,7 @@ class Attribute(models.Model):
     """
     attr_title = models.CharField(max_length=50, blank=True, null=True)
     subcategory_id = models.ForeignKey(
-        SubCategory, on_delete=models.SET_NULL, blank=True, null=True)
+        SubCategory, related_name="attr", on_delete=models.SET_NULL, blank=True, null=True)
 
     def __str__(self):
         return self.attr_title
@@ -75,8 +75,8 @@ class ProductAttr(models.Model):
     int_value = models.IntegerField(blank=True, null=True)
     text_value = models.TextField(max_length=250, blank=True, null=True)
     bool_value = models.BooleanField(blank=True, null=True)
-    product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
-    attr_id = models.ForeignKey(Attribute, on_delete=models.CASCADE)
+    product_id = models.ForeignKey(Product, related_name="pro_attr", on_delete=models.CASCADE)
+    attr_id = models.ForeignKey(Attribute, related_name="pro_attr", on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.product_id} - {self.attr_id}'
@@ -87,18 +87,18 @@ class Feedback(models.Model):
         Represent each user comment and rate to a specific product.
     """
     Rate_CHOICES = [
-        (1, '1'),
-        (2, '2'),
-        (3, '3'),
-        (4, '4'),
-        (5, '5'),
+        (1, '*'),
+        (2, '**'),
+        (3, '***'),
+        (4, '****'),
+        (5, '*****'),
     ]
     comment = models.TextField(max_length=250, blank=True, null=True)
     rate = models.IntegerField(choices=Rate_CHOICES, default=5)
     custumer_id = models.ForeignKey(
         CustomerProfile, on_delete=models.SET_NULL, blank=True, null=True)
     product_id = models.ForeignKey(
-        Product, on_delete=models.SET_NULL, blank=True, null=True)
+        Product, related_name="feedback", on_delete=models.SET_NULL, blank=True, null=True)
 
     def __str__(self):
         return f'{self.product_id} - {self.custumer_id}'

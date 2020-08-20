@@ -1,0 +1,365 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+
+
+<div class="bg-color">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+
+        <ul class="top-list">
+          <li>
+            <a href="{% url 'content:home' %}">بی دی مارکت</a>
+            <span>/</span></li>
+          {% for cat in catlst %}
+          <li><a href="{% url 'content:products' cat.id %}">{{ cat.cat_name }}</a> <span>/</span></li>
+          {% endfor %}
+
+          <li> {{ this_product.product_name }} </li>
+
+        </ul>
+      </div>
+    </div>
+
+    <div class="row product-box">
+
+      <div class="col-md-3">
+        <img
+          src="{{ this_product.product_image.url }}"
+          class="img-responsive"
+        />
+        {% comment %} <ul class="list-icon-img">
+          <li><a href="#"><i class="fa fa-heart"></i></a></li>
+          <li><a href="#"><i class="fa fa-share"></i></a></li>
+          <li><a href="#"><i class="fa fa-bell"></i></a></li>
+          <li><a href="#"><i class="fa fa-bar-chart"></i></a></li>
+        </ul> {% endcomment %}
+
+        {% comment %} <div class="row img-list">
+
+          <div class="col-md-3">
+            <a
+              href="#"
+              target="_blank"
+            >
+              <img
+                src="img-3.jpg"
+                class="img-responsive"
+              />
+            </a>
+          </div>
+          <div class="col-md-3">
+            <a
+              href="#"
+              type="_blank"
+            >
+              <img
+                src="img-2.jpg"
+                class="img-responsive"
+              />
+            </a>
+
+          </div>
+          <div class="col-md-3">
+            <a
+              href="#"
+              type="_blank"
+            >
+              <img
+                src="img-1.jpg"
+                class="img-responsive"
+              />
+            </a>
+          </div>
+          <div class="col-md-3">
+            <a
+              href="#"
+              target="_blank"
+            >
+              <img
+                src="img-4.jpg"
+                class="img-responsive"
+              />
+            </a>
+
+          </div>
+
+
+        </div> {% endcomment %}
+      </div>
+      <div class="col-md-9">
+        <div class="details">
+          <h5>{{ this_product.product_name }}</h5>
+          <div class="row">
+            <div class="col-5">
+              <ul class="dotted">
+                <li><span>دسته بندی : </span><a href="{% url 'content:products' this_product.subcategory_id.id %}">{{ this_product.subcategory_id.cat_name }}</a></li>
+                <li><span>برند : </span>{{ this_product.brand_id.brand_name }}</li>
+              </ul>
+
+              <ul class="text-list">
+                {% for proattr in this_product.pro_attr.all %}
+                <li> {{ proattr.attr_id.attr_title }}:
+                  {% if proattr.value_type == 'BOOL' %}
+                  {% if proattr.bool_value %}
+                  دارد
+                  {% else %}
+                  ندارد
+                  {% endif %}
+                  {% elif proattr.value_type == 'INT' %}
+                  {{ proattr.int_value }} عدد
+                  {% elif proattr.value_type == 'TXT' %}
+                  {{ proattr.text_value }}
+                  {% endif %}
+
+                </li>
+                {% endfor %}
+              </ul>
+              <p>توضیحات: {{ this_product.product_description }} </p>
+              <div class="row">
+                <div class="col-md-12">
+                  <hr>
+                </div>
+              </div>
+              <div class="row icon-section">
+                <div class="col-md-3 pleft-0">
+
+                  <div class="row">
+
+                    <div class="col-md-4"><img
+                        src="warranty.png"
+                        width="30"
+                      /></div>
+                    <div class="col-md-8"> ضمانت اصل بودن کالا</div>
+                  </div>
+
+
+                </div>
+                <div class="col-md-3 pleft-0">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <img
+                        src="24.png"
+                        width="30"
+                      >
+                    </div>
+                    <div class="col-md-8">
+                      7 روز هفته 24 ساعته
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3 pleft-0">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <img
+                        src="express.png"
+                        width="30"
+                      >
+                    </div>
+                    <div class="col-md-8">
+                      امکان تحویل اکسپرس
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3 pleft-0">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <img
+                        src="money.png"
+                        width="30"
+                      >
+                    </div>
+                    <div class="col-md-8">
+                      امکان پرداخت در محل
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-7">
+              <div class="side-details-box">
+                <table class="table table-seller">
+                  {% for supplier in this_product_suppliers %}
+                  <tr>
+                    <td>
+                      {{ supplier.supplier_id.company_name }}
+                    </td>
+                    <td>{{ supplier.unit_price }} تومان</td>
+                    <td>
+                      <button>افزودن به سبد</button>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </table>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        {% comment %} <h5 class="title-table">لیست فروشنده / گارانتی های این محصول
+          <a href="#">کالای خود را در دیجی کالا بفروشید</a>
+        </h5> {% endcomment %}
+
+
+      </div>
+    </div>
+    <div class="row product-box mbottom-30">
+      <div class="arrow-right"><i class="fa fa-caret-right"></i></div>
+      <div class="col-md-12">
+        <h4 class="title"><span>محصولات مرتبط</span></h4>
+      </div>
+
+      <div class="col-md-3">
+
+        <a
+          class="relate-product"
+          href="#"
+          target="_blank"
+        >
+          <img
+            src="img-3.jpg"
+            class="img-responsive"
+          />
+          <h6>
+            گوشی موبایل سامسونگ مدل Galaxy A10 SM-A105F/DS دو ...
+            <p>1,200,000 تومان</p>
+          </h6>
+        </a>
+      </div>
+      <div class="col-md-3">
+        <a
+          href="#"
+          target="_blank"
+          class="relate-product"
+        >
+          <img
+            src="img-2.jpg"
+            class="img-responsive"
+          />
+          <h6>
+            گوشی موبایل سامسونگ مدل Galaxy A10 SM-A105F/DS دو ...
+            <p>3,200,000 تومان</p>
+          </h6>
+        </a>
+      </div>
+      <div class="col-md-3">
+        <a
+          href="#"
+          target="_blank"
+          class="relate-product"
+        >
+          <img
+            src="img-4.jpg"
+            class="img-responsive"
+          />
+          <h6>
+            گوشی موبایل سامسونگ مدل Galaxy A10 SM-A105F/DS دو ...
+            <p>2,200,000 تومان</p>
+          </h6>
+        </a>
+      </div>
+      <div class="col-md-3">
+        <a
+          href="#"
+          target="_blank"
+          class="relate-product"
+        >
+          <img
+            src="img-1.jpg"
+            class="img-responsive"
+          />
+          <h6>
+            گوشی موبایل سامسونگ مدل Galaxy A10 SM-A105F/DS دو ...
+            <p>1,400,000 تومان</p>
+          </h6>
+        </a>
+
+      </div>
+      <div class="arrow-left"><i class="fa fa-caret-left"></i></div>
+    </div>
+    <!--            <div class="owl-carousel owl-theme" >-->
+    <!--                <div class="item"><img src="img-3.jpg"></div>-->
+    <!--                <div class="item"><h4>2</h4></div>-->
+    <!--                <div class="item"><h4>3</h4></div>-->
+    <!--                <div class="item"><h4>4</h4></div>-->
+    <!--                <div class="item"><h4>5</h4></div>-->
+    <!--                <div class="item"><h4>6</h4></div>-->
+    <!--                <div class="item"><h4>7</h4></div>-->
+    <!--                <div class="item"><h4>8</h4></div>-->
+    <!--                <div class="item"><h4>9</h4></div>-->
+    <!--                <div class="item"><h4>10</h4></div>-->
+    <!--                <div class="item"><h4>11</h4></div>-->
+    <!--                <div class="item"><h4>12</h4></div>-->
+    <!--            </div>-->
+  </div>
+  <div class="container-fluid">
+    <div class="row mright-0 mleft-0">
+
+      <div class="w3-bar w3-black">
+
+        <button
+          class="w3-bar-item w3-button"
+          onclick="openBox('comment')"
+        ><i class="fa fa-comment"></i>نظرات
+          کاربران
+        </button>
+
+      </div>
+
+
+
+      <div
+        id="comment"
+        class="w3-container tab tab-comment"
+        
+      >
+        {% for feedback in this_product.feedback.all %}
+        <div class="row">
+          <div class="col-md-4">
+            <ul class="">
+              <li>
+                <h6>{{ feedback.custumer_id.user_id.get_full_name }}</h6>
+              </li>
+              <li class="date">در تاریخ 11 دی 1398</li>
+              
+              
+            </ul>
+          </div>
+          <div class="col-md-8">
+            
+
+            <p>{{ feedback.comment }}</p>
+            <hr>
+            {{ feedback.get_rate_display }}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+
+
+      <div
+        class="row"
+        style="text-align: center !important;"
+      >
+
+        <div class="gototop">
+          <h6>بازگشت به بالا<span class="icon-div"> <i class="fa fa-caret-up"></i></span>
+          </h6>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  {% endblock %}

@@ -11,7 +11,10 @@ class CustomerProfile(models.Model):
          ('F', 'Female')
       ]
    phone= models.IntegerField(blank=True, null=True)
-
+   @property
+   def fullname(self):
+      return self.user_id.firstname
+      
 class CustomerAddress(models.Model):
    """
       Represent adresses of customers

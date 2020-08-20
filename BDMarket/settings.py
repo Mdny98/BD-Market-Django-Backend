@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'Supplier',
     'financial',
     'cart',
+    'crispy_forms',
+    
 ]
 
 GRAPH_MODELS = {

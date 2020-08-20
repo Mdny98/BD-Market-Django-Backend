@@ -46,25 +46,24 @@ class CustomUserCreationForm(UserCreationForm):
 
         return user
 
+def register(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        print(request.POST['username'])
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+        else:
+            return render(request, 'registration/register.html', {'form': form})
 
-# def register(request):
-#     if request.method == 'POST':
-#         form = CustomUserCreationForm(request.POST)
-#         print(request.POST['username'])
-#         if form.is_valid():
-#             form.save()
-#             return redirect('login')
-#         else:
-#             return render(request, 'registration/register.html', {'form': form})
-
-#     form = CustomUserCreationForm()
-#     return render(request, 'registration/register.html', {'form': form})
+    form = CustomUserCreationForm()
+    return render(request, 'registration/register.html', {'form': form})
 
 
 def custom_login(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
+        username = request.POST.get('username')
+        password = request.POST.get('password')
         print(username, password)
 
         if authenticate(username=username, password=password):
@@ -78,27 +77,28 @@ def custom_login(request):
     return render(request, 'customer/login.html')
 
 
-# @login_required(login_url='login')
-# def profile_show(request):
-#     if request.method == 'GET':
-#         profile = CustomerProfile.objects.get(user=request.user)
-#         address = profile.address_by.all()
-#         return render(request, 'profile.html', {'profile': profile, 'address': address})
+@login_required(login_url='/login/')
+def profile_show(request):
+    if request.method == 'GET':
+        # profile = CustomerProfile.objects.get(user=request.user)
+        # address = profile.address_by.all()
+        return render(request, 'customer/profile.html')
+        return render(request, 'profile.html', {'profile': profile, 'address': address})
 
 
 def custom_logout(request):
     logout(request)
-    return redirect('home')
+    return redirect('content:home')
 
 
-# @login_required(login_url='login')
-# def edit_profile(request):
-#     profile = CustomerProfile.objects.get(user=request.user)
-#     if request.method == 'POST':
-#         form = ProfileForm(request.POST, instance=profile)
-#         if form.is_valid():
-#             form.save()
-#         return redirect('profile')
+@login_required(login_url='login')
+def edit_profile(request):
+    profile = CustomerProfile.objects.get(user=request.user)
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, instance=profile)
+        if form.is_valid():
+            form.save()
+        return redirect('profile')
 
-#     form = ProfileForm(instance=profile)
-#     return render(request, 'edit_profile.html', {'form': form})
+    form = ProfileForm(instance=profile)
+    return render(request, 'edit_profile.html', {'form': form})

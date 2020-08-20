@@ -10,8 +10,8 @@ class CustomerProfile(models.Model):
          ('M', 'Male'), 
          ('F', 'Female')
       ]
-   gender = models.CharField(max_length=1, choices=gender_choices)
-   phone_number = models.IntegerField(blank=True, null=True)
+   gender = models.CharField(max_length=1, choices=gender_choices,blank=True, null=True)
+   phone = models.IntegerField(blank=True, null=True)
 
 class CustomerAddress(models.Model):
    """

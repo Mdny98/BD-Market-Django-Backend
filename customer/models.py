@@ -5,7 +5,7 @@ class CustomerProfile(models.Model):
    """
       Represent Customers Informations 
    """
-   user_id = models.OneToOneField(User, on_delete= models.CASCADE)
+   user_id = models.OneToOneField(User, related_name='customer', on_delete= models.CASCADE)
    gender_choices = [
          ('M', 'Male'), 
          ('F', 'Female')

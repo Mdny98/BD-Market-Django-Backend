@@ -23,7 +23,7 @@ class Cart(models.Model):
         ('f', 'Finalized'),
     ]
     customer_id = models.OneToOneField(CustomerProfile, on_delete=models.CASCADE)
-    delivery_id = models.OneToOneField(Delivery, on_delete=models.CASCADE)
+    delivery_id = models.OneToOneField(Delivery, on_delete=models.CASCADE,null=True,blank=True)
     total_price = models.FloatField(default=0)
     status = models.CharField(max_length=1 ,choices=Purchase_Status_Choices, default='u')
 

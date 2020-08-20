@@ -194,7 +194,8 @@
                         action="{% url 'cart:showcart' %}"
                         method="POST"
                       >
-                        <input type="hidden" id="custId" name="prosup" value="{{ supplier }}">
+                      {% csrf_token %}
+                        <input type="hidden" id="custId" name="prosupid" value="{{ supplier.id }}">
                         
                         <button type="submit"> افزودن به سبد</button>
                       </form>

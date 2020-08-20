@@ -1,5 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+
+from .models import Cart, OrderItem
+from Supplier.models import ProductSupplier
 # Create your views here.
 
 from .models import Cart
@@ -14,9 +17,12 @@ def showcart(request):
 
     if request.method == 'POST':
         current_customer = request.user.customer
-        prosup = request.POST.get('prosup')
+        prosupid = request.POST.get('prosupid')
+        # print(f'\nprosup_id is{prosup_id}')
+        prosup = ProductSupplier.objects.get(pk=prosupid)
         current_cart, created = Cart.objects.get_or_create(
                                     customer_id=current_customer,
                                     status='u',)
-        OrderItem(cart_id=current_cart, product_supplier_id=prosup, number=1)
+        order_item = OrderItem(cart_id=current_cart, product_supplier_id=prosup, number=1)
+        order_item.save()
         return render(request, 'cart/showcart.html')

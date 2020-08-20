@@ -33,7 +33,7 @@ class OrderItem(models.Model):
     """
     har itemi ke baraye kharid entekhab mishe va mire to cart
     """    
-    cart_id = models.OneToOneField(Cart, on_delete=models.CASCADE)   
+    cart_id = models.ForeignKey(Cart, related_name='order', on_delete=models.CASCADE)   
     product_supplier_id = models.OneToOneField(ProductSupplier, on_delete=models.CASCADE)
     cost = models.FloatField(default=0) #keeps/hold price constant, when cart status was finalized
     number = models.IntegerField(default=0)

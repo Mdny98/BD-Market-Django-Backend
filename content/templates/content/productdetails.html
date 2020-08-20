@@ -188,7 +188,17 @@
                     </td>
                     <td>{{ supplier.unit_price }} تومان</td>
                     <td>
-                      <button>افزودن به سبد</button>
+
+                      <form
+                        class=""
+                        action="{% url 'cart:showcart' %}"
+                        method="POST"
+                      >
+                        <input type="hidden" id="custId" name="prosup" value="{{ supplier }}">
+                        
+                        <button type="submit"> افزودن به سبد</button>
+                      </form>
+
                     </td>
                   </tr>
                   {% endfor %}
@@ -320,7 +330,6 @@
       <div
         id="comment"
         class="w3-container tab tab-comment"
-        
       >
         {% for feedback in this_product.feedback.all %}
         <div class="row">
@@ -330,12 +339,12 @@
                 <h6>{{ feedback.custumer_id.user_id.get_full_name }}</h6>
               </li>
               <li class="date">در تاریخ 11 دی 1398</li>
-              
-              
+
+
             </ul>
           </div>
           <div class="col-md-8">
-            
+
 
             <p>{{ feedback.comment }}</p>
             <hr>

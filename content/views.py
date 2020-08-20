@@ -65,7 +65,7 @@ def products(request, cat_pk):
         uniqdict = dict()
         tmp = []
         attrs = cat.attr.all()
-        print(f'\nattrs is {attrs}')
+        # print(f'\nattrs is {attrs}')
         for attr in attrs:
             for proattr in attr.pro_attr.all():
                 if proattr.value_type == 'BOOL':
@@ -79,7 +79,7 @@ def products(request, cat_pk):
             tmp.clear()
             uniqtmp.clear()       
         
-        print(f'\nuniqdict is {uniqdict}')
+        # print(f'\nuniqdict is {uniqdict}')
         catlst = get_parent_cats(cat)
         return render(request, 'content/products.html', 
             {'all_products':q, 'catlst':catlst, 'cat':cat, 'uniqdict':uniqdict})

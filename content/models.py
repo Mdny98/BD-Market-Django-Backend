@@ -1,5 +1,5 @@
 from django.db import models
-from customer.models import CustomerProfile
+from accounts.models import Customer
 
 
 class SubCategory(models.Model):
@@ -96,7 +96,7 @@ class Feedback(models.Model):
     comment = models.TextField(max_length=250, blank=True, null=True)
     rate = models.IntegerField(choices=Rate_CHOICES, default=5)
     custumer_id = models.ForeignKey(
-        CustomerProfile, on_delete=models.SET_NULL, blank=True, null=True)
+        Customer, on_delete=models.SET_NULL, blank=True, null=True)
     product_id = models.ForeignKey(
         Product, related_name="feedback", on_delete=models.SET_NULL, blank=True, null=True)
 

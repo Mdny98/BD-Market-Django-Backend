@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 from .models import Cart, OrderItem
@@ -25,4 +25,4 @@ def showcart(request):
                                     status='u',)
         order_item = OrderItem(cart_id=current_cart, product_supplier_id=prosup, number=1)
         order_item.save()
-        return render(request, 'cart/showcart.html')
+        return redirect('cart:showcart')

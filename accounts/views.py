@@ -44,7 +44,7 @@ def login_request(request):
                 messages.error(request,"Invalid username or password")
         else:
                 messages.error(request,"Invalid username or password")
-    return render(request, 'accounts/login.html',
+    return render(request, 'registration/login.html',
     context={'form':AuthenticationForm()})
 
 def logout_view(request):

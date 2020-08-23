@@ -1,0 +1,51 @@
+{% extends 'blog/basee.html'%}
+
+{% load static %}
+
+
+{% block content %}
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('{% static 'blog/img/2.jpg' %} ')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>baby debuger</h1>
+            <span class="subheading">I am the one who knocks</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        {% for article in article%}
+        <div class="post-preview">
+          <a href="{% url 'blog:detail' article.slug %}">
+            <h2 class="post-title">
+              {{ article.title }}
+            </h2>
+            <h3 class="post-subtitle">
+              {{ article.description | truncatewords:30 }}
+            </h3>
+          </a>
+          <p class="post-meta">نوشته شده توسط
+            <a href="#">آرمین</a>
+            {{ article.publish }}</p>
+        </div>
+        <hr>
+        {% endfor %}
+        
+        <!-- Pager -->
+        <div class="clearfix">
+          <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+

@@ -23,7 +23,7 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
-        {% for article in article%}
+        {% for article in category.article.all %}
         <div class="post-preview">
           <a href="{% url 'blog:detail' article.slug %}">
             <h2 class="post-title">

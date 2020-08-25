@@ -5,14 +5,14 @@
 
 {% block content %}
   <!-- Page Header -->
-  <header class="masthead" style="background-image: url('{% static 'blog/img/2.jpg' %} ')">
+  <header class="masthead" style="background-image: url('{% static 'blog/img/cat.jpg' %} ')">
     <div class="overlay"></div>
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="site-heading">
             <h1>baby debuger</h1>
-            <span class="subheading">I am the one who knocks</span>
+            <span class="subheading">The first rule of Fight Club is: You do not talk about Fight Club</span>
           </div>
         </div>
       </div>
@@ -23,7 +23,8 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
-        {% for article in category.article.all %}
+      <h3 class="alert alert-secondary text-center"> دسته‌بندی : {{category.title}}</h3>
+        {% for article in article %}
         <div class="post-preview">
           <a href="{% url 'blog:detail' article.slug %}">
             <h2 class="post-title">
@@ -37,7 +38,7 @@
             <a href="#">آرمین</a>
             {{ article.jpublish }}</p>
           <div>
-            {% for cat in article.category.all %}
+            {% for cat in article.category_publish.all %}
               <a href="{% url 'blog:category' cat.slug %}">#{{cat.title}}</a>
             {% endfor %}
           </div>
@@ -47,7 +48,12 @@
         
         <!-- Pager -->
         <div class="clearfix pager-botton">
-          <a class="btn btn-primary float-right" href="#">پست های قدیمی تر &larr;</a>
+          {% if article.has_previous %} 
+            <a class="btn btn-primary float-right ml-3" href="{% url 'blog:category' category.slug article.previous_page_number %}">پست های جدید تر &rarr;</a>
+          {% endif %}    
+          {% if article.has_next %}  
+            <a class="btn btn-primary float-right" href="{% url 'blog:category' category.slug article.next_page_number %}">پست های قدیمی تر &larr;</a>
+          {% endif %} 
         </div>
       </div>
     </div>

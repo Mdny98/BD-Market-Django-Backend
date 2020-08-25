@@ -2,6 +2,12 @@ from django.db import models
 from django.utils import timezone
 from extensions.utils import jalali_converter
 
+class ArticleManager(models.Manager):
+	def published(self):
+		return self.filter(status='p')
+
+
+
 
 class Category(models.Model):
 	parent = models.ForeignKey('self', default=None, null=True, blank=True, on_delete=models.SET_NULL, related_name='children', verbose_name="زیردسته")
@@ -51,3 +57,7 @@ class Article(models.Model):
 	    return "، ".join([category.title for category in self.category.all()])
     category_to_str.short_description = "دسته‌بندی"
 
+    def category_publish(self):
+        return self.category.filter(status=True)
+    
+    objects = ArticleManager()

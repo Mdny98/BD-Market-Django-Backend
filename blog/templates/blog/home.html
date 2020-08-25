@@ -37,7 +37,7 @@
             <a href="#">آرمین</a>
             {{ article.jpublish }}</p>
           <div>
-            {% for cat in article.category.all %}
+            {% for cat in article.category_publish.all %}
               <a href="{% url 'blog:category' cat.slug %}">#{{cat.title}}</a>
             {% endfor %}
           </div>
@@ -47,7 +47,12 @@
         
         <!-- Pager -->
         <div class="clearfix pager-botton">
-          <a class="btn btn-primary float-right" href="#">پست های قدیمی تر &larr;</a>
+          {% if article.has_previous %} 
+            <a class="btn btn-primary float-right ml-3" href="{% url 'blog:home' article.previous_page_number %}">پست های جدید تر &rarr;</a>
+          {% endif %}    
+          {% if article.has_next %}  
+            <a class="btn btn-primary float-right" href="{% url 'blog:home' article.next_page_number %}">پست های قدیمی تر &larr;</a>
+          {% endif %} 
         </div>
       </div>
     </div>

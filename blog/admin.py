@@ -40,3 +40,5 @@ class ArticleAdmin(ModelAdminJalaliMixin,admin.ModelAdmin):
     
     
 admin.site.register(Article , ArticleAdmin)
+
+

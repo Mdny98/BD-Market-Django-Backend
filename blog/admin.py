@@ -32,7 +32,7 @@ admin.site.register(Category, CategoryAdmin)
 
 
 class ArticleAdmin(ModelAdminJalaliMixin,admin.ModelAdmin):
-    list_display = ('title','thumbnail_tag','jpublish','status','category_to_str')
+    list_display = ('title','thumbnail_tag','author','jpublish','status','category_to_str')
     list_filter = ('status','publish')
     search_fields = ('title','description')
     ordering = ('publish',)

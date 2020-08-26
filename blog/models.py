@@ -1,4 +1,5 @@
 from django.db import models
+from accounts.models import User
 from django.utils import timezone
 from extensions.utils import jalali_converter
 from django.utils.html import format_html
@@ -31,7 +32,8 @@ class Article(models.Model):
     status_choices = [
         ('p', 'منتشر شده'),
         ('np', 'پیش نویس')
-    ]  
+    ]
+    author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, related_name='articles', verbose_name="نویسنده")  
     title = models.CharField(max_length=200,verbose_name = "عنوان")
     slug = models.SlugField(max_length=255,unique=True,allow_unicode=True , verbose_name = "آدرس مقاله")
     description = models.TextField(verbose_name = "متن")

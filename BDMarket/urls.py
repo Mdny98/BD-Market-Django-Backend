@@ -31,3 +31,8 @@ urlpatterns = [
 handler404 = content.views.error_404
 handler500 = content.views.error_500
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+admin.site.site_header = "پنل ادمین دی بی "
+admin.site.site_title = "صفحه شخصی ادمین دی بی"
+admin.site.index_title = "خوش اومدید بزرگوار"

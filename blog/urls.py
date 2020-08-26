@@ -11,3 +11,4 @@ urlpatterns = [
     path('category/<slug:slug>/page/<int:page>', views.category, name='category'),
     path('article/<slug:slug>', views.detail, name='detail'),
 ]
+

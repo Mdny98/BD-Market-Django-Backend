@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from blog.models import Article
 
+from accounts.mixin import FieldsMixin
 # @login_required
 # def home(request):
 #     return render(request, 'registration/home.html')
@@ -20,6 +21,12 @@ class ArticleList(LoginRequiredMixin , ListView):
             return Article.objects.all()
         else:
             return Article.objects.filter(author=self.request.user)
+
+class ArticleCreate( LoginRequiredMixin, FieldsMixin, CreateView):
+	model = Article
+	template_name = "registration/article-create-update.html"
+
+
 
 def register(request):
     return render(request, 'accounts/register.html')

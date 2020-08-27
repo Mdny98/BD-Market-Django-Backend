@@ -49,11 +49,14 @@ INSTALLED_APPS = [
     'blog.apps.BlogConfig',
     'extensions',
     'jalali_date',
+    'crispy_forms',
 ]
 
 
 AUTH_USER_MODEL = 'accounts.User'
 
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 GRAPH_MODELS = {
   'all_applications': True,

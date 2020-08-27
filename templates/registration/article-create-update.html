@@ -1,0 +1,14 @@
+{% extends 'registration/admin.html' %}
+
+{% block title %}{% block title-meta %}
+افزودن مقاله 
+{% endblock %}{% endblock %}
+
+{% block main %}
+{% load crispy_forms_tags %}
+<form  method="post" enctype="multipart/form-data">
+{%  csrf_token %}
+    {{ form|crispy }}
+<button class='btn btn-success'> ارسال مقاله</button>
+</form>
+{% endblock %}

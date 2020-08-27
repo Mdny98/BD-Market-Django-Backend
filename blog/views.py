@@ -3,6 +3,8 @@ from blog.models import Article , Category
 from django.core.paginator import Paginator
 from accounts.models import User
 from django.views.generic import ListView, DetailView
+ 
+
 
 
 def home(request , page=1):

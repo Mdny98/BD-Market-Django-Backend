@@ -1,16 +1,25 @@
 from django.contrib.auth import login, logout,authenticate
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from django.views.generic import CreateView
+from django.views.generic import CreateView , ListView
 from .form import CustomerSignUpForm, SupplierSignUpForm
 from django.contrib.auth.forms import AuthenticationForm
 from .models import User
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from blog.models import Article
 
+# @login_required
+# def home(request):
+#     return render(request, 'registration/home.html')
 
-@login_required
-def home(request):
-    return render(request, 'registration/home.html')
+class ArticleList(LoginRequiredMixin , ListView):
+    template_name = "registration/home.html"
+    def get_queryset(self):
+        if self.request.user.is_superuser:
+            return Article.objects.all()
+        else:
+            return Article.objects.filter(author=self.request.user)
 
 def register(request):
     return render(request, 'accounts/register.html')

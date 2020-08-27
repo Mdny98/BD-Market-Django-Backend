@@ -11,5 +11,5 @@ urlpatterns=[
     path('supplier_register/',views.SupplierRegister.as_view(), name='supplier_register'),
     path('login/',views.login_request, name='login'),
     path('logout/',views.logout_view, name='logout'),
-    path('', views.home, name='home')
+    path('', views.ArticleList.as_view(), name='home')
 ]

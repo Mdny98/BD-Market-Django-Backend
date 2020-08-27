@@ -130,7 +130,7 @@
           <li class="nav-item">
           hello {{ user }}
           </li>
-          <a class = 'btn btn-success mb-1 mt-1 ml-2'>داشبورد</a>
+          <a class = 'btn btn-success mb-1 mt-1 ml-2' href =" {% url 'accounts:home'%}">داشبورد</a>
           <a class = 'btn btn-success mb-1 mt-1' href = "{% url 'accounts:logout'%}">خروج</a>
 
           {% else %}

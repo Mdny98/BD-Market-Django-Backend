@@ -35,12 +35,15 @@ def category(request , slug  , page=1 ):
     return  render(request, 'blog/category.html', context)
 
 
-def show_author_all_articles(request , username):
+def show_author_all_articles(request , username , page=1):
     articles = Article.objects.filter(author__username=username)
-    
+    author = get_object_or_404(User, username=username)
+    # paginator = Paginator(articles, 2)
+    # articles = paginator.get_page(page)
     context = {
         "category": category,
-        "article": articles
+        "article": articles,
+        'author': author
     }
     return  render(request, 'blog/author.html', context)
 # class AuthorList(ListView):

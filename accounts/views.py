@@ -5,6 +5,12 @@ from django.views.generic import CreateView
 from .form import CustomerSignUpForm, SupplierSignUpForm
 from django.contrib.auth.forms import AuthenticationForm
 from .models import User
+from django.contrib.auth.decorators import login_required
+
+
+@login_required
+def home(request):
+    return render(request, 'registration/home.html')
 
 def register(request):
     return render(request, 'accounts/register.html')
@@ -39,7 +45,7 @@ def login_request(request):
             user = authenticate(username=username, password=password)
             if user is not None :
                 login(request,user)
-                return redirect('/')
+                return redirect('accounts:home')
             else:
                 messages.error(request,"Invalid username or password")
         else:

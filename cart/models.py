@@ -1,6 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
-from customer.models import CustomerProfile
+from accounts.models import Customer
 from Supplier.models import ProductSupplier
 
 class Delivery(models.Model):
@@ -22,7 +21,7 @@ class Cart(models.Model):
         ('u', 'Unfinilized'),
         ('f', 'Finalized'),
     ]
-    customer_id = models.OneToOneField(CustomerProfile, on_delete=models.CASCADE)
+    customer_id = models.OneToOneField(Customer, on_delete=models.CASCADE)
     delivery_id = models.OneToOneField(Delivery, on_delete=models.CASCADE,null=True,blank=True)
     total_price = models.FloatField(default=0)
     status = models.CharField(max_length=1 ,choices=Purchase_Status_Choices, default='u')

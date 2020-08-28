@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render ,  HttpResponse
 from .models import SubCategory, Product, Attribute
 from Supplier.models import ProductSupplier
 # Create your views here.
@@ -10,13 +10,16 @@ def home(request):
 
         def list_generator(subs, parent=None):
             lst = []
-            for sub in subs:
-                if sub.parent_category == parent:
-                    lst.append(sub)
-                    tmp = list_generator(subs, sub)
-                    if tmp:
-                        lst.append(tmp)
-            return lst
+            try:
+                for sub in subs:
+                    if sub.parent_category == parent:
+                        lst.append(sub)
+                        tmp = list_generator(subs, sub)
+                        if tmp:
+                            lst.append(tmp)
+                return lst
+            except:
+                return HttpResponse('hi')
         lst = list_generator(subs)
         print(f'list is {lst}')
         return render(request, 'content/home.html', {'subs': lst})

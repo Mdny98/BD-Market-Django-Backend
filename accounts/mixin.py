@@ -1,4 +1,3 @@
-
 class FieldsMixin():
 	def dispatch(self, request, *args, **kwargs):
 		self.fields = [

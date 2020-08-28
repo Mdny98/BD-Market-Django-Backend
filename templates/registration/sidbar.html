@@ -44,21 +44,84 @@
               <li class="nav-item">
                 <a href="{% url 'accounts:article-create' %}" class="nav-link">
                   <i class="fa fa-edit nav-icon"></i>
-                  <p>افزودن مقاله</p>
+                  <p>افزودن مقاله</p></a></li>
+          </ul>
+      </nav>
 
-                
-          <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+          <nav class="mt-2">
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          
+          <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 پروفایل
-                <span class="right badge badge-danger">جدید</span>
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-          </li>
+              <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link active">
+                  <i class="fa fa-list nav-icon"></i>
+                  <p>مشاهده پروفایل</p>
+
+                </a>
+              </li>
+          </ul>    
+          
           
         </ul>
+        </nav>
+        {% if  user.is_customer %}
+        <nav class="mt-2">
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          
+          <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                سفارشات
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+              <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link active">
+                  <i class="fa fa-list nav-icon"></i>
+                  <p>تاریخچه</p>
+                </a>
+              </li>
+          </ul>
+          </nav>
+          {% endif %}
+          {% if  user.is_supplier %}
+        <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                اجناس
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{% url 'accounts:home' %}" class="nav-link active">
+                  <i class="fa fa-list nav-icon"></i>
+                  <p>لیست اجناس</p>
+
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'accounts:article-create' %}" class="nav-link">
+                  <i class="fa fa-edit nav-icon"></i>
+                  <p>افزودن جنس</p></a></li>
+          </ul>
       </nav>
+          {% endif %}
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->

@@ -16,7 +16,7 @@ class Payment(models.Model):
         Represent Payment history records
     """
     payment_status = models.BooleanField()
-    cart_id = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    cart_id = models.ForeignKey(Cart, related_name= 'payment',on_delete=models.CASCADE)
     payment_method = models.ForeignKey(
         PeymentMethod, on_delete=models.SET_NULL, blank=True, null=True)
     

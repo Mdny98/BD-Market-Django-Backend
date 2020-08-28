@@ -26,3 +26,6 @@ def showcart(request):
         order_item = OrderItem(cart_id=current_cart, product_supplier_id=prosup, number=1)
         order_item.save()
         return redirect('cart:showcart')
+
+# def finalize_cart(request):
+#     if request.method == 'GET':

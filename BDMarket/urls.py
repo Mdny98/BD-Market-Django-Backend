@@ -26,6 +26,7 @@ urlpatterns = [
     path('supplier/', include('Supplier.urls'), name='supplier'),
     path('cart/', include('cart.urls'), name='cart'),    
     path('accounts/', include('accounts.urls'), name='accounts'),
+    path('fin/', include('financial.urls'), name='financial'),
 ]
 handler404 = content.views.error_404
 handler500 = content.views.error_500

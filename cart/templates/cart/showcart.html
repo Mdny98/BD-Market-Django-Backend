@@ -6,8 +6,8 @@
 <div class="container">
   <div class="row">
 
-  
-{% for order in current_cart.order.all %}
+
+    {% for order in current_cart.order.all %}
 
     <div class="col-6">
       <div class="list-cart">
@@ -29,8 +29,8 @@
                 <p><span>فروشنده : </span>{{order.product_supplier_id.supplier_id.company_name}}</p>
                 <p>{{order.product_supplier_id.unit_price}}<span>تومان</span>
                 </p>
-              
-               
+
+
                 <form class="form-inline special-form">
 
                   {% comment %} <div class="form-group">
@@ -57,11 +57,29 @@
 
 
     </div>
-{% endfor %}
+    {% endfor %}
+
+    <form
+      class=""
+      action="{% url 'financial:finalize_cart' %}"
+      method="GET"
+    >
+      {% comment %} {% csrf_token %} {% endcomment %}
+      {% comment %} <input
+        type="hidden"
+        id="custId"
+        name="prosupid"
+        value="{{ supplier.id }}"
+      > {% endcomment %}
+
+      <button type="submit">نهایی شدن خرید</button>
+    </form>
+
+
   </div>
 
 </div>
 
 
 
-{%endblock%}
+{% endblock %}

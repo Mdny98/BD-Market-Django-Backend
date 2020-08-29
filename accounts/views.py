@@ -1,15 +1,15 @@
 from django.contrib.auth import login, logout,authenticate
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from django.views.generic import CreateView , ListView
+from django.views.generic import CreateView , ListView , UpdateView
 from .form import CustomerSignUpForm, SupplierSignUpForm
 from django.contrib.auth.forms import AuthenticationForm
 from .models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from blog.models import Article
-
-from accounts.mixin import FieldsMixin
+from Supplier.models import ProductSupplier
+from accounts.mixin import FieldsMixin , FormValidMixin
 # @login_required
 # def home(request):
 #     return render(request, 'registration/home.html')
@@ -22,9 +22,15 @@ class ArticleList(LoginRequiredMixin , ListView):
         else:
             return Article.objects.filter(author=self.request.user)
 
-class ArticleCreate( LoginRequiredMixin, FieldsMixin, CreateView):
+class ArticleCreate(LoginRequiredMixin, FormValidMixin , FieldsMixin, CreateView):
 	model = Article
 	template_name = "registration/article-create-update.html"
+
+
+class ArticleUpdate(LoginRequiredMixin, FormValidMixin, FieldsMixin, UpdateView):
+	model = Article
+	template_name = "registration/article-create-update.html"
+
 
 
 
@@ -72,3 +78,10 @@ def login_request(request):
 def logout_view(request):
     logout(request)
     return redirect('/')
+
+
+
+class StockList(LoginRequiredMixin , ListView):
+    template_name = "registration/AllStock.html"
+    def get_queryset(self):
+        return ProductSupplier.objects.filter(supplier_id=self.request.user)

@@ -104,26 +104,26 @@ WSGI_APPLICATION = 'BDMarket.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'julnlssw',
-#         'USER': 'julnlssw',
-#         'PASSWORD': 'mkLds7k9DXoyFZ5gLUYtjVRPn5Uacde_',
-#         'HOST': 'lallah.db.elephantsql.com',
-#         'PORT': '5432',
-#     }
-# }
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'db',
-        'USER': 'admin',
-        'PASSWORD': '1234',
-        'HOST': '127.0.0.1',
+        'NAME': 'julnlssw',
+        'USER': 'julnlssw',
+        'PASSWORD': 'mkLds7k9DXoyFZ5gLUYtjVRPn5Uacde_',
+        'HOST': 'lallah.db.elephantsql.com',
         'PORT': '5432',
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'db',
+#         'USER': 'admin',
+#         'PASSWORD': '1234',
+#         'HOST': '127.0.0.1',
+#         'PORT': '5432',
+#     }
+# }
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',

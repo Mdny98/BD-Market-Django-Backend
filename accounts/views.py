@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from blog.models import Article
 from Supplier.models import ProductSupplier
-from accounts.mixin import FieldsMixin , FormValidMixin , SuperUserAccessMixin
+from accounts.mixin import FieldsMixin , FormValidMixin , SuperUserAccessMixin , AuthorsAccessMixin
 from cart.models import Cart
 from django.urls import reverse_lazy
 from accounts.models import User
@@ -33,9 +33,10 @@ class ArticleList(LoginRequiredMixin , ListView):
         else:
             return Article.objects.filter(author=self.request.user)
 
-class ArticleCreate(LoginRequiredMixin, FormValidMixin , FieldsMixin, CreateView):
+class ArticleCreate(LoginRequiredMixin, FormValidMixin, FieldsMixin, CreateView):
 	model = Article
 	template_name = "registration/article-create-update.html"
+
 
 
 class ArticleUpdate(LoginRequiredMixin, FormValidMixin, FieldsMixin, UpdateView):

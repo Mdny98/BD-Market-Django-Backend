@@ -7,7 +7,7 @@ class CustomerSignUpForm(UserCreationForm):
     first_name = forms.CharField(required=True)
     last_name = forms.CharField(required=True)
     phone_number = forms.CharField(required=True)
-    # gender = forms.CharField(required=True)
+    email = forms.CharField(required=True)
 
     class Meta(UserCreationForm.Meta):
         model = User
@@ -18,6 +18,8 @@ class CustomerSignUpForm(UserCreationForm):
         user.is_customer = True
         user.first_name = self.cleaned_data.get('first_name')
         user.last_name = self.cleaned_data.get('last_name')
+        user.email = self.cleaned_data.get('email')
+        
         user.save()
         customer = Customer.objects.create(user=user)
         customer.phone_number=self.cleaned_data.get('phone_number')
@@ -30,7 +32,7 @@ class SupplierSignUpForm(UserCreationForm):
     last_name = forms.CharField(required=True)
     phone_number = forms.CharField(required=True)
     company_name = forms.CharField(required=True)
-
+    email = forms.CharField(required=True)
     class Meta(UserCreationForm.Meta):
         model = User
 
@@ -41,6 +43,7 @@ class SupplierSignUpForm(UserCreationForm):
         user.is_staff = True
         user.first_name = self.cleaned_data.get('first_name')
         user.last_name = self.cleaned_data.get('last_name')
+        user.email = self.cleaned_data.get('email')
         user.save()
         supplier = Supplier.objects.create(user=user)
         supplier.phone_number=self.cleaned_data.get('phone_number')

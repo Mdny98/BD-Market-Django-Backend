@@ -10,6 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from blog.models import Article
 from Supplier.models import ProductSupplier
 from accounts.mixin import FieldsMixin , FormValidMixin
+from cart.models import Cart
 # @login_required
 # def home(request):
 #     return render(request, 'registration/home.html')
@@ -82,6 +83,15 @@ def logout_view(request):
 
 
 class StockList(LoginRequiredMixin , ListView):
+    # model = 
     template_name = "registration/AllStock.html"
     def get_queryset(self):
-        return ProductSupplier.objects.filter(supplier_id=self.request.user)
+        return ProductSupplier.objects.filter(supplier_id=self.request.user.supplier)
+
+
+def buyhistory(request):
+    if request.method=='GET':
+        current_customer = request.user.customer
+        carts = Cart.objects.filter(customer_id=current_customer, status="f")
+
+        return render(request, 'accounts/buyhistory.html', {'carts':carts})

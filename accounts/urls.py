@@ -15,6 +15,7 @@ urlpatterns=[
     path('article/create/', views.ArticleCreate.as_view(), name="article-create"),
     path('article/update/<int:pk>', views.ArticleUpdate.as_view(), name="article-update"),
     path('stock/', views.StockList.as_view(), name='stock-list'),
+    path('buyhistory/', views.buyhistory, name='buyhistory'),
     
     
 ]

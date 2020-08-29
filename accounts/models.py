@@ -5,8 +5,8 @@ from django.conf import settings
 class User(AbstractUser):
     is_customer = models.BooleanField(default=False)
     is_supplier = models.BooleanField(default=False)
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
+    first_name = models.CharField(max_length=100, verbose_name="نام")
+    last_name = models.CharField(max_length=100 , verbose_name="نام خانوادگی")
     
     
 

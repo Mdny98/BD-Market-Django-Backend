@@ -1,0 +1,19 @@
+{% extends 'registration/admin.html' %}
+
+{% block title %}{% block title-meta %}
+لیست اجناس 
+{% endblock %}{% endblock %}
+{% block main %}
+
+
+{% for stock in object_list %}
+
+
+ <td>{{stock.unit_price}}</td>
+<td>{{stock.product_id}}</td>
+
+
+{% endfor %}
+
+
+{% endblock %}

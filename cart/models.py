@@ -21,8 +21,8 @@ class Cart(models.Model):
         ('u', 'Unfinilized'),
         ('f', 'Finalized'),
     ]
-    customer_id = models.OneToOneField(Customer, on_delete=models.CASCADE)
-    delivery_id = models.OneToOneField(Delivery, on_delete=models.CASCADE,null=True,blank=True)
+    customer_id = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    delivery_id = models.ForeignKey(Delivery, on_delete=models.CASCADE,null=True,blank=True)
     total_price = models.FloatField(default=0)
     status = models.CharField(max_length=1 ,choices=Purchase_Status_Choices, default='u')
 
@@ -30,7 +30,7 @@ class Cart(models.Model):
 
 class OrderItem(models.Model):
     """
-    har itemi ke baraye kharid entekhab mishe va badan mire to cart
+    har itemi ke baraye kharid entekhab mishe va mire to cart
     """    
     cart_id = models.ForeignKey(Cart, related_name='order', on_delete=models.CASCADE)   
     product_supplier_id = models.ForeignKey(ProductSupplier, related_name= 'order',on_delete=models.CASCADE)

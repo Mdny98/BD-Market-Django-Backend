@@ -61,9 +61,16 @@
             </a>
               <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link active">
+                <a href="{% url 'accounts:profile' %}" class="nav-link active">
                   <i class="fa fa-list nav-icon"></i>
                   <p>مشاهده پروفایل</p>
+
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'accounts:password_change' %}" class="nav-link active">
+                  <i class="fa fa-list nav-icon"></i>
+                  <p>تغییر گذرواژه</p>
 
                 </a>
               </li>
@@ -116,7 +123,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{% url 'accounts:article-create' %}" class="nav-link">
+                <a href="{% url 'accounts:add-stock' %}" class="nav-link">
                   <i class="fa fa-edit nav-icon"></i>
                   <p>افزودن جنس</p></a></li>
           </ul>

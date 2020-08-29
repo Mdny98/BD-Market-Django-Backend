@@ -19,3 +19,10 @@ class FormValidMixin():
 			self.obj.author = self.request.user
 			self.obj.status = 'np'
 		return super().form_valid(form)
+
+class SuperUserAccessMixin():
+	def dispatch(self, request, *args, **kwargs):
+		if request.user.is_superuser:
+			return super().dispatch(request, *args, **kwargs)
+		else:
+			raise Http404("You can't see this page.")

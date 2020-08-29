@@ -9,7 +9,7 @@ from django.views.generic import ListView, DetailView
 
 def home(request , page=1):
     article_list = Article.objects.published()
-    paginator = Paginator(article_list, 2)
+    paginator = Paginator(article_list, 5)
     # page = request.GET.get('page')
     articles = paginator.get_page(page)
     context = {
@@ -28,7 +28,7 @@ def detail(request , slug):
 def category(request , slug  , page=1 ):
     category = get_object_or_404(Category, slug=slug , status=True)
     article_list =  category.articles.published()
-    paginator = Paginator(article_list, 2)
+    paginator = Paginator(article_list, 5)
     articles = paginator.get_page(page)
     context = {
         "category": category,

@@ -1,19 +1,29 @@
 from django.contrib.auth import login, logout,authenticate
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from django.views.generic import CreateView , ListView , UpdateView
-from .form import CustomerSignUpForm, SupplierSignUpForm
+from django.views.generic import CreateView , ListView , UpdateView , DeleteView
+from .form import CustomerSignUpForm, SupplierSignUpForm , ProfileForm
 from django.contrib.auth.forms import AuthenticationForm
 from .models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from blog.models import Article
 from Supplier.models import ProductSupplier
-from accounts.mixin import FieldsMixin , FormValidMixin
+from accounts.mixin import FieldsMixin , FormValidMixin , SuperUserAccessMixin
 from cart.models import Cart
+from django.urls import reverse_lazy
+from accounts.models import User
+from django.contrib.auth.views import PasswordChangeView
+
 # @login_required
 # def home(request):
 #     return render(request, 'registration/home.html')
+
+class PasswordChange(PasswordChangeView):
+    success_url = reverse_lazy('accounts:password_change_done')
+
+def PasswordChangeDoneView(request):
+    return render(request, 'accounts/v.html')
 
 class ArticleList(LoginRequiredMixin , ListView):
     template_name = "registration/home.html"
@@ -31,6 +41,26 @@ class ArticleCreate(LoginRequiredMixin, FormValidMixin , FieldsMixin, CreateView
 class ArticleUpdate(LoginRequiredMixin, FormValidMixin, FieldsMixin, UpdateView):
 	model = Article
 	template_name = "registration/article-create-update.html"
+
+class ArticleDelete(SuperUserAccessMixin , DeleteView):
+	model = Article
+	success_url = reverse_lazy('accounts:home')
+	template_name = "registration/article_confirm_delete.html"
+
+class Profile(UpdateView):
+    model = User
+    template_name = "registration/profile.html"
+    form_class = ProfileForm
+    
+    success_url = reverse_lazy("accounts:profile")
+    def get_object(self):
+        return User.objects.get(pk = self.request.user.pk)
+    def get_form_kwargs(self):
+        kwargs = super(Profile, self).get_form_kwargs()
+        kwargs.update({
+			'user': self.request.user
+		})
+        return kwargs
 
 
 
@@ -87,6 +117,12 @@ class StockList(LoginRequiredMixin , ListView):
     template_name = "registration/AllStock.html"
     def get_queryset(self):
         return ProductSupplier.objects.filter(supplier_id=self.request.user.supplier)
+
+
+class AddStock(LoginRequiredMixin,CreateView):
+	model = Article
+	template_name = "registration/addstock.html"
+
 
 
 def buyhistory(request):

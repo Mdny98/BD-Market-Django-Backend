@@ -14,8 +14,12 @@ urlpatterns=[
     path('', views.ArticleList.as_view(), name='home'),
     path('article/create/', views.ArticleCreate.as_view(), name="article-create"),
     path('article/update/<int:pk>', views.ArticleUpdate.as_view(), name="article-update"),
+    path('article/delete/<int:pk>', views.ArticleDelete.as_view(), name="article-delete"),
     path('stock/', views.StockList.as_view(), name='stock-list'),
     path('buyhistory/', views.buyhistory, name='buyhistory'),
-    
-    
+    path('addstock/', views.AddStock.as_view(), name='add-stock'),
+    path('password_change/', views.PasswordChange.as_view(), name='password_change'),
+    path('password_change/done/', views.PasswordChangeDoneView , name='password_change_done'),
+    path('profile/', views.Profile.as_view(), name="profile"),
+     
 ]

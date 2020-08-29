@@ -53,7 +53,7 @@ class Product(models.Model):
     subcategory_id = models.ForeignKey(
         SubCategory, on_delete=models.SET_NULL, blank=True, null=True)
     brand_id = models.ForeignKey(
-        Brand, on_delete=models.SET_NULL, blank=True, null=True)
+        Brand, on_delete=models.SET_NULL, blank=True, null=True, related_name='brand')
     attribute = models.ManyToManyField(Attribute, through='ProductAttr')
 
     def __str__(self):

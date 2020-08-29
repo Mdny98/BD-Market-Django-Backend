@@ -9,8 +9,45 @@
 {% for stock in object_list %}
 
 
- <td>{{stock.unit_price}}</td>
-<td>{{stock.product_id}}</td>
+<div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>id</th>
+                      
+                      <th>نام کالا</th>
+                      <th>قیمت</th>
+                      
+
+                      
+                      {% comment %} <th>تعداد</th> {% endcomment %}
+                      
+                      
+                    
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <td>{{stock.id}}</td>
+                    <td>{{stock.product_id}}</td>
+                    <td>{{stock.unit_price}}</td>
+                    <td>{{stock.product_id.brand}}</td>
+
+
+
+</tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
 
 
 {% endfor %}

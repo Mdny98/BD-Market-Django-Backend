@@ -31,7 +31,9 @@
                     {% for article in object_list %}
 
                     <tr>
-                      <td>{{article.title}}</td>
+                      <td>
+                      <a href="{% url 'accounts:article-update' article.pk %}">{{article.title}}</a>
+                      </td>
                       <td><img src="{{article.image.url}}" width=100 height=75 style='border-radius: 5px;' ></td>
                       <td>{{article.category_to_str}}</td>
                       <td>{{article.author.get_full_name}}</td>

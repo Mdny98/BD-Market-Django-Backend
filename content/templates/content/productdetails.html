@@ -30,64 +30,7 @@
           src="{{ this_product.product_image.url }}"
           class="img-responsive"
         />
-        {% comment %} <ul class="list-icon-img">
-          <li><a href="#"><i class="fa fa-heart"></i></a></li>
-          <li><a href="#"><i class="fa fa-share"></i></a></li>
-          <li><a href="#"><i class="fa fa-bell"></i></a></li>
-          <li><a href="#"><i class="fa fa-bar-chart"></i></a></li>
-        </ul> {% endcomment %}
-
-        {% comment %} <div class="row img-list">
-
-          <div class="col-md-3">
-            <a
-              href="#"
-              target="_blank"
-            >
-              <img
-                src="img-3.jpg"
-                class="img-responsive"
-              />
-            </a>
-          </div>
-          <div class="col-md-3">
-            <a
-              href="#"
-              type="_blank"
-            >
-              <img
-                src="img-2.jpg"
-                class="img-responsive"
-              />
-            </a>
-
-          </div>
-          <div class="col-md-3">
-            <a
-              href="#"
-              type="_blank"
-            >
-              <img
-                src="img-1.jpg"
-                class="img-responsive"
-              />
-            </a>
-          </div>
-          <div class="col-md-3">
-            <a
-              href="#"
-              target="_blank"
-            >
-              <img
-                src="img-4.jpg"
-                class="img-responsive"
-              />
-            </a>
-
-          </div>
-
-
-        </div> {% endcomment %}
+        
       </div>
       <div class="col-md-9">
         <div class="details">
@@ -188,7 +131,18 @@
                     </td>
                     <td>{{ supplier.unit_price }} تومان</td>
                     <td>
-                      <button>افزودن به سبد</button>
+
+                      <form
+                        class=""
+                        action="{% url 'cart:showcart' %}"
+                        method="POST"
+                      >
+                      {% csrf_token %}
+                        <input type="hidden" id="custId" name="prosupid" value="{{ supplier.id }}">
+                        
+                        <button type="submit"> افزودن به سبد</button>
+                      </form>
+
                     </td>
                   </tr>
                   {% endfor %}
@@ -320,7 +274,6 @@
       <div
         id="comment"
         class="w3-container tab tab-comment"
-        
       >
         {% for feedback in this_product.feedback.all %}
         <div class="row">
@@ -330,12 +283,12 @@
                 <h6>{{ feedback.custumer_id.user_id.get_full_name }}</h6>
               </li>
               <li class="date">در تاریخ 11 دی 1398</li>
-              
-              
+
+
             </ul>
           </div>
           <div class="col-md-8">
-            
+
 
             <p>{{ feedback.comment }}</p>
             <hr>

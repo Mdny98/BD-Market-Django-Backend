@@ -1,7 +1,6 @@
 from django.db import models
 from accounts.models import Customer
 # Create your models here.
-
 class CustomerAddress(models.Model):
    """
       Represent adresses of customers

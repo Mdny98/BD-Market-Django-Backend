@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<p> 
+مبلغ نهایی: {{ total_price }}
+ </p>
+
+<form
+      class=""
+      action="{% url 'financial:finalize_cart' %}"
+      method="POST"
+    >
+      {% csrf_token %}
+      {% comment %} <input
+        type="hidden"
+        id="custId"
+        name="prosupid"
+        value="{{ supplier.id }}"
+      > {% endcomment %}
+
+{% for paymeth in payment_methods %}
+      <input type="radio" id="{{ paymeth.method_title }}" name="payment_method" value="{{ paymeth.id }}">
+<label for="{{ paymeth.method_title }}">{{ paymeth.method_title }}</label><br>
+{% endfor %}
+
+      <button type="submit">پرداخت</button>
+    </form>
+
+
+{% endblock %}

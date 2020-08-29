@@ -103,8 +103,7 @@ def productdetails(request, product_pk):
         catlst = get_parent_cats(cat)
         return render(request, 'content/productdetails.html',
                       {'this_product': this_product, 'catlst': catlst, 'this_product_suppliers': this_product_suppliers})
-        print(cat)
-        return render(request, 'content/products.html', {'all_products': all_products, 'cat': cat})
+        
 
 
 def error_404(request, exception):

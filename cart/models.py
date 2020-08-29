@@ -30,7 +30,7 @@ class Cart(models.Model):
 
 class OrderItem(models.Model):
     """
-    har itemi ke baraye kharid entekhab mishe va badan mire to cart
+    har itemi ke baraye kharid entekhab mishe va mire to cart
     """    
     cart_id = models.ForeignKey(Cart, related_name='order', on_delete=models.CASCADE)   
     product_supplier_id = models.ForeignKey(ProductSupplier, related_name= 'order',on_delete=models.CASCADE)

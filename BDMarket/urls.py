@@ -27,7 +27,13 @@ urlpatterns = [
     path('cart/', include('cart.urls'), name='cart'),    
     path('accounts/', include('accounts.urls'), name='accounts'),
     path('fin/', include('financial.urls'), name='financial'),
+    path('blog/', include('blog.urls'), name='blog')
 ]
 handler404 = content.views.error_404
 handler500 = content.views.error_500
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+admin.site.site_header = "پنل ادمین بی دی "
+admin.site.site_title = "صفحه شخصی ادمین بی دی"
+admin.site.index_title = "خوش اومدید بزرگوار"

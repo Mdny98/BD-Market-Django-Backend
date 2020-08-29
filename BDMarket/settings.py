@@ -15,7 +15,8 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
+LOGIN_REDIRECT_URL = "accounts:home"
+LOGIN_URL = "accounts:login"
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -43,13 +44,19 @@ INSTALLED_APPS = [
     'Supplier',
     'financial',
     'cart',
-    'accounts',
+    'accounts.apps.AccountsConfig',
     'widget_tweaks',
+    'blog.apps.BlogConfig',
+    'extensions',
+    'jalali_date',
+    'crispy_forms',
 ]
 
 
 AUTH_USER_MODEL = 'accounts.User'
 
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 GRAPH_MODELS = {
   'all_applications': True,
@@ -96,26 +103,26 @@ WSGI_APPLICATION = 'BDMarket.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'julnlssw',
-        'USER': 'julnlssw',
-        'PASSWORD': 'mkLds7k9DXoyFZ5gLUYtjVRPn5Uacde_',
-        'HOST': 'lallah.db.elephantsql.com',
-        'PORT': '5432',
-    }
-}
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'db',
-#         'USER': 'admin',
-#         'PASSWORD': '1234',
-#         'HOST': '127.0.0.1',
+#         'NAME': 'julnlssw',
+#         'USER': 'julnlssw',
+#         'PASSWORD': 'mkLds7k9DXoyFZ5gLUYtjVRPn5Uacde_',
+#         'HOST': 'lallah.db.elephantsql.com',
 #         'PORT': '5432',
 #     }
 # }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'db',
+        'USER': 'admin',
+        'PASSWORD': '1234',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
+}
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
@@ -150,9 +157,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fa-ir'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tehran'
 
 USE_I18N = True
 

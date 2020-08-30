@@ -7,17 +7,24 @@ from cart.models import Cart, OrderItem
 # Create your views here.
 
 def finalize_cart(request):
-    if request.method == 'GET':
+    if request.method == 'POST':
         payment_methods = PeymentMethod.objects.all
         current_customer = request.user.customer
         current_cart = Cart.objects.get(customer_id=current_customer, status="u")
         orders = current_cart.order.all()
+                 
         total_price = 0
         for order in orders:
-            total_price += order.product_supplier_id.unit_price
+            order.number = int(request.POST.get(str(order.id)))
+            print(order.number)
+            print(type(order.number))
+
+            total_price += order.number * order.product_supplier_id.unit_price
+            order.save()
 
         return render(request, 'financial/pay.html', {'payment_methods':payment_methods, 'total_price':total_price})
 
+def pay(request):
     if request.method == 'POST':
         payment_method_id = request.POST['payment_method']
         payment_method = PeymentMethod.objects.get(id=payment_method_id)
@@ -39,7 +46,7 @@ def finalize_cart(request):
             total = 0
             for order in current_cart.order.all():
                 order.cost = order.product_supplier_id.unit_price
-                total += order.cost
+                total += order.number * order.cost
                 order.save()
 
             current_cart.status = 'f'

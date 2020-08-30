@@ -9,8 +9,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from blog.models import Article
 from Supplier.models import ProductSupplier
-from accounts.mixin import FieldsMixin , FormValidMixin , SuperUserAccessMixin , AuthorsAccessMixin
+from accounts.mixin import FieldsMixin , FormValidMixin , SuperUserAccessMixin , AuthorsAccessMixin , FieldsStockMixin
 from cart.models import Cart
+from content.models import Product
+
 from django.urls import reverse_lazy
 from accounts.models import User
 from django.contrib.auth.views import PasswordChangeView
@@ -120,9 +122,10 @@ class StockList(LoginRequiredMixin , ListView):
         return ProductSupplier.objects.filter(supplier_id=self.request.user.supplier)
 
 
-class AddStock(LoginRequiredMixin,CreateView):
-	model = Article
-	template_name = "registration/addstock.html"
+class stoockCreate(LoginRequiredMixin,FieldsStockMixin, CreateView):
+    model = Product
+    success_url = reverse_lazy('accounts:stock-list')
+    template_name = "registration/addstock.html"
 
 
 

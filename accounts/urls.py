@@ -15,7 +15,7 @@ urlpatterns=[
     path('article/delete/<int:pk>', views.ArticleDelete.as_view(), name="article-delete"),
     path('stock/', views.StockList.as_view(), name='stock-list'),
     path('buyhistory/', views.buyhistory, name='buyhistory'),
-    path('addstock/', views.AddStock.as_view(), name='add-stock'),
+    path('addstock/', views.stoockCreate.as_view(), name='add-stock'),
     path('profile/', views.Profile.as_view(), name="profile"),
      
 ]

@@ -1,7 +1,14 @@
 from django.shortcuts import render ,  HttpResponse
+from django.template.defaulttags import register
+
 from .models import SubCategory, Product, Attribute
 from Supplier.models import ProductSupplier
 # Create your views here.
+
+@register.filter
+def get_item(dictionary, key):
+    res = str(dictionary.get(key)[0])
+    return res
 
 
 def home(request):
@@ -70,6 +77,9 @@ def products(request, cat_pk):
             # print(f'\nk type is {type(k)}')
             # print(f'\nq is {q}')
 
+        checked_attr = dict(request.GET)
+        print(f'\n checked_attr = {checked_attr}')
+
         cat = SubCategory.objects.get(pk=cat_pk)
         uniqdict = dict()
         tmp = []
@@ -78,9 +88,9 @@ def products(request, cat_pk):
         for attr in attrs:
             for proattr in attr.pro_attr.all():
                 if proattr.value_type == 'BOOL':
-                    tmp.append(proattr.bool_value)
+                    tmp.append(str(proattr.bool_value))
                 if proattr.value_type == 'INT':
-                    tmp.append(proattr.int_value)
+                    tmp.append(str(proattr.int_value))
                 if proattr.value_type == 'TXT':
                     tmp.append(proattr.text_value)
                 uniqtmp = list(set(tmp))
@@ -91,7 +101,7 @@ def products(request, cat_pk):
         # print(f'\nuniqdict is {uniqdict}')
         catlst = get_parent_cats(cat)
         return render(request, 'content/products.html',
-                      {'all_products': q, 'catlst': catlst, 'cat': cat, 'uniqdict': uniqdict})
+                      {'all_products': q, 'catlst': catlst, 'cat': cat, 'uniqdict': uniqdict, 'checked_attr':checked_attr})
 
 
 def productdetails(request, product_pk):

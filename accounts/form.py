@@ -2,6 +2,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.db import transaction
 from .models import User,Customer,Supplier
+from Supplier.models import ProductSupplier
+from content.models import Product
 
 class CustomerSignUpForm(UserCreationForm):
     first_name = forms.CharField(required=True)
@@ -71,3 +73,20 @@ class ProfileForm(forms.ModelForm):
 		model = User
 		fields = ['username', 'email', 'first_name', 'last_name',]
 
+
+# class CreateStockForm(UserCreationForm):
+#     "product_name"
+#     "product_description"
+#     "product_image"
+# 	"subcategory_id"
+#     "brand_id"
+#     "attribute"
+    
+    
+    
+    
+    
+    
+#     class Meta(UserCreationForm.Meta):
+#         model = product
+    

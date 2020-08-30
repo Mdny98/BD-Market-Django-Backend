@@ -9,13 +9,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from blog.models import Article
 from Supplier.models import ProductSupplier
-from accounts.mixin import FieldsMixin , FormValidMixin , SuperUserAccessMixin , AuthorsAccessMixin , FieldsStockMixin
-from cart.models import Cart
+from accounts.mixin import FieldsMixin , FormValidMixin , SuperUserAccessMixin , AuthorsAccessMixin  , FormStockValidMixin 
 from content.models import Product
-
 from django.urls import reverse_lazy
 from accounts.models import User
-from django.contrib.auth.views import PasswordChangeView
+from django.contrib.auth.views import PasswordChangeView 
 
 # @login_required
 # def home(request):
@@ -116,17 +114,30 @@ def logout_view(request):
 
 
 class StockList(LoginRequiredMixin , ListView):
-    # model = 
     template_name = "registration/AllStock.html"
     def get_queryset(self):
         return ProductSupplier.objects.filter(supplier_id=self.request.user.supplier)
 
 
-class stoockCreate(LoginRequiredMixin,FieldsStockMixin, CreateView):
+class stoockCreate(LoginRequiredMixin, CreateView):
     model = Product
-    success_url = reverse_lazy('accounts:stock-list')
+    fields = [
+			"product_name", "product_description", "product_image",
+			"subcategory_id", "brand_id", "attribute"
+		]
+    success_url = reverse_lazy('accounts:confirm-stock')
     template_name = "registration/addstock.html"
+    
 
+class stoockConfrimCreate(LoginRequiredMixin, CreateView):
+    model = ProductSupplier
+    fields = ["product_id", "stock","unit_price"]
+    success_url = reverse_lazy('accounts:stock-list')
+    template_name = "registration/confrmstock.html"   
+    def form_valid(self, form):
+        self.obj = form.save()
+        self.obj.supplier_id = self.request.user.supplier
+        return super().form_valid(form)                            
 
 
 def buyhistory(request):

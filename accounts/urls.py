@@ -16,6 +16,7 @@ urlpatterns=[
     path('stock/', views.StockList.as_view(), name='stock-list'),
     path('buyhistory/', views.buyhistory, name='buyhistory'),
     path('addstock/', views.stoockCreate.as_view(), name='add-stock'),
+    path('confirmstock/', views.stoockConfrimCreate.as_view(), name='confirm-stock'),
     path('profile/', views.Profile.as_view(), name="profile"),
      
 ]

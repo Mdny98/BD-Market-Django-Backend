@@ -12,14 +12,17 @@ class FieldsMixin():
    
 		return super().dispatch(request, *args, **kwargs)
 
-class FieldsStockMixin():
-	def dispatch(self, request, *args, **kwargs):
-		self.fields = [
-			"product_name", "product_description", "product_image",
-			"subcategory_id", "brand_id", "attribute"
-		]
-   
-		return super().dispatch(request, *args, **kwargs)
+
+
+
+class FormStockValidMixin():
+	def form_valid(self, form):
+		self.obj = form.save()
+		self.obj.supplier_id = self.request.user.supplier
+		
+		return super().form_valid(form)
+
+
 
 
 class FormValidMixin():
@@ -31,7 +34,6 @@ class FormValidMixin():
 			self.obj.author = self.request.user
 			self.obj.status = 'np'
 		return super().form_valid(form)
-
 
 
 class SuperUserAccessMixin():

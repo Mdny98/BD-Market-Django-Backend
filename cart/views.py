@@ -40,3 +40,11 @@ def showcart(request):
 
 # def finalize_cart(request):
 #     if request.method == 'GET':
+
+def delete_order(request, order_pk):
+    the_cart = request.user.customer.cart.get(status='u')
+    order = get_object_or_404(OrderItem, pk=order_pk, cart_id=the_cart)
+    if request.method == 'GET':
+        order.delete()
+
+        return redirect('cart:showcart')

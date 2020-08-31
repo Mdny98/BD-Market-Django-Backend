@@ -5,5 +5,5 @@ app_name = 'cart'
 
 urlpatterns = [
     path('', views.showcart, name='showcart'),
-    # path('finalize/', views.finalize_cart, name='finalize_cart'),
+    path('<int:order_pk>/delete', views.delete_order, name='delete_order'),
 ]

@@ -25,9 +25,16 @@ urlpatterns=[
     path('editpricestock/<int:pk>', views.editpricestock.as_view(), name='editpricestock'),
     path('editMojodi/<int:pk>', views.editMojodiestock.as_view(), name='editMojodiestock'),
 
-# خراب
+
     path('confirmstock/', views.ConfrimCreate.as_view(), name='confirm-stock'),
     path('addstock/', views.stoockCreate.as_view(), name='add-stock'),
+    path('addattribute/', views.AddAttribute.as_view(), name='addattr'),
+    path('addbrand/', views.addbrand.as_view(), name='addbrand'),
+    path('productattr/', views.ProductAttr.as_view(), name='ProductAttr'),
+
+    
+
+
 
 
 

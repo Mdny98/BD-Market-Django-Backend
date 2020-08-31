@@ -10,7 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from blog.models import Article
 from Supplier.models import ProductSupplier
 from accounts.mixin import FieldsMixin , FormValidMixin , SuperUserAccessMixin , AuthorsAccessMixin  , FormStockValidMixin 
-from content.models import Product
+from content.models import Product , Attribute , Brand , ProductAttr
 from django.urls import reverse_lazy
 from accounts.models import User
 from django.contrib.auth.views import PasswordChangeView 
@@ -136,26 +136,42 @@ class stoockCreate(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('accounts:confirm-stock')
     template_name = "registration/addstock.html"
     
+class AddAttribute(LoginRequiredMixin, CreateView):
+    model = Attribute
+    fields = ["attr_title"]
+    success_url = reverse_lazy('accounts:add-stock')
+    template_name = "registration/AddAttribute.html"
 
-# class stoockConfrimCreate(LoginRequiredMixin, CreateView):
-#     model = ProductSupplier
-#     fields = ["product_id", "stock","unit_price"]
-#     success_url = reverse_lazy('accounts:stock-list')
-#     template_name = "registration/confrmstock.html"   
-#     def form_valid(self, form):
-#         self.obj = form.save()
-#         self.obj.supplier_id = self.request.user.supplier
-#         return super().form_valid(form)                            
+class ProductAttr(LoginRequiredMixin, CreateView):
+    model = ProductAttr
+    fields = ["value_type","int_value","text_value","bool_value","product_id",'attr_id']
+    success_url = reverse_lazy('accounts:add-stock')
+    template_name = "registration/ProductAttr.html"
+    
+
+
+
+
+
+class addbrand(LoginRequiredMixin, CreateView):
+    model = Brand
+    fields = ["brand_name"]
+    widgets = {
+        "brand_name":"نام برند"
+    }
+    
+    success_url = reverse_lazy('accounts:add-stock')
+    template_name = "registration/addbrand.html"
+
 class ConfrimCreate(LoginRequiredMixin, CreateView):
     model = ProductSupplier
-    form_class = ConfrimForm
-    # fields = ['supplier_id', 'product_id', 'unit_price', 'stock']
+    fields = ['product_id', 'unit_price', 'stock']
+   
+
+
     template_name = "registration/confrmstock.html" 
     success_url = reverse_lazy('accounts:stock-list')
     def form_valid(self, form):
-        print(form)
-        print("\n hi \n")
-
         if not self.request.user.is_superuser:
             d = form.save(commit=False)
             d.supplier_id = self.request.user.supplier
@@ -182,6 +198,4 @@ class editMojodiestock(LoginRequiredMixin,UpdateView):
     success_url = reverse_lazy('accounts:stock-list')
     template_name = "registration/editojodistock.html"
 
-# class ArticleUpdate(LoginRequiredMixin, FormValidMixin, FieldsMixin, UpdateView):
-# 	model = Article
-# 	template_name = "registration/article-create-update.html"
+

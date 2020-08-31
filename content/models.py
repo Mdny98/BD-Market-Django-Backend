@@ -23,7 +23,7 @@ class Brand(models.Model):
     """
         Represent brands like "LG" with a Foreignkey Relation to subcategory
     """
-    brand_name = models.CharField(max_length=250)
+    brand_name = models.CharField(max_length=250 , verbose_name= "نام برند")
     subcategory_id = models.ForeignKey(
         SubCategory, on_delete=models.SET_NULL, blank=True, null=True)
 
@@ -34,7 +34,7 @@ class Attribute(models.Model):
     """
         Represent attributes of products
     """
-    attr_title = models.CharField(max_length=50, blank=True, null=True)
+    attr_title = models.CharField(max_length=50, blank=True, null=True , verbose_name= "ویژگی")
     subcategory_id = models.ForeignKey(
         SubCategory, related_name="attr", on_delete=models.SET_NULL, blank=True, null=True)
 
@@ -45,16 +45,16 @@ class Product(models.Model):
     """
         Represent every single product like "yakhchal freezer emersan model barfak :D "
     """
-    product_name = models.CharField(max_length=250)
+    product_name = models.CharField(max_length=250, verbose_name= "نام محصول")
     product_description = models.TextField(
-        max_length=1000, blank=True, null=True)
+        max_length=1000, blank=True, null=True , verbose_name= "توضیحات محصول")
     product_image = models.ImageField(
-        upload_to='content/images/', blank=True, null=True)
+        upload_to='content/images/', blank=True, null=True, verbose_name= "تصویر محصول")
     subcategory_id = models.ForeignKey(
-        SubCategory, on_delete=models.SET_NULL, blank=True, null=True)
+        SubCategory, on_delete=models.SET_NULL, blank=True, null=True, verbose_name= "دسته بندی")
     brand_id = models.ForeignKey(
-        Brand, on_delete=models.SET_NULL, blank=True, null=True, related_name='brand')
-    attribute = models.ManyToManyField(Attribute, through='ProductAttr')
+        Brand, on_delete=models.SET_NULL, blank=True, null=True, related_name='brand', verbose_name= "نام برند")
+    attribute = models.ManyToManyField(Attribute, through='ProductAttr', verbose_name= "ویژگی")
 
     def __str__(self):
         return self.product_name

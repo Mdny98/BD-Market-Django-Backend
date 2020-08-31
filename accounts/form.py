@@ -7,11 +7,11 @@ from Supplier.models import ProductSupplier
 from content.models import Product
 
 class CustomerSignUpForm(UserCreationForm):
-    first_name = forms.CharField(required=True)
-    last_name = forms.CharField(required=True)
-    phone_number = forms.CharField(required=True)
-    email = forms.CharField(required=True)
-
+    first_name = forms.CharField(required=True, label="نام")
+    last_name = forms.CharField(required=True, label="نام خانوادگی")
+    phone_number = forms.CharField(required=True, label= "شماره تلفن همراه")
+    email = forms.CharField(required=True,label= "ایمیل")
+   
     class Meta(UserCreationForm.Meta):
         model = User
     
@@ -31,11 +31,12 @@ class CustomerSignUpForm(UserCreationForm):
         return user
 
 class SupplierSignUpForm(UserCreationForm):
-    first_name = forms.CharField(required=True)
-    last_name = forms.CharField(required=True)
-    phone_number = forms.CharField(required=True)
-    company_name = forms.CharField(required=True)
-    email = forms.CharField(required=True)
+    first_name = forms.CharField(required=True, label="نام")
+    last_name = forms.CharField(required=True, label="نام خانوادگی")
+    phone_number = forms.CharField(required=True, label= "شماره تلفن همراه")
+    company_name = forms.CharField(required=True,label= "نام شرکت")
+    email = forms.CharField(required=True,label= "ایمیل")
+
     class Meta(UserCreationForm.Meta):
         model = User
 

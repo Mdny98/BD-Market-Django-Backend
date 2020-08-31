@@ -27,9 +27,13 @@
 					</div>
 					<div class="col-6">
 						{{ form.brand_id|as_crispy_field }}
+						<span>برند شما موجود نیست؟  <a class="badge badge-danger" href="{% url 'accounts:addbrand' %}">  برند جدیدی اضافه کنید</a></span>
 					</div>
-					<div class="col-6">
+					<div class="col-12"> 
+					
 						{{ form.attribute|as_crispy_field }}
+						<span>ویژگی شما موجود نیست؟  <a class="badge badge-danger" href="{% url 'accounts:addattr' %}">  ویژگی جدیدی اضافه کنید  </a></span>
+
 					</div>
 					
 

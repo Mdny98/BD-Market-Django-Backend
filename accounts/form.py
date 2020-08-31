@@ -1,5 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
+from django.forms import ModelForm
 from django.db import transaction
 from .models import User,Customer,Supplier
 from Supplier.models import ProductSupplier
@@ -89,4 +90,28 @@ class ProfileForm(forms.ModelForm):
     
 #     class Meta(UserCreationForm.Meta):
 #         model = product
-    
+
+
+class ConfrimForm(ModelForm):
+    # supplier_id = forms.CharField(required=True)
+    # product_id = forms.CharField(required=True)
+    # stock = forms.IntegerField(required=True)
+    # unit_price = forms.FloatField(required=True)
+    class Meta:
+        model = ProductSupplier
+        fields = ['product_id', 'unit_price', 'stock']
+        
+
+
+    # @transaction.atomic
+    # def save(self):
+    #     productSupplier = super().save(commit=False)
+    #     productSupplier.supplier_id = self.cleaned_data.get()
+    #     productSupplier.product_id = self.cleaned_data.get('product_id')
+    #     productSupplier.stock = self.cleaned_data.get('stock')
+    #     productSupplier.unit_price = self.cleaned_data.get('unit_price')
+
+
+    #     productSupplier.save()
+        
+    #     return productSupplier

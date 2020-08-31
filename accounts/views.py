@@ -2,7 +2,7 @@ from django.contrib.auth import login, logout,authenticate
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.views.generic import CreateView , ListView , UpdateView , DeleteView
-from .form import CustomerSignUpForm, SupplierSignUpForm , ProfileForm
+from .form import CustomerSignUpForm, SupplierSignUpForm , ProfileForm , ConfrimForm
 from django.contrib.auth.forms import AuthenticationForm
 from .models import User
 from django.contrib.auth.decorators import login_required
@@ -118,6 +118,14 @@ class StockList(LoginRequiredMixin , ListView):
     def get_queryset(self):
         return ProductSupplier.objects.filter(supplier_id=self.request.user.supplier)
 
+def buyhistory(request):
+
+    if request.method=='GET':
+        current_customer = request.user.customer
+        carts = Cart.objects.filter(customer_id=current_customer, status="f")
+
+        return render(request, 'accounts/buyhistory.html', {'carts':carts})
+
 
 class stoockCreate(LoginRequiredMixin, CreateView):
     model = Product
@@ -129,20 +137,51 @@ class stoockCreate(LoginRequiredMixin, CreateView):
     template_name = "registration/addstock.html"
     
 
-class stoockConfrimCreate(LoginRequiredMixin, CreateView):
+# class stoockConfrimCreate(LoginRequiredMixin, CreateView):
+#     model = ProductSupplier
+#     fields = ["product_id", "stock","unit_price"]
+#     success_url = reverse_lazy('accounts:stock-list')
+#     template_name = "registration/confrmstock.html"   
+#     def form_valid(self, form):
+#         self.obj = form.save()
+#         self.obj.supplier_id = self.request.user.supplier
+#         return super().form_valid(form)                            
+class ConfrimCreate(LoginRequiredMixin, CreateView):
     model = ProductSupplier
-    fields = ["product_id", "stock","unit_price"]
+    form_class = ConfrimForm
+    # fields = ['supplier_id', 'product_id', 'unit_price', 'stock']
+    template_name = "registration/confrmstock.html" 
     success_url = reverse_lazy('accounts:stock-list')
-    template_name = "registration/confrmstock.html"   
     def form_valid(self, form):
-        self.obj = form.save()
-        self.obj.supplier_id = self.request.user.supplier
-        return super().form_valid(form)                            
+        print(form)
+        print("\n hi \n")
+
+        if not self.request.user.is_superuser:
+            d = form.save(commit=False)
+            d.supplier_id = self.request.user.supplier
+            d.save()
+            return super().form_valid(form)
+        
+
+class stockdelete(LoginRequiredMixin, DeleteView):
+    model = ProductSupplier
+    success_url = reverse_lazy('accounts:stock-list')
+    template_name = "registration/deletstock.html"
 
 
-def buyhistory(request):
-    if request.method=='GET':
-        current_customer = request.user.customer
-        carts = Cart.objects.filter(customer_id=current_customer, status="f")
+class editpricestock(LoginRequiredMixin,UpdateView):
+    model = ProductSupplier
+    fields = ['unit_price']
+    success_url = reverse_lazy('accounts:stock-list')
+    template_name = "registration/editpricestock.html"
 
-        return render(request, 'accounts/buyhistory.html', {'carts':carts})
+
+class editMojodiestock(LoginRequiredMixin,UpdateView):
+    model = ProductSupplier
+    fields = ['stock']
+    success_url = reverse_lazy('accounts:stock-list')
+    template_name = "registration/editojodistock.html"
+
+# class ArticleUpdate(LoginRequiredMixin, FormValidMixin, FieldsMixin, UpdateView):
+# 	model = Article
+# 	template_name = "registration/article-create-update.html"

@@ -6,7 +6,7 @@
 {% block main %}
 
 
-{% for stock in object_list %}
+
 
 
 <div class="row">
@@ -20,9 +20,11 @@
                   <thead>
                     <tr>
                       <th>id</th>
-                      
                       <th>نام کالا</th>
                       <th>قیمت</th>
+                      <th>تعداد</th>
+                      <th>تغییرات</th>
+                      
                       
 
                       
@@ -33,14 +35,24 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <td>{{stock.id}}</td>
-                    <td>{{stock.product_id}}</td>
-                    <td>{{stock.unit_price}}</td>
-                    <td>{{stock.product_id.brand}}</td>
+                  {% for stock in object_list %}
+                  <tr>
+                  
+                  <td>{{stock.id}}</td>
+                  <td>{{stock.product_id}}</td>
+                  <td>{{stock.unit_price}}</td>
+                  <td>{{stock.stock}}</td>
 
-
-
-</tbody>
+                  {% comment %} <td>{{stock.product_id.brand}}</td> {% endcomment %}
+              
+                  <td>
+                  <a class="badge badge-danger" href="{% url 'accounts:delete-stock' stock.pk %}">حذف</a>
+                  <a class="badge badge-danger" href="{% url 'accounts:editpricestock' stock.pk %}">تغییر قیمت</a>
+                  <a class="badge badge-danger" href="{% url 'accounts:editMojodiestock' stock.pk %}">تغییر موجودی</a>
+                  </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
                 </table>
               </div>
               <!-- /.card-body -->
@@ -49,8 +61,6 @@
           </div>
         </div>
 
-
-{% endfor %}
 
 
 {% endblock %}

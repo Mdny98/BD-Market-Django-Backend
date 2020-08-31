@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.db.models import F
 
 from .models import PeymentMethod, Payment
 from cart.models import Cart, OrderItem
@@ -30,8 +31,8 @@ def pay(request):
         payment_method = PeymentMethod.objects.get(id=payment_method_id)
         current_customer = request.user.customer
         current_cart = Cart.objects.get(customer_id=current_customer, status="u")
-        payment, created = Payment.objects.get_or_create(payment_status=False, cart_id=current_cart,
-                                payment_method=payment_method)
+        payment, created = Payment.objects.get_or_create(cart_id=current_cart,
+                                defaults={'payment_status': False, 'payment_method':payment_method})
         # payment.save()
 
         transaction_result = True
@@ -46,6 +47,9 @@ def pay(request):
             total = 0
             for order in current_cart.order.all():
                 order.cost = order.product_supplier_id.unit_price
+                current_prosup = order.product_supplier_id
+                current_prosup.stock = F('stock') - order.number
+                current_prosup.save()
                 total += order.number * order.cost
                 order.save()
 

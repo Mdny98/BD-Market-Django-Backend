@@ -14,3 +14,6 @@ class ProductSupplier(models.Model):
     product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
     stock = models.IntegerField(default=0)
     unit_price = models.FloatField(blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.product_id.product_name} - {self.supplier_id.company_name}'

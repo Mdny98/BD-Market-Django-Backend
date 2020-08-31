@@ -34,6 +34,7 @@ def showcart(request):
                 product_supplier_id=prosup, defaults={'number': quantity})
         if not created:
             order_item.number = F('number') + quantity
+            order_item.save()
         
         return redirect('cart:showcart')
 

@@ -13,8 +13,13 @@ local_settings.py
 
 ### VisualStudioCode ###
 .vscode/*
-
-
+"**/migrations/*"
+migrations
+migrations/__init__.py
+**/migrations/
+**/migrations/**
+!**/migrations
+!**/migrations/__init__.py
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
 .history

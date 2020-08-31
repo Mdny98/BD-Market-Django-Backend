@@ -16,7 +16,16 @@
           <img src="{% gravatar_url user.email 150 %}" class="img-circle elevation-2" alt="{{User.email}}">
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{user.get_full_name}}</a>
+          <a href="#" class="d-block">
+          
+          {% if user.get_full_name %}
+              {{user.get_full_name}}
+            {% else %}
+              {{user.username}}
+            {% endif %}
+
+          
+          </a>
         </div>
       </div>
 
@@ -66,6 +75,12 @@
                   <p>مشاهده پروفایل</p>
 
                 </a>
+                {% if  user.is_customer %}
+                <li class="nav-item">
+                <a href="{% url 'accounts:addrescostomershow' %}" class="nav-link ">
+                  <i class="fa fa-edit nav-icon"></i>
+                  <p>اطلاعات خرید</p></a>
+                  {% endif %}
               </li>
               <li class="nav-item">
                 <a href="{% url 'password_change' %}" class="nav-link ">

@@ -14,7 +14,7 @@ from content.models import Product , Attribute , Brand , ProductAttr
 from django.urls import reverse_lazy
 from accounts.models import User
 from django.contrib.auth.views import PasswordChangeView 
-
+from customer.models import CustomerAddress
 # @login_required
 # def home(request):
 #     return render(request, 'registration/home.html')
@@ -62,6 +62,27 @@ class Profile(UpdateView):
 			'user': self.request.user
 		})
         return kwargs
+
+
+class addrescostomeradd(LoginRequiredMixin, CreateView):
+    model = CustomerAddress
+    fields = ['address', 'city', 'postalcode']
+    template_name = "registration/addadress.html" 
+    success_url = reverse_lazy('accounts:home')
+    def form_valid(self, form):
+        d = form.save(commit=False)
+        d.customer_id = self.request.user.customer
+        d.save()
+        return super().form_valid(form)
+
+
+class addrescostomershow(LoginRequiredMixin , ListView):
+    template_name = "registration/Alladress.html"
+    def get_queryset(self):
+        return CustomerAddress.objects.filter(customer_id=self.request.user.customer)
+
+
+
 
 
 

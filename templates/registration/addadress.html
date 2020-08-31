@@ -1,0 +1,30 @@
+{% extends 'registration/admin.html' %}
+
+{% block title %}{% block title-meta %}
+افزودن ادرس جدید
+{% endblock %}{% endblock %}
+{% block main %}
+{% load crispy_forms_tags %}
+<div class="col-md-12">
+	<div class="card card-primary">
+		<div class="card-header">
+			<h3 class="card-title mb-0 float-left">افزودن ادرس</h3>
+		</div>
+		<div class="card-body">
+			<form method="post" enctype="multipart/form-data">{% csrf_token %}
+				<div class="row">
+					<div class="col-12">
+						{{ form.address|as_crispy_field }}
+					</div>
+                    <div class="col-6">
+						{{ form.city|as_crispy_field }}
+					</div>
+                    <div class="col-6">
+						{{ form.postalcode|as_crispy_field }}
+					
+                <button class='btn btn-success'>افزودن ادرس</button>
+            </form>
+        </div>
+</div>
+
+{% endblock %}

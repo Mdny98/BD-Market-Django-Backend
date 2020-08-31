@@ -16,6 +16,10 @@ urlpatterns=[
     path('profile/', views.Profile.as_view(), name="profile"),
 
 
+    path('addrescostomeradd/', views.addrescostomeradd.as_view(), name="addrescostomeradd"),
+    path('addrescostomershow/', views.addrescostomershow.as_view(), name="addrescostomershow"),
+
+
 
     path('buyhistory/', views.buyhistory, name='buyhistory'),
     path('stock/', views.StockList.as_view(), name='stock-list'),

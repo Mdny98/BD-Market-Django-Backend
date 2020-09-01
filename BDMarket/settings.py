@@ -52,6 +52,10 @@ INSTALLED_APPS = [
     'jalali_date',
     'crispy_forms',
     'django_gravatar',
+
+    
+    'rest_framework',
+    'api_service',
 ]
 
 

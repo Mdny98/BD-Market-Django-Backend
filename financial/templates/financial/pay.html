@@ -19,6 +19,13 @@
         value="{{ supplier.id }}"
       > {% endcomment %}
 
+<h2> انتخاب آدرس: </h2>
+{% for paymeth in {{ request.user.customer.whatever }} %}
+      <input type="radio" id="{{ paymeth.method_title }}" name="payment_method" value="{{ paymeth.id }}">
+<label for="{{ paymeth.method_title }}">{{ paymeth.method_title }}</label><br>
+{% endfor %}
+
+<h2> درگاه بانک: </h2>
 {% for paymeth in payment_methods %}
       <input type="radio" id="{{ paymeth.method_title }}" name="payment_method" value="{{ paymeth.id }}">
 <label for="{{ paymeth.method_title }}">{{ paymeth.method_title }}</label><br>

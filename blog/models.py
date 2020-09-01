@@ -4,6 +4,17 @@ from django.utils import timezone
 from extensions.utils import jalali_converter
 from django.utils.html import format_html
 from django.urls import reverse
+from django.contrib.contenttypes.fields import GenericRelation
+from comment.models import Comment
+
+
+
+
+
+
+
+
+
 class ArticleManager(models.Manager):
 	def published(self):
 		return self.filter(status='p')
@@ -43,6 +54,7 @@ class Article(models.Model):
     updated = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=2 , choices= status_choices , verbose_name = "وضعیت")
     category = models.ManyToManyField(Category, verbose_name="دسته‌بندی", related_name="articles")
+    comments = GenericRelation(Comment)
     class Meta:
         verbose_name = "مقاله"
         verbose_name_plural = "مقالات"

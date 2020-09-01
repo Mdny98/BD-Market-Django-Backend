@@ -9,7 +9,7 @@ from django.views.generic import ListView, DetailView
 
 def home(request , page=1):
     article_list = Article.objects.published()
-    paginator = Paginator(article_list, 5)
+    paginator = Paginator(article_list, 4)
     # page = request.GET.get('page')
     articles = paginator.get_page(page)
     context = {
@@ -19,11 +19,14 @@ def home(request , page=1):
     }
     return render(request, 'blog/home.html', context)
 
-def detail(request , slug):
-    context = {
-        "article": get_object_or_404(Article, slug=slug , status="p")
-    }
-    return  render(request, 'blog/detail.html', context)
+
+
+class ArticleDetail(DetailView):
+    template_name = 'blog/detail.html'
+    def get_object(self):
+        slug = self.kwargs.get('slug')
+        return get_object_or_404(Article.objects.published(), slug=slug)
+
 
 def category(request , slug  , page=1 ):
     category = get_object_or_404(Category, slug=slug , status=True)

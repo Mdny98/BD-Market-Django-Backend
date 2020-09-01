@@ -23,6 +23,7 @@ from accounts.views import login_request , logout_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('comment/', include('comment.urls')),
     path('login/',login_request, name='login'),
     path('', include('django.contrib.auth.urls')),
     path('logout/',logout_view, name='logout'),

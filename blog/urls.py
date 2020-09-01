@@ -10,7 +10,7 @@ urlpatterns = [
     path('page/<int:page>', views.home, name='home'),
     path('category/<slug:slug>', views.category, name='category'),
     path('category/<slug:slug>/page/<int:page>', views.category, name='category'),
-    path('article/<slug:slug>', views.detail, name='detail'),
+    path('article/<slug:slug>', views.ArticleDetail.as_view(), name="detail"),
     path('author/<slug:username>', views.show_author_all_articles, name="author"),
 	path('author/<slug:username>/<int:page>', views.show_author_all_articles, name="author"),
 

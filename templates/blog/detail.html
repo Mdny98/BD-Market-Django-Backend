@@ -1,5 +1,7 @@
 {% extends 'blog/basee.html'%}
 {% load static %}
+{% load comment_tags %}  {# Loading the template tag #}
+  
 {% block title %} | {{article.title}}{% endblock %}
 
 {% block content %}
@@ -13,6 +15,8 @@
             <h1>{{ article.title }}</h1>
             <time>{{ article.jpublish }} </time>
             <span class="subheading"></span>
+            
+
           </div>
         </div>
       </div>
@@ -27,6 +31,9 @@
           
           </div>
           </div>
+          {% render_comments object request %}{# Render all the comments belonging to a passed object #}
+            {% include_static_jquery %}
+            {% include_bootstrap %}
     </div>
   </article>
 {% endblock %}

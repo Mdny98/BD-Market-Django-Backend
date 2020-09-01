@@ -1,9 +1,9 @@
 {% load static %}
-
+{% load gravatar %}
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-      <img src="{% static 'registration/adminlte/dist/img/AdminLTELogo.png' %}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+      <img src="{% static 'img/logo.ico' %}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
       <span class="brand-text font-weight-light">بی دی مارکت</span>
     </a>
@@ -13,10 +13,19 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{% static 'registration/adminlte/dist/img/user2-160x160.jpg' %}" class="img-circle elevation-2" alt="User Image">
+          <img src="{% gravatar_url user.email 150 %}" class="img-circle elevation-2" alt="{{User.email}}">
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{user.get_full_name}}</a>
+          <a href="#" class="d-block">
+          
+          {% if user.get_full_name %}
+              {{user.get_full_name}}
+            {% else %}
+              {{user.username}}
+            {% endif %}
+
+          
+          </a>
         </div>
       </div>
 
@@ -35,7 +44,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{% url 'accounts:home' %}" class="nav-link active">
+                <a href="{% url 'accounts:home' %}" class="nav-link ">
                   <i class="fa fa-list nav-icon"></i>
                   <p>لیست مقالات</p>
 
@@ -61,9 +70,22 @@
             </a>
               <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link active">
+                <a href="{% url 'accounts:profile' %}" class="nav-link ">
                   <i class="fa fa-list nav-icon"></i>
                   <p>مشاهده پروفایل</p>
+
+                </a>
+                {% if  user.is_customer %}
+                <li class="nav-item">
+                <a href="{% url 'accounts:addrescostomershow' %}" class="nav-link ">
+                  <i class="fa fa-edit nav-icon"></i>
+                  <p>اطلاعات خرید</p></a>
+                  {% endif %}
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'password_change' %}" class="nav-link ">
+                  <i class="fa fa-edit nav-icon"></i>
+                  <p>تغییر گذرواژه</p>
 
                 </a>
               </li>
@@ -86,7 +108,7 @@
             </a>
               <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{% url 'accounts:buyhistory' %}" class="nav-link active">
+                <a href="{% url 'accounts:buyhistory' %}" class="nav-link ">
                   <i class="fa fa-list nav-icon"></i>
                   <p>تاریخچه</p>
                 </a>
@@ -109,14 +131,14 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{% url 'accounts:stock-list' %}" class="nav-link active">
+                <a href="{% url 'accounts:stock-list' %}" class="nav-link ">
                   <i class="fa fa-list nav-icon"></i>
                   <p>لیست اجناس</p>
 
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{% url 'accounts:article-create' %}" class="nav-link">
+                <a href="{% url 'accounts:add-stock' %}" class="nav-link">
                   <i class="fa fa-edit nav-icon"></i>
                   <p>افزودن جنس</p></a></li>
           </ul>

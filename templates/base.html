@@ -82,7 +82,7 @@
             <a
               class="nav-link"
               href="#"
-            >Link</a>
+            ></a>
           </li>
           <li class="nav-item dropdown">
             <a
@@ -94,7 +94,7 @@
               aria-haspopup="true"
               aria-expanded="false"
             >
-              Dropdown
+              
             </a>
             <div
               class="dropdown-menu"
@@ -103,16 +103,16 @@
               <a
                 class="dropdown-item"
                 href="#"
-              >Action</a>
+              ></a>
               <a
                 class="dropdown-item"
                 href="#"
-              >Another action</a>
+              ></a>
               <div class="dropdown-divider"></div>
               <a
                 class="dropdown-item"
                 href="#"
-              >Something else here</a>
+              ></a>
             </div>
           </li>
           <li class="nav-item">
@@ -121,21 +121,21 @@
               href="#"
               tabindex="-1"
               aria-disabled="true"
-            >Disabled</a>
+            ></a>
           </li>
-        </ul>
+        </ul> 
           >
           <</li>
           {% if user.is_authenticated %}
           <li class="nav-item">
           hello {{ user }}
           </li>
-          <a class = 'btn btn-success mb-1 mt-1 ml-2' href =" {% url 'accounts:home'%}">داشبورد</a>
-          <a class = 'btn btn-success mb-1 mt-1' href = "{% url 'accounts:logout'%}">خروج</a>
+          <a class = 'btn btn-success mb-1 mt-1 ml-2 mr-6' href =" {% url 'accounts:profile'%}">داشبورد</a>
+          <a class = 'btn btn-success mb-1 mt-1 mr-6' href = "{% url 'logout'%}">خروج</a>
 
           {% else %}
           <li>
-            <a class="btn btn-success mb-1 mt-1 mr-auto ml-2" href="{% url 'accounts:login' %}">ورود</a>
+            <a class="btn btn-success mb-1 mt-1 mr-auto ml-2" href="{% url 'login' %}">ورود</a>
             <a class="btn btn-success mb-1 mt-1 mr-auto ml-2" href="{% url 'accounts:register' %}">ثبت نام</a>
           </li>
           {% endif %}

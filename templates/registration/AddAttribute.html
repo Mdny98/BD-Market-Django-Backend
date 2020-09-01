@@ -1,0 +1,25 @@
+{% extends 'registration/admin.html' %}
+
+{% block title %}{% block title-meta %}
+افزودن ویژگی
+{% endblock %}{% endblock %}
+{% block main %}
+{% load crispy_forms_tags %}
+<div class="col-md-12">
+	<div class="card card-primary">
+		<div class="card-header">
+			<h3 class="card-title mb-0 float-left">افزودن ویژگی</h3>
+		</div>
+		<div class="card-body">
+			<form method="post" enctype="multipart/form-data">{% csrf_token %}
+				<div class="row">
+					<div class="col-12">
+						{{ form.attr_title|as_crispy_field }}
+					</div>
+					{% comment %} <div class="col-12">ویژگی شما فراتر از یک ویژگی است؟  <a class="badge badge-danger" href="{% url 'accounts:ProductAttr'  %}">  ویژگی خود را شخصی سازی کنید  </a></div> {% endcomment %}
+                <button class='btn btn-success'>افزودن ویژگی</button>
+            </form>
+        </div>
+</div>
+
+{% endblock %}

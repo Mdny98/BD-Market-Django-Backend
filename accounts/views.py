@@ -1,10 +1,99 @@
 from django.contrib.auth import login, logout,authenticate
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from django.views.generic import CreateView
-from .form import CustomerSignUpForm, SupplierSignUpForm
+from django.views.generic import CreateView , ListView , UpdateView , DeleteView
+from .form import CustomerSignUpForm, SupplierSignUpForm , ProfileForm , ConfrimForm
 from django.contrib.auth.forms import AuthenticationForm
 from .models import User
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from blog.models import Article
+from Supplier.models import ProductSupplier
+from accounts.mixin import FieldsMixin , FormValidMixin , SuperUserAccessMixin , AuthorsAccessMixin  , FormStockValidMixin 
+from content.models import Product , Attribute , Brand , ProductAttr 
+from django.urls import reverse_lazy
+from accounts.models import User
+from django.contrib.auth.views import PasswordChangeView 
+from customer.models import CustomerAddress
+from cart.models import Cart
+# @login_required
+# def home(request):
+#     return render(request, 'registration/home.html')
+
+class PasswordChange(PasswordChangeView):
+    success_url = reverse_lazy('accounts:password_change_done')
+
+def PasswordChangeDoneView(request):
+    return render(request, 'accounts/v.html')
+
+class ArticleList(LoginRequiredMixin , ListView):
+    template_name = "registration/home.html"
+    def get_queryset(self):
+        if self.request.user.is_superuser:
+            return Article.objects.all()
+        else:
+            return Article.objects.filter(author=self.request.user)
+
+class ArticleCreate(LoginRequiredMixin, FormValidMixin, FieldsMixin, CreateView):
+	model = Article
+	template_name = "registration/article-create-update.html"
+
+
+
+class ArticleUpdate(LoginRequiredMixin, FormValidMixin, FieldsMixin, UpdateView):
+	model = Article
+	template_name = "registration/article-create-update.html"
+
+class ArticleDelete(SuperUserAccessMixin , DeleteView):
+	model = Article
+	success_url = reverse_lazy('accounts:home')
+	template_name = "registration/article_confirm_delete.html"
+
+class Profile(UpdateView):
+    model = User
+    template_name = "registration/profile.html"
+    form_class = ProfileForm
+    
+    success_url = reverse_lazy("accounts:profile")
+    def get_object(self):
+        return User.objects.get(pk = self.request.user.pk)
+    def get_form_kwargs(self):
+        kwargs = super(Profile, self).get_form_kwargs()
+        kwargs.update({
+			'user': self.request.user
+		})
+        return kwargs
+
+
+class addrescostomeradd(LoginRequiredMixin, CreateView):
+    model = CustomerAddress
+    fields = ['address', 'city', 'postalcode']
+    template_name = "registration/addadress.html" 
+    success_url = reverse_lazy('accounts:addrescostomershow')
+    def form_valid(self, form):
+        d = form.save(commit=False)
+        d.customer_id = self.request.user.customer
+        d.save()
+        return super().form_valid(form)
+
+class addrescostomerupdate(LoginRequiredMixin, UpdateView):
+    model = CustomerAddress
+    fields = ['address', 'city', 'postalcode']
+    template_name = "registration/addadress.html"
+    success_url = reverse_lazy('accounts:addrescostomershow')
+class addrescostomershow(LoginRequiredMixin , ListView):
+    template_name = "registration/Alladress.html"
+    def get_queryset(self):
+        return CustomerAddress.objects.filter(customer_id=self.request.user.customer)
+
+class adrrsssdelete(LoginRequiredMixin, DeleteView):
+    model = CustomerAddress
+    success_url = reverse_lazy('accounts:addrescostomershow')
+    template_name = "registration/addresstock.html"
+
+
+
+
 
 def register(request):
     return render(request, 'accounts/register.html')
@@ -39,7 +128,7 @@ def login_request(request):
             user = authenticate(username=username, password=password)
             if user is not None :
                 login(request,user)
-                return redirect('/')
+                return redirect('accounts:home')
             else:
                 messages.error(request,"Invalid username or password")
         else:
@@ -50,3 +139,90 @@ def login_request(request):
 def logout_view(request):
     logout(request)
     return redirect('/')
+
+
+
+class StockList(LoginRequiredMixin , ListView):
+    template_name = "registration/AllStock.html"
+    def get_queryset(self):
+        return ProductSupplier.objects.filter(supplier_id=self.request.user.supplier)
+
+def buyhistory(request):
+
+    if request.method=='GET':
+        current_customer = request.user.customer
+        carts = Cart.objects.filter(customer_id=current_customer, status="f")
+
+        return render(request, 'accounts/buyhistory.html', {'carts':carts})
+
+
+class stoockCreate(LoginRequiredMixin, CreateView):
+    model = Product
+    fields = [
+			"product_name", "product_description", "product_image",
+			"subcategory_id", "brand_id", "attribute"
+		]
+    success_url = reverse_lazy('accounts:confirm-stock')
+    template_name = "registration/addstock.html"
+    
+class AddAttribute(LoginRequiredMixin, CreateView):
+    model = Attribute
+    fields = ["attr_title"]
+    success_url = reverse_lazy('accounts:add-stock')
+    template_name = "registration/AddAttribute.html"
+
+class ProductAttr(LoginRequiredMixin, CreateView):
+    model = ProductAttr
+    fields = ["value_type","int_value","text_value","bool_value","product_id",'attr_id']
+    success_url = reverse_lazy('accounts:add-stock')
+    template_name = "registration/ProductAttr.html"
+    
+
+
+
+
+
+class addbrand(LoginRequiredMixin, CreateView):
+    model = Brand
+    fields = ["brand_name"]
+    
+    
+    success_url = reverse_lazy('accounts:add-stock')
+    template_name = "registration/addbrand.html"
+
+class ConfrimCreate(LoginRequiredMixin, CreateView):
+    model = ProductSupplier
+    fields = ['product_id', 'unit_price', 'stock']
+   
+
+
+    template_name = "registration/confrmstock.html" 
+    success_url = reverse_lazy('accounts:stock-list')
+    def form_valid(self, form):
+        if not self.request.user.is_superuser:
+            d = form.save(commit=False)
+            d.supplier_id = self.request.user.supplier
+            d.save()
+            return super().form_valid(form)
+        
+
+class stockdelete(LoginRequiredMixin, DeleteView):
+    model = ProductSupplier
+    success_url = reverse_lazy('accounts:stock-list')
+    template_name = "registration/deletstock.html"
+
+
+class editpricestock(LoginRequiredMixin,UpdateView):
+    model = ProductSupplier
+    fields = ['unit_price']
+    success_url = reverse_lazy('accounts:stock-list')
+    template_name = "registration/editpricestock.html"
+
+
+class editMojodiestock(LoginRequiredMixin,UpdateView):
+    model = ProductSupplier
+    fields = ['stock']
+    success_url = reverse_lazy('accounts:stock-list')
+    template_name = "registration/editojodistock.html"
+
+

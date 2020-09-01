@@ -1,0 +1,64 @@
+{% extends 'registration/admin.html' %}
+
+{% block title %}{% block title-meta %}
+تاریخچه خرید
+{% endblock %}{% endblock %}
+{% block main %}
+
+
+{% for cart in carts %}
+
+<div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>id</th>
+                      
+                      <th>نام کالا</th>
+                      <th>فروشنده</th>
+                      <th>قیمت</th>
+                      <th>تعداد</th>
+
+                      {% comment %} <th>تعداد</th> {% endcomment %}
+                      
+                      
+                    
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for order in cart.order.all %}
+
+                    <tr>
+                      
+                      <td>{{ order.id }}</td>
+                      <td>{{ order.product_supplier_id.product_id.product_name }}</td>
+                      <td>{{ order.product_supplier_id.supplier_id.company_name }}</td>
+                      <td>{{ order.cost }}</td>
+                      <td>{{ order.number }}</td>
+
+                      
+
+                    </tr>
+                    
+                    {% endfor %}
+                    
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+
+
+{% endfor %}
+
+
+{% endblock %}

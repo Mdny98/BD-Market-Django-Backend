@@ -4,12 +4,17 @@ backcall==0.2.0
 colorama==0.4.3
 decorator==4.4.2
 Django==3.0.8
+django-3-jet==1.0.7
 django-crispy-forms==1.9.2
 django-extensions==3.0.4
+django-gravatar2==1.4.4
+django-jalali-date==0.3.1
+-e git+https://github.com/AhmadiEhsan/django-suit-RTL@b171e6757c9d90688e1f7b08a31fb95aa87ad6c1#egg=django_suit
 django-widget-tweaks==1.4.8
 ipykernel==5.3.4
 ipython==7.17.0
 ipython-genutils==0.2.0
+jdatetime==3.6.2
 jedi==0.17.2
 jupyter-client==6.1.6
 jupyter-core==4.6.3
@@ -27,6 +32,7 @@ pyparsing==2.4.7
 python-dateutil==2.8.1
 pytz==2020.1
 pyzmq==19.0.2
+r-django-jet==2.0.8
 six==1.15.0
 sqlparse==0.3.1
 toml==0.10.1

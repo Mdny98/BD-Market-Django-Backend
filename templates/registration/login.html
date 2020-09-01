@@ -35,21 +35,14 @@
 <body>
 	
 	<div class="limiter">
-		
 		{% if form.non_field_errors %}
-			<div class="errors">
-				
-				{% for error in form.non_field_errors %}
-					<span>{{ error }}</span>
-				{% endfor %}
+			<div class="myerrors">
+				{{form.non_field_errors.as_text}}
 			</div>
-			
 		{% endif %}
-			
 		<div class="container-login100">
 			<div class="wrap-login100">
-				<form class="login100-form validate-form" method="post">
-					{% csrf_token %}
+				<form class="login100-form validate-form" method="post">{% csrf_token %}
 					<span class="login100-form-title p-b-26 myfont">
 						ورود به سایت
 					</span>
@@ -58,17 +51,28 @@
 					</span>
 
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is: a@b.c">
-						{{ form.username |add_class:"input100" }}
+						{{form.username|add_class:"input100"}}
 						<span class="focus-input100" data-placeholder="نام کاربری"></span>
+						{% if form.username.errors %}
+							<div class="myerrors">
+								{{form.username.errors}}
+							</div>
+						{% endif %}
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate="Enter password">
 						<span class="btn-show-pass">
 							<i class="zmdi zmdi-eye"></i>
 						</span>
-						{{ form.password |add_class:"input100" }}
-						<span class="focus-input100" data-placeholder="گذر واژه"></span>
+						{{form.password|add_class:"input100"}}
+						<span class="focus-input100" data-placeholder="گذرواژه"></span>
+						{% if form.password.errors %}
+							<div class="myerrors">
+								{{form.password.errors}}
+							</div>
+						{% endif %}
 					</div>
+
 
 					<div class="container-login100-form-btn">
 						<div class="wrap-login100-form-btn">
@@ -78,8 +82,12 @@
 							</button>
 						</div>
 					</div>
+					<br>
+					<div class="container-login100-form-btn">
+					<a class="myfont" href="{% url 'password_reset' %}"> <strong>فراموشی گذرواژه </strong> </a>
+					</div>
 
-					<div class="text-center p-t-115">
+					<div class="text-center">
 						<span class="txt1">
 							  حساب کاربری ندارید؟
 						</span>

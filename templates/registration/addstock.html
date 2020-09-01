@@ -1,0 +1,45 @@
+{% extends 'registration/admin.html' %}
+
+{% block title %}{% block title-meta %}
+افزودن جنس
+{% endblock %}{% endblock %}
+{% block main %}
+{% load crispy_forms_tags %}
+<div class="col-md-12">
+	<div class="card card-primary">
+		<div class="card-header">
+			<h3 class="card-title mb-0 float-left">افزودن جنس</h3>
+		</div>
+		<div class="card-body">
+			<form method="post" enctype="multipart/form-data">{% csrf_token %}
+				<div class="row">
+					<div class="col-6">
+						{{ form.product_name|as_crispy_field }}
+					</div>
+					<div class="col-6">
+						{{ form.product_description|as_crispy_field }}
+					</div>
+					<div class="col-12">
+						{{ form.product_image|as_crispy_field }}
+					</div>
+					<div class="col-6">
+						{{ form.subcategory_id|as_crispy_field }}
+					</div>
+					<div class="col-6">
+						{{ form.brand_id|as_crispy_field }}
+						<span>برند شما موجود نیست؟  <a class="badge badge-danger" href="{% url 'accounts:addbrand' %}">  برند جدیدی اضافه کنید</a></span>
+					</div>
+					<div class="col-12"> 
+					
+						{{ form.attribute|as_crispy_field }}
+						<span>ویژگی شما موجود نیست؟  <a class="badge badge-danger" href="{% url 'accounts:addattr' %}">  ویژگی جدیدی اضافه کنید  </a></span>
+
+					</div>
+					
+
+                <button class='btn btn-success'>افزودن جنس</button>
+            </form>
+        </div>
+</div>
+
+{% endblock %}

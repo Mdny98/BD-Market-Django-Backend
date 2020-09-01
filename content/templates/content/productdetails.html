@@ -139,12 +139,13 @@
                       >
                       {% csrf_token %}
                         <input type="hidden" id="custId" name="prosupid" value="{{ supplier.id }}">
-                        <label for="quantity">تعداد:</label>
-                        <input type="number" id="quantity" name="quantity" min="1" value="1">
+                        {% comment %} <label for="quantity">تعداد:</label>
+                        <input type="number" id="quantity" name="quantity" min="1" max="{{ supplier.stock|add:'0' }}" value="1"> {% endcomment %}
                         <button type="submit"> افزودن به سبد</button>
                       </form>
 
                     </td>
+
                   </tr>
                   {% endfor %}
                 </table>

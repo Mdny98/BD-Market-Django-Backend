@@ -24,7 +24,7 @@ city_choices = [
 
     
 class Customer(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete = models.CASCADE, primary_key = True)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='customer', on_delete = models.CASCADE, primary_key = True)
     phone_number = models.CharField(max_length=20, verbose_name= "شماره تلفن همراه")
     gender = models.CharField(max_length=50, choices=gender_choices, verbose_name='جنسیت')
     city = models.CharField(max_length=50, choices=city_choices , verbose_name= "شهر")

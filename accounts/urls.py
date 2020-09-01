@@ -9,6 +9,41 @@ urlpatterns=[
     path('register/',views.register, name='register'),
     path('customer_register/',views.CustomerRegister.as_view(), name='customer_register'),
     path('supplier_register/',views.SupplierRegister.as_view(), name='supplier_register'),
-    path('login/',views.login_request, name='login'),
-    path('logout/',views.logout_view, name='logout'),
+    path('', views.ArticleList.as_view(), name='home'),
+    path('article/create/', views.ArticleCreate.as_view(), name="article-create"),
+    path('article/update/<int:pk>', views.ArticleUpdate.as_view(), name="article-update"),
+    path('article/delete/<int:pk>', views.ArticleDelete.as_view(), name="article-delete"),
+    path('profile/', views.Profile.as_view(), name="profile"),
+
+
+    path('addrescostomeradd/', views.addrescostomeradd.as_view(), name="addrescostomeradd"),
+    path('addrescostomershow/', views.addrescostomershow.as_view(), name="addrescostomershow"),
+    path('adrrsssdelete/<int:pk>', views.adrrsssdelete.as_view(), name="adrrsssdelete"),
+    path('addrescostomerupdate/<int:pk>', views.addrescostomerupdate.as_view(), name="addrescostomerupdate"),
+
+
+
+
+
+    path('buyhistory/', views.buyhistory, name='buyhistory'),
+    path('stock/', views.StockList.as_view(), name='stock-list'),
+
+
+    path('deletestock/<int:pk>', views.stockdelete.as_view(), name='delete-stock'),
+    path('editpricestock/<int:pk>', views.editpricestock.as_view(), name='editpricestock'),
+    path('editMojodi/<int:pk>', views.editMojodiestock.as_view(), name='editMojodiestock'),
+
+
+    path('confirmstock/', views.ConfrimCreate.as_view(), name='confirm-stock'),
+    path('addstock/', views.stoockCreate.as_view(), name='add-stock'),
+    path('addattribute/', views.AddAttribute.as_view(), name='addattr'),
+    path('addbrand/', views.addbrand.as_view(), name='addbrand'),
+    path('productattr/', views.ProductAttr.as_view(), name='ProductAttr'),
+
+    
+
+
+
+
+
 ]

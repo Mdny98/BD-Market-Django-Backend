@@ -6,6 +6,8 @@
 <div class="container">
   <div class="row">
 
+{{ msg }}
+
   <form
       class=""
       action="{% url 'financial:finalize_cart' %}"
@@ -47,7 +49,7 @@
                 <a href="{% url 'cart:delete_order' order.id %}">حذف</a>
 
                 <label for="{{ order.id }}">تعداد:</label>
-                <input type="number" id="{{ order.id }}" name="{{ order.id }}" min="1" value="{{ order.number }}">
+                <input type="number" id="{{ order.id }}" name="{{ order.id }}" min="1" max="{{ order.product_supplier_id.stock }}" value="{{ order.number }}">
 
               </div>
             </div>

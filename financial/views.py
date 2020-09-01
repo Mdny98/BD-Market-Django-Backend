@@ -4,6 +4,8 @@ from django.db.models import F
 
 from .models import PeymentMethod, Payment
 from cart.models import Cart, OrderItem
+from customer.models import CustomerAddress
+
 
 # Create your views here.
 
@@ -17,8 +19,8 @@ def finalize_cart(request):
         total_price = 0
         for order in orders:
             order.number = int(request.POST.get(str(order.id)))
-            print(order.number)
-            print(type(order.number))
+            # print(order.number)
+            # print(type(order.number))
 
             total_price += order.number * order.product_supplier_id.unit_price
             order.save()
@@ -53,6 +55,9 @@ def pay(request):
                 total += order.number * order.cost
                 order.save()
 
+            address_id = request.POST['address']
+            address = CustomerAddress.objects.get(id=address_id)
+            current_cart.adresses = address
             current_cart.status = 'f'
             current_cart.total_price = total
             current_cart.save()

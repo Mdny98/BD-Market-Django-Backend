@@ -28,7 +28,7 @@ def home(request):
             except:
                 return HttpResponse('hi')
         lst = list_generator(subs)
-        print(f'list is {lst}')
+        # print(f'list is {lst}')
         return render(request, 'content/home.html', {'subs': lst})
     else:
         pass
@@ -45,18 +45,31 @@ def get_parent_cats(cat):
     catlst = []
     f = 1
     catlst.append(cat)
-    while f:
-        catlst.append(cat.parent_category)
-        cat = cat.parent_category
-        if cat.parent_category == None:
-            f = 0
+    if cat.parent_category:
+        while f:
+            catlst.append(cat.parent_category)
+            cat = cat.parent_category
+            if cat.parent_category == None:
+                f = 0
     catlst.reverse()
+    return catlst
+
+def get_child_cats(cat):
+    catlst = []
+    f = 1
+    catlst.append(cat)
+    if cat.child_categories.all():
+        for ccat in cat.child_categories.all():
+            get_child_cats(ccat)
+    
     return catlst
 
 
 def products(request, cat_pk):
     if request.method == 'GET':
-        all_products = Product.objects.filter(subcategory_id=cat_pk)
+        cat = SubCategory.objects.get(pk=cat_pk)
+        catlst = get_child_cats(cat)
+        all_products = Product.objects.filter(subcategory_id__in=catlst)
         q = all_products
         # print(request.GET)
         for k, v in request.GET.items():
@@ -78,7 +91,7 @@ def products(request, cat_pk):
             # print(f'\nq is {q}')
 
         checked_attr = dict(request.GET)
-        print(f'\n checked_attr = {checked_attr}')
+        # print(f'\n checked_attr = {checked_attr}')
 
         cat = SubCategory.objects.get(pk=cat_pk)
         uniqdict = dict()
@@ -110,6 +123,7 @@ def productdetails(request, product_pk):
         this_product_suppliers = ProductSupplier.objects.filter(
             product_id=this_product)
         cat = this_product.subcategory_id
+        
         catlst = get_parent_cats(cat)
         return render(request, 'content/productdetails.html',
                       {'this_product': this_product, 'catlst': catlst, 'this_product_suppliers': this_product_suppliers})

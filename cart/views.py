@@ -29,12 +29,26 @@ def showcart(request):
         current_cart, created = Cart.objects.get_or_create(
                                     customer_id=current_customer,
                                     status='u',)
-        quantity = request.POST.get('quantity')
+        # # quantity = int(request.POST.get('quantity'))
+        # try:
+        #     order_item = OrderItem.objects.get(cart_id=current_cart, product_supplier_id=prosup)
+        #     stock = order_item.product_supplier_id.stock
+        #     if stock >= order_item.number + quantity:
+        #         order_item.number = F('number') + quantity
+        #         order_item.save()
+        #     else:
+        #         msg = 'این تعداد کالا در انبار موجود نمی باشد'
+        #         return render(request, 'cart/showcart.html', {'msg':msg})
+        #         # return redirect('cart:showcart', {'msg':msg})
+        # except OrderItem.DoesNotExist:
+        #     obj = OrderItem.objects.create(cart_id=current_cart, product_supplier_id=prosup, number=quantity)
+        #     # obj.save()
+    
         order_item, created = OrderItem.objects.get_or_create(cart_id=current_cart,
-                product_supplier_id=prosup, defaults={'number': quantity})
-        if not created:
-            order_item.number = F('number') + quantity
-            order_item.save()
+                product_supplier_id=prosup, defaults={'number': 1})
+        # if not created:
+        #     order_item.number = F('number') + quantity
+        #     order_item.save()
         
         return redirect('cart:showcart')
 

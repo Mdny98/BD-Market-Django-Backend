@@ -1,0 +1,62 @@
+{% extends 'registration/admin.html' %}
+
+{% block title %}{% block title-meta %}
+ادرس های شما
+{% endblock %}{% endblock %}
+{% block main %}
+
+
+
+
+
+<div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>id</th>
+                      <th>ادرس</th>
+                      <th>شهر</th>
+                      <th>کد پستی</th>
+                      <th>تغیرات</th>
+                      
+                      
+
+                      
+                      {% comment %} <th>تعداد</th> {% endcomment %}
+                      
+                      
+                    
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for obj in object_list %}
+                  <tr>
+                
+                  <td>{{obj.id}}</td>
+                  <td>{{obj.address}}</td>
+                  <td>{{obj.city}}</td>
+                  <td>{{obj.postalcode}}</td>
+                  <td>
+                  <a class="badge badge-danger" href="{% url 'accounts:adrrsssdelete' obj.pk %}">حذف</a>
+                  <a class="badge badge-success" href="{% url 'accounts:addrescostomerupdate' obj.pk %}">تغییر ادرس</a>
+                  </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div><a class="badge badge-danger" href="{% url 'accounts:addrescostomeradd' %}">افزودن ادرس جدید</a>
+            <!-- /.card -->
+          </div>
+        </div>
+
+
+
+{% endblock %}

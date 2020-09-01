@@ -23,6 +23,8 @@
                       <th>نام کالا</th>
                       <th>فروشنده</th>
                       <th>قیمت</th>
+                      <th>تعداد</th>
+
                       {% comment %} <th>تعداد</th> {% endcomment %}
                       
                       
@@ -38,6 +40,8 @@
                       <td>{{ order.product_supplier_id.product_id.product_name }}</td>
                       <td>{{ order.product_supplier_id.supplier_id.company_name }}</td>
                       <td>{{ order.cost }}</td>
+                      <td>{{ order.number }}</td>
+
                       
 
                     </tr>

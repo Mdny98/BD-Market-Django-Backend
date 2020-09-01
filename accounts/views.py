@@ -10,11 +10,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from blog.models import Article
 from Supplier.models import ProductSupplier
 from accounts.mixin import FieldsMixin , FormValidMixin , SuperUserAccessMixin , AuthorsAccessMixin  , FormStockValidMixin 
-from content.models import Product , Attribute , Brand , ProductAttr
+from content.models import Product , Attribute , Brand , ProductAttr 
 from django.urls import reverse_lazy
 from accounts.models import User
 from django.contrib.auth.views import PasswordChangeView 
 from customer.models import CustomerAddress
+from cart.models import Cart
 # @login_required
 # def home(request):
 #     return render(request, 'registration/home.html')
@@ -68,20 +69,27 @@ class addrescostomeradd(LoginRequiredMixin, CreateView):
     model = CustomerAddress
     fields = ['address', 'city', 'postalcode']
     template_name = "registration/addadress.html" 
-    success_url = reverse_lazy('accounts:home')
+    success_url = reverse_lazy('accounts:addrescostomershow')
     def form_valid(self, form):
         d = form.save(commit=False)
         d.customer_id = self.request.user.customer
         d.save()
         return super().form_valid(form)
 
-
+class addrescostomerupdate(LoginRequiredMixin, UpdateView):
+    model = CustomerAddress
+    fields = ['address', 'city', 'postalcode']
+    template_name = "registration/addadress.html"
+    success_url = reverse_lazy('accounts:addrescostomershow')
 class addrescostomershow(LoginRequiredMixin , ListView):
     template_name = "registration/Alladress.html"
     def get_queryset(self):
         return CustomerAddress.objects.filter(customer_id=self.request.user.customer)
 
-
+class adrrsssdelete(LoginRequiredMixin, DeleteView):
+    model = CustomerAddress
+    success_url = reverse_lazy('accounts:addrescostomershow')
+    template_name = "registration/addresstock.html"
 
 
 
@@ -177,9 +185,7 @@ class ProductAttr(LoginRequiredMixin, CreateView):
 class addbrand(LoginRequiredMixin, CreateView):
     model = Brand
     fields = ["brand_name"]
-    widgets = {
-        "brand_name":"نام برند"
-    }
+    
     
     success_url = reverse_lazy('accounts:add-stock')
     template_name = "registration/addbrand.html"

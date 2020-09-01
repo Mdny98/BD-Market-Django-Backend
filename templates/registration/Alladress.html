@@ -23,7 +23,7 @@
                       <th>ادرس</th>
                       <th>شهر</th>
                       <th>کد پستی</th>
-                    
+                      <th>تغیرات</th>
                       
                       
 
@@ -43,8 +43,8 @@
                   <td>{{obj.city}}</td>
                   <td>{{obj.postalcode}}</td>
                   <td>
-                  <a class="badge badge-danger" href="{% url 'accounts:delete-stock' stock.pk %}">حذف</a>
-                  <a class="badge badge-danger" href="{% url 'accounts:editpricestock' stock.pk %}">تغییر قیمت</a>
+                  <a class="badge badge-danger" href="{% url 'accounts:adrrsssdelete' obj.pk %}">حذف</a>
+                  <a class="badge badge-success" href="{% url 'accounts:addrescostomerupdate' obj.pk %}">تغییر ادرس</a>
                   </td>
                   </tr>
                   {% endfor %}
@@ -52,7 +52,7 @@
                 </table>
               </div>
               <!-- /.card-body -->
-            </div>
+            </div><a class="badge badge-danger" href="{% url 'accounts:addrescostomeradd' %}">افزودن ادرس جدید</a>
             <!-- /.card -->
           </div>
         </div>

@@ -18,6 +18,10 @@ urlpatterns=[
 
     path('addrescostomeradd/', views.addrescostomeradd.as_view(), name="addrescostomeradd"),
     path('addrescostomershow/', views.addrescostomershow.as_view(), name="addrescostomershow"),
+    path('adrrsssdelete/<int:pk>', views.adrrsssdelete.as_view(), name="adrrsssdelete"),
+    path('addrescostomerupdate/<int:pk>', views.addrescostomerupdate.as_view(), name="addrescostomerupdate"),
+
+
 
 
 

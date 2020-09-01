@@ -8,7 +8,7 @@
 
 <form
       class=""
-      action="{% url 'financial:finalize_cart' %}"
+      action="{% url 'financial:pay' %}"
       method="POST"
     >
       {% csrf_token %}
@@ -19,6 +19,13 @@
         value="{{ supplier.id }}"
       > {% endcomment %}
 
+<h2> انتخاب آدرس: </h2>
+{% for address in  request.user.customer.address.all %}
+      <input type="radio" id="{{ address.id }}" name="address" value="{{ address.id }}">
+<label for="{{ address.id }}">{{ address.address }}</label><br>
+{% endfor %}
+
+<h2> درگاه بانک: </h2>
 {% for paymeth in payment_methods %}
       <input type="radio" id="{{ paymeth.method_title }}" name="payment_method" value="{{ paymeth.id }}">
 <label for="{{ paymeth.method_title }}">{{ paymeth.method_title }}</label><br>

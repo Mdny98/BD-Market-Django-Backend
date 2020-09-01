@@ -40,12 +40,43 @@
         method="GET"
       >
       <!-- ?get_parameter_name='{{ tag_name }}' -->
+      {% comment %} {{ checked_attr.'ساید بای ساید' }} {% endcomment %}
+    
         {% for attr, vlst in uniqdict.items %}
         <br>{{ attr.attr_title }}
+
         
-        
+       
           <ul class="pright-0">
             {% for v in vlst %}
+            
+       
+        
+        
+
+            {% if attr.attr_title in checked_attr.keys and v == checked_attr|get_item:attr.attr_title %}
+
+            <li class="form-group">
+              
+                {% if attr.pro_attr.all.first.value_type == "BOOL" %}
+                {% if v == 'True' %}
+                  <input type="checkbox" id="{{ attr.attr_title }}" name="{{ attr }}" value="True" checked>
+                  <label for="{{ attr.attr_title }}">دارد</label>
+                {% else %}
+                  <input type="checkbox" id="{{ attr.attr_title }}" name="{{ attr }}" value="False" checked>
+                  <label for="{{ attr.attr_title }}">ندارد</label>
+                {% endif %}
+                {% elif attr.pro_attr.all.first.value_type == 'INT' %}
+                  <input type="checkbox" id="{{ attr.attr_title }}" name="{{ attr }}" value="{{ v }}" checked>
+                  <label for="{{ attr.attr_title }}">{{ v }} عدد</label>
+                {% elif attr.pro_attr.all.first.value_type == 'TXT' %}
+                  <input type="checkbox" id="{{ attr.attr_title }}" name="{{ attr }}" value="{{ v }}" checked>
+                  <label for="{{ attr.attr_title }}">{{ v }}</label>
+                {% endif %}
+              
+            </li>
+            
+            {% else %}
             
             <li class="form-group">
               
@@ -66,7 +97,8 @@
                 {% endif %}
               
             </li>
-           
+
+           {% endif %}
             {% endfor %}
           </ul>
         

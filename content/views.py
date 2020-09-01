@@ -1,7 +1,14 @@
 from django.shortcuts import render ,  HttpResponse
+from django.template.defaulttags import register
+
 from .models import SubCategory, Product, Attribute
 from Supplier.models import ProductSupplier
 # Create your views here.
+
+@register.filter
+def get_item(dictionary, key):
+    res = str(dictionary.get(key)[0])
+    return res
 
 
 def home(request):
@@ -21,7 +28,7 @@ def home(request):
             except:
                 return HttpResponse('hi')
         lst = list_generator(subs)
-        print(f'list is {lst}')
+        # print(f'list is {lst}')
         return render(request, 'content/home.html', {'subs': lst})
     else:
         pass
@@ -38,18 +45,31 @@ def get_parent_cats(cat):
     catlst = []
     f = 1
     catlst.append(cat)
-    while f:
-        catlst.append(cat.parent_category)
-        cat = cat.parent_category
-        if cat.parent_category == None:
-            f = 0
+    if cat.parent_category:
+        while f:
+            catlst.append(cat.parent_category)
+            cat = cat.parent_category
+            if cat.parent_category == None:
+                f = 0
     catlst.reverse()
+    return catlst
+
+def get_child_cats(cat):
+    catlst = []
+    f = 1
+    catlst.append(cat)
+    if cat.child_categories.all():
+        for ccat in cat.child_categories.all():
+            get_child_cats(ccat)
+    
     return catlst
 
 
 def products(request, cat_pk):
     if request.method == 'GET':
-        all_products = Product.objects.filter(subcategory_id=cat_pk)
+        cat = SubCategory.objects.get(pk=cat_pk)
+        catlst = get_child_cats(cat)
+        all_products = Product.objects.filter(subcategory_id__in=catlst)
         q = all_products
         # print(request.GET)
         for k, v in request.GET.items():
@@ -70,6 +90,9 @@ def products(request, cat_pk):
             # print(f'\nk type is {type(k)}')
             # print(f'\nq is {q}')
 
+        checked_attr = dict(request.GET)
+        # print(f'\n checked_attr = {checked_attr}')
+
         cat = SubCategory.objects.get(pk=cat_pk)
         uniqdict = dict()
         tmp = []
@@ -78,9 +101,9 @@ def products(request, cat_pk):
         for attr in attrs:
             for proattr in attr.pro_attr.all():
                 if proattr.value_type == 'BOOL':
-                    tmp.append(proattr.bool_value)
+                    tmp.append(str(proattr.bool_value))
                 if proattr.value_type == 'INT':
-                    tmp.append(proattr.int_value)
+                    tmp.append(str(proattr.int_value))
                 if proattr.value_type == 'TXT':
                     tmp.append(proattr.text_value)
                 uniqtmp = list(set(tmp))
@@ -91,7 +114,7 @@ def products(request, cat_pk):
         # print(f'\nuniqdict is {uniqdict}')
         catlst = get_parent_cats(cat)
         return render(request, 'content/products.html',
-                      {'all_products': q, 'catlst': catlst, 'cat': cat, 'uniqdict': uniqdict})
+                      {'all_products': q, 'catlst': catlst, 'cat': cat, 'uniqdict': uniqdict, 'checked_attr':checked_attr})
 
 
 def productdetails(request, product_pk):
@@ -100,6 +123,7 @@ def productdetails(request, product_pk):
         this_product_suppliers = ProductSupplier.objects.filter(
             product_id=this_product)
         cat = this_product.subcategory_id
+        
         catlst = get_parent_cats(cat)
         return render(request, 'content/productdetails.html',
                       {'this_product': this_product, 'catlst': catlst, 'this_product_suppliers': this_product_suppliers})

@@ -1,6 +1,7 @@
 from django.shortcuts import render ,  HttpResponse, redirect
 from django.template.defaulttags import register
 from django.db.models import Q
+from django.views.generic.base import View
 
 from .models import SubCategory, Product, Attribute
 from Supplier.models import ProductSupplier

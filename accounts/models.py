@@ -7,7 +7,10 @@ class User(AbstractUser):
     is_supplier = models.BooleanField(default=False)
     first_name = models.CharField(max_length=100, verbose_name="نام")
     last_name = models.CharField(max_length=100 , verbose_name="نام خانوادگی")
-    
+    email = models.EmailField(unique=True, verbose_name='ایمیل')
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+    EMAIL_FIELD = 'email'
     
 
 gender_choices = [

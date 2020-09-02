@@ -52,6 +52,10 @@ INSTALLED_APPS = [
     'jalali_date',
     'crispy_forms',
     'django_gravatar',
+
+    
+    'rest_framework',
+    'api_service',
 ]
 
 
@@ -169,6 +173,8 @@ STATICFILES_DIRS = [
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+LOGIN_URL = '/login'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'

@@ -2,6 +2,7 @@
 
 {% block content %}
 {% load static %}
+
 <head>
 
 
@@ -54,23 +55,23 @@
     /* Style the buttons inside the tab */
     .tab button {
       display: block;
-    background-color: inherit;
-    color: #00733e;
-    padding: 10px 16px;
-    width: 100%;
-    border: none;
-    outline: none;
-    text-align: right;
-    cursor: pointer;
-    transition: 0.3s;
-    font-size: 17px;
-    font-size: 10px;
- 
-    border: 1px solid #a5a5a5;
-    margin-bottom: 5px;
-    position: relative;
-    right: -5px;
-    border-radius: 3px;
+      background-color: inherit;
+      color: #00733e;
+      padding: 10px 16px;
+      width: 100%;
+      border: none;
+      outline: none;
+      text-align: right;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 17px;
+      font-size: 10px;
+
+      border: 1px solid #a5a5a5;
+      margin-bottom: 5px;
+      position: relative;
+      right: -5px;
+      border-radius: 3px;
 
     }
 
@@ -92,8 +93,8 @@
       width: 90%;
       border-right: none;
       height: calc(100vh - 60px);
-          background-color: #fcffb4;
-    padding: 30px;
+      background-color: #fcffb4;
+      padding: 30px;
     }
   </style>
 </head>
@@ -101,74 +102,235 @@
 <body>
   <section class="breadcrumb_part">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="breadcrumb_iner">
-                    <h2>دسته بندی  محصولات</h2>
-                </div>
-            </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="breadcrumb_iner">
+            <h2>دسته بندی محصولات</h2>
+          </div>
         </div>
+      </div>
     </div>
-</section>
+  </section>
   <section class="product_list section_padding">
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-3">
-                <div class="product_sidebar">
-                  {% for cat in main_cats %}
+      <div class="row">
+        <div class="col-md-3">
+          <div class="product_sidebar">
+            {% for cat in main_cats %}
+            <div class="single_sedebar">
+              <div class="select_option">
+                <div class="select_option_list"> {{ cat.cat_name }}<i class="right fas fa-caret-down"></i> </div>
+                {% for cat2 in all_cats %}
+                {% if cat2.parent_category == cat %}
+
+                <div class="select_option_dropdown level-2">
+                  <p>
                     <div class="single_sedebar">
-                        <div class="select_option">
-                            <div class="select_option_list"> {{ cat.cat_name }}<i class="right fas fa-caret-down"></i> </div>
-                            {% for cat2 in all_cats %}
-                            {% if cat2.parent_category == cat %}
+                      <div class="select_option">
 
-                             <div class="select_option_dropdown level-2">
-                                <p> <div class="single_sedebar">
-                                  <div class="select_option">
-                                    
-                                      <div class="select_option_list">      {{ cat2.cat_name }} <i class="right fas fa-caret-down"></i> </div>
-                                      <div class="select_option_dropdown level-3">
+                        <div class="select_option_list"> {{ cat2.cat_name }} <i class="right fas fa-caret-down"></i> </div>
+                        <div class="select_option_dropdown level-3">
 
-                                     
-                                      {% for cat3 in all_cats %}
 
-                                      {% if cat3.parent_category == cat2 %}
-                                    
-                                          <p><a href="#">{{ cat3.cat_name }}</a></p>
-                                         
-                                          {%endif%}
-                                          {%endfor%}
-                                      </div>
-                                  </div>
-                              </div></p>
-                            
-                            </div>
-                            {%endif%}
-                            {%endfor%}
-                           
+                          {% for cat3 in all_cats %}
+
+                          {% if cat3.parent_category == cat2 %}
+
+                          <p><a href="#">{{ cat3.cat_name }}</a></p>
+
+                          {%endif%}
+                          {%endfor%}
                         </div>
+                      </div>
                     </div>
-                    {%endfor%}
+                  </p>
+
                 </div>
-            </div>
-            <div class="col-md-7">
-              <div class="row">
+                {%endif%}
+                {%endfor%}
 
-                <div class="col-md-12">
-                  <div class="product_list">
-                      <div class="row">
-                          <div class="col-lg-4 col-sm-6">
-                              <div class="single_product_item">
-                                  <img src="{% static 'img/product_list_1.png' %}" alt="#" class="img-fluid">
-                                  <h5> <a href="single-product.html">بالشتک های طبی از جنس فوم</a> </h5>
-                                  <p><span>قیمت :</span>25000 تومان</p>
-                              </div>
-                          </div></div></div></div>
+              </div>
             </div>
-            <div class="col-md-2"></div>
+            {%endfor%}
+          </div>
         </div>
-    </div>
-</section>
+        <div class="col-md-7">
+          <div class="row">
 
+            <div class="col-md-12">
+              <div class="product_list">
+                <div class="row">
+
+                  {% for product in all_products %}
+                  <div class="col-lg-4 col-sm-6">
+                    <div class="single_product_item">
+                      {% if product.product_image %}
+                      <img
+                        src="{{ product.product_image.url }}"
+                        alt="#"
+                        class="img-fluid"
+                      >
+                      {% endif %}
+                      <h5> <a href="{% url 'content:productdetails' product.id %}">{{ product.product_name }}</a> </h5>
+                      {% comment %} <p><span>قیمت :</span>25000 تومان</p> {% endcomment %}
+                    </div>
+                  </div>
+                  {% endfor %}
+
+                </div>
+              </div>
+            </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+
+            <form
+              class="form-filter"
+              action="{% url 'content:products' cat.id %}"
+              method="GET"
+            >
+              <!-- ?get_parameter_name='{{ tag_name }}' -->
+              {% comment %} {{ checked_attr.'ساید بای ساید' }} {% endcomment %}
+
+              {% for attr, vlst in uniqdict.items %}
+              <br>{{ attr.attr_title }}
+
+
+
+              <ul class="pright-0">
+                {% for v in vlst %}
+
+
+
+
+
+                {% if attr.attr_title in checked_attr.keys and v == checked_attr|get_item:attr.attr_title %}
+
+                <li class="form-group">
+
+                  {% if attr.pro_attr.all.first.value_type == "BOOL" %}
+                  {% if v == 'True' %}
+                  <input
+                    type="checkbox"
+                    id="{{ attr.attr_title }}"
+                    name="{{ attr }}"
+                    value="True"
+                    checked
+                  >
+                  <label for="{{ attr.attr_title }}">دارد</label>
+                  {% else %}
+                  <input
+                    type="checkbox"
+                    id="{{ attr.attr_title }}"
+                    name="{{ attr }}"
+                    value="False"
+                    checked
+                  >
+                  <label for="{{ attr.attr_title }}">ندارد</label>
+                  {% endif %}
+                  {% elif attr.pro_attr.all.first.value_type == 'INT' %}
+                  <input
+                    type="checkbox"
+                    id="{{ attr.attr_title }}"
+                    name="{{ attr }}"
+                    value="{{ v }}"
+                    checked
+                  >
+                  <label for="{{ attr.attr_title }}">{{ v }} عدد</label>
+                  {% elif attr.pro_attr.all.first.value_type == 'TXT' %}
+                  <input
+                    type="checkbox"
+                    id="{{ attr.attr_title }}"
+                    name="{{ attr }}"
+                    value="{{ v }}"
+                    checked
+                  >
+                  <label for="{{ attr.attr_title }}">{{ v }}</label>
+                  {% endif %}
+
+                </li>
+
+                {% else %}
+
+                <li class="form-group">
+
+                  {% if attr.pro_attr.all.first.value_type == "BOOL" %}
+                  {% if v == 'True' %}
+                  <input
+                    type="checkbox"
+                    id="{{ attr.attr_title }}"
+                    name="{{ attr }}"
+                    value="True"
+                  >
+                  <label for="{{ attr.attr_title }}">دارد</label>
+                  {% else %}
+                  <input
+                    type="checkbox"
+                    id="{{ attr.attr_title }}"
+                    name="{{ attr }}"
+                    value="False"
+                  >
+                  <label for="{{ attr.attr_title }}">ندارد</label>
+                  {% endif %}
+                  {% elif attr.pro_attr.all.first.value_type == 'INT' %}
+                  <input
+                    type="checkbox"
+                    id="{{ attr.attr_title }}"
+                    name="{{ attr }}"
+                    value="{{ v }}"
+                  >
+                  <label for="{{ attr.attr_title }}">{{ v }} عدد</label>
+                  {% elif attr.pro_attr.all.first.value_type == 'TXT' %}
+                  <input
+                    type="checkbox"
+                    id="{{ attr.attr_title }}"
+                    name="{{ attr }}"
+                    value="{{ v }}"
+                  >
+                  <label for="{{ attr.attr_title }}">{{ v }}</label>
+                  {% endif %}
+
+                </li>
+
+                {% endif %}
+                {% endfor %}
+              </ul>
+
+              {% endfor %}
+              <input
+                type="submit"
+                value="Submit"
+                class="btn btn-primary"
+              >
+            </form>
+
+
+          </div>
+        </div>
+      </div>
+  </section>
+
+
+{% if all_products.has_other_pages %}
+  <ul class="pagination">
+    {% if all_products.has_previous %}
+      <li><a href="{{ request.get_full_path|update_param:all_products.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in all_products.paginator.page_range %}
+      {% if all_products.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="{{ request.get_full_path|update_param:i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if all_products.has_next %}
+      <li><a href="{{ request.get_full_path|update_param:all_products.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
 
   {%endblock%}

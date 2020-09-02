@@ -46,12 +46,10 @@ def home(request):
         pass
 
 
+
 def categories(request):
     if request.method == 'GET':
-        all_cats = SubCategory.objects.all()
-        main_cats = all_cats.filter(parent_category=None)
-        return render(request, 'content/categories.html', {'all_cats': all_cats, 'main_cats': main_cats})
-
+        return redirect('content:products', cat_pk=3)
 
 def get_parent_cats(cat):
     catlst = []
@@ -80,6 +78,8 @@ def get_child_cats(cat):
 
 def products(request, cat_pk):
 
+    all_cats = SubCategory.objects.all()
+    main_cats = all_cats.filter(parent_category=None)
 
     if request.method == 'GET':
         cat = SubCategory.objects.get(pk=cat_pk)
@@ -108,7 +108,7 @@ def products(request, cat_pk):
 
         page = request.GET.get('page', 1)
 
-        paginator = Paginator(q, 1)
+        paginator = Paginator(q, 9)
         try:
             q = paginator.page(page)
         except PageNotAnInteger:
@@ -140,8 +140,9 @@ def products(request, cat_pk):
 
         # print(f'\nuniqdict is {uniqdict}')
         catlst = get_parent_cats(cat)
-        return render(request, 'content/products.html',
-                      {'all_products': q, 'catlst': catlst, 'cat': cat, 'uniqdict': uniqdict, 'checked_attr': checked_attr})
+        return render(request, 'content/categories.html',
+                      {'all_products': q, 'catlst': catlst, 'cat': cat, 'uniqdict': uniqdict,
+                       'checked_attr': checked_attr, 'all_cats': all_cats, 'main_cats': main_cats})
 
 
 def productdetails(request, product_pk):

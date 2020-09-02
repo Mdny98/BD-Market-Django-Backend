@@ -1,4 +1,4 @@
-from django.shortcuts import render ,  HttpResponse, redirect
+from django.shortcuts import render,  HttpResponse, redirect
 from django.template.defaulttags import register
 from django.db.models import Q
 from django.views.generic.base import View
@@ -7,6 +7,7 @@ from .models import SubCategory, Product, Attribute
 from Supplier.models import ProductSupplier
 from .forms import CommentForm
 # Create your views here.
+
 
 @register.filter
 def get_item(dictionary, key):
@@ -57,6 +58,7 @@ def get_parent_cats(cat):
     catlst.reverse()
     return catlst
 
+
 def get_child_cats(cat):
     catlst = []
     f = 1
@@ -64,7 +66,7 @@ def get_child_cats(cat):
     if cat.child_categories.all():
         for ccat in cat.child_categories.all():
             get_child_cats(ccat)
-    
+
     return catlst
 
 
@@ -117,20 +119,22 @@ def products(request, cat_pk):
         # print(f'\nuniqdict is {uniqdict}')
         catlst = get_parent_cats(cat)
         return render(request, 'content/products.html',
-                      {'all_products': q, 'catlst': catlst, 'cat': cat, 'uniqdict': uniqdict, 'checked_attr':checked_attr})
+                      {'all_products': q, 'catlst': catlst, 'cat': cat, 'uniqdict': uniqdict, 'checked_attr': checked_attr})
 
 
 def productdetails(request, product_pk):
+    this_product = Product.objects.get(pk=product_pk)
+    this_product_suppliers = ProductSupplier.objects.filter(
+        product_id=this_product)
+    cat = this_product.subcategory_id
+    pro4 = Product.objects.filter(subcategory_id=cat)[:4]
     if request.method == 'GET':
-        this_product = Product.objects.get(pk=product_pk)
-        this_product_suppliers = ProductSupplier.objects.filter(
-            product_id=this_product)
-        cat = this_product.subcategory_id
-        
+
         catlst = get_parent_cats(cat)
         return render(request, 'content/productdetails.html',
-                      {'this_product': this_product, 'catlst': catlst,
-                       'this_product_suppliers': this_product_suppliers, 'form':CommentForm()})
+                        {'this_product': this_product, 'catlst': catlst,
+                        'this_product_suppliers': this_product_suppliers, 'cmform': CommentForm(),
+                        'pro4': pro4})
     else:
         try:
             form = CommentForm(request.POST)
@@ -140,8 +144,11 @@ def productdetails(request, product_pk):
             newcm.save()
             return redirect('content:productdetails', product_pk)
         except ValueError:
-            return render(request, 'content/productdetails.html', {'form':CommentForm(), 'error':'Bad data passed in!'})
-        
+            return render(request, 'content/productdetails.html', 
+                {'this_product': this_product, 'catlst': catlst,
+                'this_product_suppliers': this_product_suppliers, 'cmform': CommentForm(),
+                'pro4': pro4, 'error': 'Bad data passed in!'})
+
 
 class SearchProduct(View):
 

@@ -3,7 +3,7 @@ from django import forms
 from .models import Feedback
 
 class CommentForm(forms.ModelForm):
-    # rate = forms.IntegerField()
+    # rate = forms.ChoiceField()
 
     class Meta:
         model = Feedback

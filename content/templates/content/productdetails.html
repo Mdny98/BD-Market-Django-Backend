@@ -185,73 +185,25 @@
       <div class="col-md-12">
         <h4 class="title"><span>محصولات مرتبط</span></h4>
       </div>
-
+      {% for pro in pro4 %}
       <div class="col-md-3">
 
         <a
           class="relate-product"
-          href="#"
+          href="{% url 'content:productdetails' pro.id %}"
           target="_blank"
         >
           <img
-            src="img-3.jpg"
+            src="{{ pro.product_image.url }}"
             class="img-responsive"
           />
           <h6>
-            گوشی موبایل سامسونگ مدل Galaxy A10 SM-A105F/DS دو ...
-            <p>1,200,000 تومان</p>
+            {{ pro.product_name }}
+            {% comment %} <p>1,200,000 تومان</p> {% endcomment %}
           </h6>
         </a>
       </div>
-      <div class="col-md-3">
-        <a
-          href="#"
-          target="_blank"
-          class="relate-product"
-        >
-          <img
-            src="img-2.jpg"
-            class="img-responsive"
-          />
-          <h6>
-            گوشی موبایل سامسونگ مدل Galaxy A10 SM-A105F/DS دو ...
-            <p>3,200,000 تومان</p>
-          </h6>
-        </a>
-      </div>
-      <div class="col-md-3">
-        <a
-          href="#"
-          target="_blank"
-          class="relate-product"
-        >
-          <img
-            src="img-4.jpg"
-            class="img-responsive"
-          />
-          <h6>
-            گوشی موبایل سامسونگ مدل Galaxy A10 SM-A105F/DS دو ...
-            <p>2,200,000 تومان</p>
-          </h6>
-        </a>
-      </div>
-      <div class="col-md-3">
-        <a
-          href="#"
-          target="_blank"
-          class="relate-product"
-        >
-          <img
-            src="img-1.jpg"
-            class="img-responsive"
-          />
-          <h6>
-            گوشی موبایل سامسونگ مدل Galaxy A10 SM-A105F/DS دو ...
-            <p>1,400,000 تومان</p>
-          </h6>
-        </a>
-
-      </div>
+      {% endfor %}
       <div class="arrow-left"><i class="fa fa-caret-left"></i></div>
     </div>
     <!--            <div class="owl-carousel owl-theme" >-->
@@ -289,24 +241,29 @@
         id="comment"
         class="w3-container tab tab-comment"
       >
+
+      
         <form
-          class=""
+          class="alaki"
           action="{% url 'content:productdetails' this_product.id %}"
           method="POST"
         >
           {% csrf_token %}
-{{form}}
-<button type="submit"> ثبت نظر</button>
-{{error}}
+          {{cmform}}
+          <button type="submit"> ثبت نظر</button>
         </form>
+
+
+
+        {% comment %} {{error}} {% endcomment %}
         {% for feedback in this_product.feedback.all %}
         <div class="row">
           <div class="col-md-4">
             <ul class="">
               <li>
-                <h6>{{ feedback.custumer_id.user_id.get_full_name }}</h6>
+                <h6>{{ feedback.custumer_id.user.get_full_name }}</h6>
               </li>
-              <li class="date">در تاریخ 11 دی 1398</li>
+              {% comment %} <li class="date">در تاریخ 11 دی 1398</li> {% endcomment %}
 
 
             </ul>

@@ -134,7 +134,7 @@
 
                                       {% if cat3.parent_category == cat2 %}
                                     
-                                          <p><a href="#">{{ cat3.cat_name }}</a></p>
+                                          <p><a href="{% url 'content:products' cat3.id %}">{{ cat3.cat_name }}</a></p>
                                          
                                           {%endif%}
                                           {%endfor%}

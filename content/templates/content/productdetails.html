@@ -4,9 +4,34 @@
 {% load static %}
 
 
-<div class="bg-color">
-  <div class="container-fluid">
-    <div class="row">
+
+    <section class="breadcrumb_part">
+      <div class="container">
+          <div class="row">
+              <div class="col-lg-3">
+                  <div class="breadcrumb_iner">
+                      <h2>{{ this_product.product_name }}</h2>
+                  </div>
+              </div>
+              <div class="col-lg-9">
+                <ul class="top-list">
+                  <li>
+                    <a href="{% url 'content:home' %}">بی دی مارکت</a>
+                    <span>/</span></li>
+                  {% for cat in catlst %}
+                  <li><a href="{% url 'content:products' cat.id %}">{{ cat.cat_name }}</a> <span>/</span></li>
+                  {% endfor %}
+        
+                  <li> {{ this_product.product_name }} </li>
+        
+                </ul>
+              </div>
+          </div>
+      </div>
+  </section>
+  <div class="bg-color">
+    <div class="container-fluid">
+    <!-- <div class="row">
       <div class="col-md-12">
 
         <ul class="top-list">
@@ -21,7 +46,7 @@
 
         </ul>
       </div>
-    </div>
+    </div> -->
 
     <div class="row product-box">
 
@@ -71,9 +96,10 @@
 
                   <div class="row">
 
-                    <div class="col-md-4"><img
-                        src="warranty.png"
-                        width="30"
+                    <div class="col-md-4 pleft-0 pright-0">
+                      <img
+                        src="{% static 'img/icon-1.png' %}"
+                    
                       /></div>
                     <div class="col-md-8"> ضمانت اصل بودن کالا</div>
                   </div>
@@ -82,10 +108,10 @@
                 </div>
                 <div class="col-md-3 pleft-0">
                   <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-4 pleft-0 pright-0">
                       <img
-                        src="24.png"
-                        width="30"
+                      src="{% static 'img/icon-2.png' %}"
+                        
                       >
                     </div>
                     <div class="col-md-8">
@@ -95,10 +121,10 @@
                 </div>
                 <div class="col-md-3 pleft-0">
                   <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-4 pleft-0 pright-0">
                       <img
-                        src="express.png"
-                        width="30"
+                      src="{% static 'img/icon-3.png' %}"
+                     
                       >
                     </div>
                     <div class="col-md-8">
@@ -108,10 +134,10 @@
                 </div>
                 <div class="col-md-3 pleft-0">
                   <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-4 pleft-0 pright-0">
                       <img
-                        src="money.png"
-                        width="30"
+                      src="{% static 'img/icon-4.png' %}"
+                      
                       >
                     </div>
                     <div class="col-md-8">
@@ -132,7 +158,7 @@
                     <td>{{ supplier.unit_price }} تومان</td>
                     <td>
 
-                      <form
+                      <form style="width:100% !important"
                         class=""
                         action="{% url 'cart:showcart' %}"
                         method="POST"
@@ -168,11 +194,17 @@
 
       </div>
     </div>
-    <div class="row product-box mbottom-30">
-      <div class="arrow-right"><i class="fa fa-caret-right"></i></div>
+    <div class="row mbottom-30 mtop-30">
+   
       <div class="col-md-12">
-        <h4 class="title"><span>محصولات مرتبط</span></h4>
-      </div>
+        <div class="w3-bar w3-black">
+     <h4><i class="fa fa-pen"></i>
+               محصولات مرتبط
+           </h4>
+     
+           </div>
+     </div>
+          
 
       <div class="col-md-3">
 
@@ -240,7 +272,7 @@
         </a>
 
       </div>
-      <div class="arrow-left"><i class="fa fa-caret-left"></i></div>
+  
     </div>
     <!--            <div class="owl-carousel owl-theme" >-->
     <!--                <div class="item"><img src="img-3.jpg"></div>-->
@@ -259,18 +291,15 @@
   </div>
   <div class="container-fluid">
     <div class="row mright-0 mleft-0">
-
-      <div class="w3-bar w3-black">
-
-        <button
-          class="w3-bar-item w3-button"
-          onclick="openBox('comment')"
-        ><i class="fa fa-comment"></i>نظرات
+<div class="col-md-12">
+   <div class="w3-bar w3-black">
+<h4><i class="fa fa-comment"></i>نظرات
           کاربران
-        </button>
+      </h4>
 
       </div>
-
+</div>
+     
 
 
       <div
@@ -307,10 +336,7 @@
         style="text-align: center !important;"
       >
 
-        <div class="gototop">
-          <h6>بازگشت به بالا<span class="icon-div"> <i class="fa fa-caret-up"></i></span>
-          </h6>
-        </div>
+      
       </div>
 
     </div>

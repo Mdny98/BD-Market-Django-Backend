@@ -9,6 +9,7 @@ class User(AbstractUser):
     last_name = models.CharField(max_length=100 , verbose_name="نام خانوادگی")
     
     
+    
 
 gender_choices = [
          ('M', 'Male'), 

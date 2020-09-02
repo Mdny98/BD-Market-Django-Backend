@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'jalali_date',
     'crispy_forms',
     'django_gravatar',
+    'django_email_verification',
 ]
 
 
@@ -189,3 +190,17 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = '587'
 EMAIL_HOST_USER = 'babydebugersmarket@gmail.com'
 EMAIL_HOST_PASSWORD = '123456qaz@'
+
+
+
+EMAIL_ACTIVE_FIELD = 'is_active'
+EMAIL_SERVER = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_ADDRESS = 'babydebugersmarket@gmail.com'
+EMAIL_FROM_ADDRESS = 'babydebugersmarket@gmail.com'
+EMAIL_PASSWORD = '123456qaz@' # os.environ['password_key'] suggested
+EMAIL_MAIL_SUBJECT = 'تایید ایمیل'
+EMAIL_MAIL_HTML = 'mail_body.html'
+EMAIL_MAIL_PLAIN = 'mail_body.txt'
+EMAIL_PAGE_TEMPLATE = 'confirm_template.html'
+EMAIL_PAGE_DOMAIN ='http://127.0.0.1:8000/'

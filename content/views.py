@@ -5,7 +5,7 @@ from django.views.generic.base import View
 
 from .models import SubCategory, Product, Attribute
 from Supplier.models import ProductSupplier
-from .forms import CommentForm, SearchForm
+from .forms import CommentForm
 # Create your views here.
 
 @register.filter
@@ -143,15 +143,15 @@ def productdetails(request, product_pk):
             return render(request, 'content/productdetails.html', {'form':CommentForm(), 'error':'Bad data passed in!'})
         
 
-class SearchArticle(View):
+class SearchProduct(View):
 
     def get(self, request, *args, **kwargs):
-        search_text = request.GET['q']
+        search_text = request.GET['search']
         result = Product.objects.filter(
             Q(product_name__icontains=search_text) |
             Q(product_description__icontains=search_text)
         ).distinct()
-        return render(request, 'search_result.html', {'search_result': result})
+        return render(request, 'content/search_result.html', {'search_result': result})
 
 
 def error_404(request, exception):

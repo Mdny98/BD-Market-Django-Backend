@@ -169,6 +169,7 @@
                         src="{{ product.product_image.url }}"
                         alt="#"
                         class="img-fluid"
+                        style="height:180px"
                       >
                       {% endif %}
                       <h5> <a href="{% url 'content:productdetails' product.id %}">{{ product.product_name }}</a> </h5>
@@ -310,26 +311,56 @@
   </section>
 
 
+{% comment %} 
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+        <span class="sr-only">Previous</span>
+      </a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+        <span class="sr-only">Next</span>
+      </a>
+    </li>
+  </ul>
+</nav> {% endcomment %}
+
+<div class="container">
+<div class="row">
+<div class='col-md-4 offset-md-6'>
 {% if all_products.has_other_pages %}
+<nav aria-label="Page navigation example">
   <ul class="pagination">
     {% if all_products.has_previous %}
-      <li><a href="{{ request.get_full_path|update_param:all_products.previous_page_number }}">&laquo;</a></li>
+      <li class='page-item'><a  class="page-link" href="{{ request.get_full_path|update_param:all_products.previous_page_number }}">&laquo;</a></li>
     {% else %}
-      <li class="disabled"><span>&laquo;</span></li>
+      <li class="disabled page-item"><span   class="page-link">&laquo;</span></li>
     {% endif %}
     {% for i in all_products.paginator.page_range %}
       {% if all_products.number == i %}
-        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+        <li class="active page-item"><span   class="page-link">{{ i }} <span class="sr-only page-link">(current)</span></span></li>
       {% else %}
-        <li><a href="{{ request.get_full_path|update_param:i }}">{{ i }}</a></li>
+        <li class=" page-item"><a class="page-link" href="{{ request.get_full_path|update_param:i }}">{{ i }}</a></li>
       {% endif %}
     {% endfor %}
     {% if all_products.has_next %}
-      <li><a href="{{ request.get_full_path|update_param:all_products.next_page_number }}">&raquo;</a></li>
+      <li  class='page-item'><a  class="page-link" href="{{ request.get_full_path|update_param:all_products.next_page_number }}">&raquo;</a></li>
     {% else %}
-      <li class="disabled"><span>&raquo;</span></li>
+      <li class="disabled"><span   class="page-link">&raquo;</span></li>
     {% endif %}
   </ul>
+  </nav>
 {% endif %}
+</div>
+</div>
+</div
+
 
   {%endblock%}

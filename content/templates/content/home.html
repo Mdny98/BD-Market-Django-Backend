@@ -59,9 +59,15 @@
 <section class="ptop-35">
   <div class="container">
     <div class="row">
-      <div class="col-md-12">
-        <h3>آخرین محصولات</h3>
-      </div>
+      <div class="col-md-12 pleft-0 pright-0">
+       
+                <div class="w3-bar w3-black">
+             <h4>آخرین محصولات 
+                       
+                   </h4>
+             
+                   </div>
+    
     </div>
     <div class="row">
 
@@ -73,7 +79,7 @@
 
                 <div class="col-lg-3 col-sm-6">
                     <div class="single_product_item">
-                        <img src="{{ pro.product_image.url }}" alt="#" class="img-fluid">
+                        <img src="{{ pro.product_image.url }}" alt="#" class="img-fluid" style="height:200px">
                         <h5> <a href="{% url 'content:productdetails' pro.id %}">{{ pro.product_name }}</a> </h5>
                         {% comment %} <p><span>قیمت :</span>25000 تومان</p> {% endcomment %}
                     </div>

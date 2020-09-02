@@ -267,10 +267,10 @@
                             <div class="footer_menu_item">
                                 <a href="{% url 'content:home' %}">صفحه اصلی</a>
 
-                                <a href="product_list.html">محصولات</a>
+                                <a href="{% url 'content:aboutus' %}">درباره ما</a>
                               
-                                <a href="blog.html">وبلاگ</a>
-                                <a href="contact.html">تماس با ما</a>
+                                <a href="{% url 'blog:home' %}">وبلاگ</a>
+                                <a href="{% url 'content:contactus' %}">تماس با ما</a>
                             </div>
                         </div>
                     </div>

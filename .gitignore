@@ -1,4 +1,5 @@
 BDENV/
+BDSHOP/
 .idea
 ### Django ###
 *.log

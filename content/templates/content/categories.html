@@ -123,10 +123,13 @@
     class="tabcontent"
   >
 
-    <div class="owl-carousel owl-theme">
+    <div class="container">
+      <div class="row">
+
+     
       {% for cat2 in all_cats %}
       {% if cat2.parent_category == cat %}
-      <div class="item">
+      <div class="item col-md-3">
         <div class="card" style="min-height: 370px !important;">
           <img
             src="{% static 'img/noimage.jpeg' %}"
@@ -160,7 +163,7 @@
       {%endfor%}
     </div>
   </div>
-
+</div>
   </div>
 
 

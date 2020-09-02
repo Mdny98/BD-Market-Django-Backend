@@ -2,6 +2,7 @@ from django.shortcuts import render,  HttpResponse, redirect
 from django.template.defaulttags import register
 from django.db.models import Q
 from django.views.generic.base import View
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .models import SubCategory, Product, Attribute
 from Supplier.models import ProductSupplier
@@ -71,6 +72,8 @@ def get_child_cats(cat):
 
 
 def products(request, cat_pk):
+
+
     if request.method == 'GET':
         cat = SubCategory.objects.get(pk=cat_pk)
         catlst = get_child_cats(cat)
@@ -78,22 +81,34 @@ def products(request, cat_pk):
         q = all_products
         # print(request.GET)
         for k, v in request.GET.items():
-            tmpq = Attribute.objects.get(attr_title=k)
-            qtype = tmpq.pro_attr.all()[0].value_type
-            # print(f'\nqtype is {qtype}')
-            if qtype == 'BOOL':
-                q = q.filter(pro_attr__attr_id__attr_title=k,
-                             pro_attr__bool_value=v)
-            elif qtype == 'INT':
-                q = q.filter(pro_attr__attr_id__attr_title=k,
-                             pro_attr__int_value=v)
-            elif qtype == 'TXT':
-                q = q.filter(pro_attr__attr_id__attr_title=k,
-                             pro_attr__text_value=v)
+            if not k == 'page':
+                tmpq = Attribute.objects.get(attr_title=k)
+                qtype = tmpq.pro_attr.all()[0].value_type
+                # print(f'\nqtype is {qtype}')
+                if qtype == 'BOOL':
+                    q = q.filter(pro_attr__attr_id__attr_title=k,
+                                pro_attr__bool_value=v)
+                elif qtype == 'INT':
+                    q = q.filter(pro_attr__attr_id__attr_title=k,
+                                pro_attr__int_value=v)
+                elif qtype == 'TXT':
+                    q = q.filter(pro_attr__attr_id__attr_title=k,
+                                pro_attr__text_value=v)
 
             # print(f'\nk is {k}')
             # print(f'\nk type is {type(k)}')
             # print(f'\nq is {q}')
+
+        page = request.GET.get('page', 1)
+
+        paginator = Paginator(q, 1)
+        try:
+            q = paginator.page(page)
+        except PageNotAnInteger:
+            q = paginator.page(1)
+        except EmptyPage:
+            q = paginator.page(paginator.num_pages)
+
 
         checked_attr = dict(request.GET)
         # print(f'\n checked_attr = {checked_attr}')
@@ -123,6 +138,8 @@ def products(request, cat_pk):
 
 
 def productdetails(request, product_pk):
+
+    
     this_product = Product.objects.get(pk=product_pk)
     this_product_suppliers = ProductSupplier.objects.filter(
         product_id=this_product)

@@ -30,7 +30,7 @@
           src="{{ this_product.product_image.url }}"
           class="img-responsive"
         />
-        
+
       </div>
       <div class="col-md-9">
         <div class="details">
@@ -137,10 +137,22 @@
                         action="{% url 'cart:showcart' %}"
                         method="POST"
                       >
-                      {% csrf_token %}
-                        <input type="hidden" id="custId" name="prosupid" value="{{ supplier.id }}">
+                        {% csrf_token %}
+                        <input
+                          type="hidden"
+                          id="custId"
+                          name="prosupid"
+                          value="{{ supplier.id }}"
+                        >
                         {% comment %} <label for="quantity">تعداد:</label>
-                        <input type="number" id="quantity" name="quantity" min="1" max="{{ supplier.stock|add:'0' }}" value="1"> {% endcomment %}
+                        <input
+                          type="number"
+                          id="quantity"
+                          name="quantity"
+                          min="1"
+                          max="{{ supplier.stock|add:'0' }}"
+                          value="1"
+                        > {% endcomment %}
                         <button type="submit"> افزودن به سبد</button>
                       </form>
 
@@ -277,6 +289,16 @@
         id="comment"
         class="w3-container tab tab-comment"
       >
+        <form
+          class=""
+          action="{% url 'content:productdetails' this_product.id %}"
+          method="POST"
+        >
+          {% csrf_token %}
+{{form}}
+<button type="submit"> ثبت نظر</button>
+{{error}}
+        </form>
         {% for feedback in this_product.feedback.all %}
         <div class="row">
           <div class="col-md-4">

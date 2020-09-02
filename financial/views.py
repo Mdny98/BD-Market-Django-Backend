@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.db.models import F
+from django.contrib.auth.decorators import login_required
 
 from .models import PeymentMethod, Payment
 from cart.models import Cart, OrderItem
@@ -9,6 +10,7 @@ from customer.models import CustomerAddress
 
 # Create your views here.
 
+@login_required
 def finalize_cart(request):
     if request.method == 'POST':
         payment_methods = PeymentMethod.objects.all
@@ -27,6 +29,7 @@ def finalize_cart(request):
 
         return render(request, 'financial/pay.html', {'payment_methods':payment_methods, 'total_price':total_price})
 
+@login_required
 def pay(request):
     if request.method == 'POST':
         payment_method_id = request.POST['payment_method']
@@ -64,6 +67,6 @@ def pay(request):
 
             return redirect('financial:success_paid')
 
-
+@login_required
 def success_paid(request):
     return HttpResponse('thank you')

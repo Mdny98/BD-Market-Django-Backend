@@ -81,7 +81,7 @@
             <li class="form-group">
               
                 {% if attr.pro_attr.all.first.value_type == "BOOL" %}
-                {% if v %}
+                {% if v == 'True' %}
                   <input type="checkbox" id="{{ attr.attr_title }}" name="{{ attr }}" value="True">
                   <label for="{{ attr.attr_title }}">دارد</label>
                 {% else %}
@@ -117,10 +117,12 @@
             target="_blank"
             class="pcard"
           >
+          {% if product.product_image %}
             <img
               src="{{ product.product_image.url }}"
               class="img-responsive"
             >
+            {% endif %}
             <ul class="color-div">
             </ul>
             <h6>{{ product.product_name }}</h6>

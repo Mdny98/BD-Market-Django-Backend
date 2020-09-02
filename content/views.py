@@ -1,8 +1,9 @@
-from django.shortcuts import render ,  HttpResponse
+from django.shortcuts import render ,  HttpResponse, redirect
 from django.template.defaulttags import register
 
 from .models import SubCategory, Product, Attribute
 from Supplier.models import ProductSupplier
+from .forms import CommentForm
 # Create your views here.
 
 @register.filter
@@ -126,7 +127,18 @@ def productdetails(request, product_pk):
         
         catlst = get_parent_cats(cat)
         return render(request, 'content/productdetails.html',
-                      {'this_product': this_product, 'catlst': catlst, 'this_product_suppliers': this_product_suppliers})
+                      {'this_product': this_product, 'catlst': catlst,
+                       'this_product_suppliers': this_product_suppliers, 'form':CommentForm()})
+    else:
+        try:
+            form = CommentForm(request.POST)
+            newcm = form.save(commit=False)
+            newcm.custumer_id = request.user.customer
+            newcm.product_id = Product.objects.get(pk=product_pk)
+            newcm.save()
+            return redirect('content:productdetails', product_pk)
+        except ValueError:
+            return render(request, 'content/productdetails.html', {'form':CommentForm(), 'error':'Bad data passed in!'})
         
 
 

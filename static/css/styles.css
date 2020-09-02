@@ -1625,3 +1625,37 @@ width:100% !important;
 .form-filter ul{
   list-style: none;
 }
+.slider-img{
+  width: 100vw;
+  height: calc(100vh - 110px);
+}
+.section-home img{
+  width:100px;
+  height:100px;
+  border-radius: 50%;
+  border:1px solid red;;
+}
+.bg-orange{
+ background-color: #f89714
+}
+.box {
+  background-color:green;
+  
+}
+.ptop-35{
+  padding-top:35px;
+}
+.logo{
+  width:120px;
+  padding:5px;
+}
+.button-header li{
+  list-style: none;
+}
+.button-header li a{background-color: #347a01;
+  border: none;
+  padding: 3px 23px;
+  font-size: 15px;
+  line-height: 26px;
+  outline: 1px solid #ffffff85;
+  outline-offset: -3px;} 

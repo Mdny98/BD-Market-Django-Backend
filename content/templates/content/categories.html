@@ -99,78 +99,76 @@
 </head>
 
 <body>
-  <div class="tab"> {% for cat in main_cats %}
-
-    <button
-      class="tablinks"
-      onclick="openCity(event, '{{ cat.cat_name }}')"
-      {% if forloop.first%}
-      id="defaultOpen"
-      {% endif %}
-    > {{ cat.cat_name }}
-
-    </button>
-    {%comment%}
-    {%empty%}
-    <li>Sorry,no subcategories and products in this category. </li>
-    {%endcomment%}
-    {%endfor%}
-  </div>
-
-  {% for cat in main_cats %}
-  <div
-    id="{{ cat.cat_name }}"
-    class="tabcontent"
-  >
-
+  <section class="breadcrumb_part">
     <div class="container">
-      <div class="row">
-
-     
-      {% for cat2 in all_cats %}
-      {% if cat2.parent_category == cat %}
-      <div class="item col-md-3">
-        <div class="card" style="min-height: 370px !important;">
-          <img
-            src="{% static 'img/noimage.jpeg' %}"
-            class="card-img-top"
-            alt="..."
-          >
-          <div class="card-body">
-            <h5 class="card-title">
-              {{ cat2.cat_name }}
-            </h5>
-            {% comment %} <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card 's {% endcomment %}
-              {% comment %} content. </p> {% endcomment %}
-          </div>
-          <ul class="list-group list-group-flush">
-            {% for cat3 in all_cats %}
-
-            {% if cat3.parent_category == cat2 %}
-
-            <li class="list-group-item">
-              <a href="{% url 'content:products' cat3.id %}"> {{ cat3.cat_name }}
-
-              </a>
-            </li>
-            {%endif%}
-            {%endfor%}
-          </ul>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb_iner">
+                    <h2>دسته بندی  محصولات</h2>
+                </div>
+            </div>
         </div>
-      </div>
-
-      {%endif %}
-      {%endfor%}
     </div>
-  </div>
-</div>
-  </div>
+</section>
+  <section class="product_list section_padding">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="product_sidebar">
+                  {% for cat in main_cats %}
+                    <div class="single_sedebar">
+                        <div class="select_option">
+                            <div class="select_option_list"> {{ cat.cat_name }}<i class="right fas fa-caret-down"></i> </div>
+                            {% for cat2 in all_cats %}
+                            {% if cat2.parent_category == cat %}
 
+                             <div class="select_option_dropdown level-2">
+                                <p> <div class="single_sedebar">
+                                  <div class="select_option">
+                                    
+                                      <div class="select_option_list">      {{ cat2.cat_name }} <i class="right fas fa-caret-down"></i> </div>
+                                      <div class="select_option_dropdown level-3">
 
+                                     
+                                      {% for cat3 in all_cats %}
 
+                                      {% if cat3.parent_category == cat2 %}
+                                    
+                                          <p><a href="#">{{ cat3.cat_name }}</a></p>
+                                         
+                                          {%endif%}
+                                          {%endfor%}
+                                      </div>
+                                  </div>
+                              </div></p>
+                            
+                            </div>
+                            {%endif%}
+                            {%endfor%}
+                           
+                        </div>
+                    </div>
+                    {%endfor%}
+                </div>
+            </div>
+            <div class="col-md-7">
+              <div class="row">
 
+                <div class="col-md-12">
+                  <div class="product_list">
+                      <div class="row">
+                          <div class="col-lg-4 col-sm-6">
+                              <div class="single_product_item">
+                                  <img src="{% static 'img/product_list_1.png' %}" alt="#" class="img-fluid">
+                                  <h5> <a href="single-product.html">بالشتک های طبی از جنس فوم</a> </h5>
+                                  <p><span>قیمت :</span>25000 تومان</p>
+                              </div>
+                          </div></div></div></div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+</section>
 
-
-  {%endfor%}
 
   {%endblock%}

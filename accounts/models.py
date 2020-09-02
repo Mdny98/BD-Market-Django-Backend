@@ -12,6 +12,7 @@ class User(AbstractUser):
     REQUIRED_FIELDS = []
     EMAIL_FIELD = 'email'
     
+    
 
 gender_choices = [
          ('M', 'Male'), 

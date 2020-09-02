@@ -16,6 +16,13 @@ from accounts.models import User
 from django.contrib.auth.views import PasswordChangeView 
 from customer.models import CustomerAddress
 from cart.models import Cart
+from django_email_verification import sendConfirm
+
+
+
+
+
+
 # @login_required
 # def home(request):
 #     return render(request, 'registration/home.html')
@@ -93,7 +100,8 @@ class adrrsssdelete(LoginRequiredMixin, DeleteView):
 
 
 
-
+def registersendmail(request):
+    return render(request, 'accounts/afterrejister.html')
 
 def register(request):
     return render(request, 'accounts/register.html')
@@ -105,8 +113,9 @@ class CustomerRegister(CreateView):
 
     def form_valid(self, form):
         user = form.save()
-        login(self.request, user)
-        return redirect('/')
+        sendConfirm(user)
+        # login(self.request, user)
+        return redirect('accounts:registersendmail')
 
 class SupplierRegister(CreateView):
     model = User
@@ -115,8 +124,9 @@ class SupplierRegister(CreateView):
 
     def form_valid(self, form):
         user = form.save()
-        login(self.request, user)
-        return redirect('/')
+        sendConfirm(user)
+        # login(self.request, user)
+        return redirect('accounts:registersendmail')
 
 
 def login_request(request):

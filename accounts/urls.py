@@ -7,6 +7,8 @@ app_name = 'accounts'
 
 urlpatterns=[
     path('register/',views.register, name='register'),
+    path('registersen-mail/',views.registersendmail, name='registersendmail'),
+
     path('customer_register/',views.CustomerRegister.as_view(), name='customer_register'),
     path('supplier_register/',views.SupplierRegister.as_view(), name='supplier_register'),
     path('', views.ArticleList.as_view(), name='home'),
@@ -14,6 +16,7 @@ urlpatterns=[
     path('article/update/<int:pk>', views.ArticleUpdate.as_view(), name="article-update"),
     path('article/delete/<int:pk>', views.ArticleDelete.as_view(), name="article-delete"),
     path('profile/', views.Profile.as_view(), name="profile"),
+    
 
 
     path('addrescostomeradd/', views.addrescostomeradd.as_view(), name="addrescostomeradd"),

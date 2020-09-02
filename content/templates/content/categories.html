@@ -117,58 +117,43 @@
         <div class="col-md-3">
           <div class="product_sidebar">
             {% for cat in main_cats %}
-            <div class="single_sedebar">
-              <div class="select_option">
-                <div class="select_option_list"> {{ cat.cat_name }}<i class="right fas fa-caret-down"></i> </div>
-                {% for cat2 in all_cats %}
-                {% if cat2.parent_category == cat %}
+              <div class="single_sedebar">
+                  <div class="select_option">
+                      <div class="select_option_list"> {{ cat.cat_name }}<i class="right fas fa-caret-down"></i> </div>
+                      {% for cat2 in all_cats %}
+                      {% if cat2.parent_category == cat %}
 
-                <div class="select_option_dropdown level-2">
-                  <p>
-                    <div class="single_sedebar">
-                        <div class="select_option">
-                            <div class="select_option_list"> {{ cat.cat_name }}<i class="right fas fa-caret-down"></i> </div>
-                            {% for cat2 in all_cats %}
-                            {% if cat2.parent_category == cat %}
+                       <div class="select_option_dropdown level-2">
+                          <p> <div class="single_sedebar">
+                            <div class="select_option">
+                              
+                                <div class="select_option_list">      {{ cat2.cat_name }} <i class="right fas fa-caret-down"></i> </div>
+                                <div class="select_option_dropdown level-3">
 
-                             <div class="select_option_dropdown level-2">
-                                <p> <div class="single_sedebar">
-                                  <div class="select_option">
-                                    
-                                      <div class="select_option_list">      {{ cat2.cat_name }} <i class="right fas fa-caret-down"></i> </div>
-                                      <div class="select_option_dropdown level-3">
+                               
+                                {% for cat3 in all_cats %}
 
-                                     
-                                      {% for cat3 in all_cats %}
-
-                                      {% if cat3.parent_category == cat2 %}
-                                    
-                                          <p><a href="{% url 'content:products' cat3.id %}">{{ cat3.cat_name }}</a></p>
-                                         
-                                          {%endif%}
-                                          {%endfor%}
-                                      </div>
-                                  </div>
-                              </div></p>
-                            
+                                {% if cat3.parent_category == cat2 %}
+                              
+                                    <p><a href="{% url 'content:products' cat3.id %}">{{ cat3.cat_name }}</a></p>
+                                   
+                                    {%endif%}
+                                    {%endfor%}
+                                </div>
                             </div>
-                            {%endif%}
-                            {%endfor%}
-                           
-                        </div>
+                        </div></p>
+                      
                       </div>
-                    </div>
-                  </p>
-
-                </div>
-                {%endif%}
-                {%endfor%}
-
+                      {%endif%}
+                      {%endfor%}
+                     
+                  </div>
               </div>
-            </div>
-            {%endfor%}
+              {%endfor%}
           </div>
-        </div>
+      </div>
+
+     
         <div class="col-md-7">
           <div class="row">
 

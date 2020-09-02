@@ -12,4 +12,6 @@ urlpatterns = [
     re_path('products/(?P<cat_pk>[0-9]+)$', views.products, name='products'),
     path('productdetails/<int:product_pk>', views.productdetails, name='productdetails'),
     path('search', SearchProduct.as_view(), name='search-product'),
+    path('contactus/', views.contactus, name='contactus'),
+    path('aboutus/', views.aboutus, name='aboutus'),
 ]

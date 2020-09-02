@@ -186,3 +186,9 @@ def error_404(request, exception):
 def error_500(request):
     data = {"name": "somthing error"}
     return render(request, 'content/bdmarket404.html', data)
+
+def contactus(request):
+    return render(request, 'content/contactus.html')
+
+def aboutus(request):
+    return render(request, 'content/aboutus.html')

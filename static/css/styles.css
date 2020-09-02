@@ -1631,3 +1631,8 @@ strike {
 .w3-bar h4 i{
   margin-left: 5px;
 }
+.cart-items{
+  border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 7px;
+}

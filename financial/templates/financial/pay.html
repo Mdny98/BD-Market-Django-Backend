@@ -1,38 +1,84 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-<p> 
-مبلغ نهایی: {{ total_price }}
- </p>
-
-<form
+<section class="breadcrumb_part">
+      <div class="container">
+          <div class="row">
+              <div class="col-lg-12">
+                  <div class="breadcrumb_iner">
+                      <h2>تایید سبد خرید</h2>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </section>
+<div class="container" style="margin-bottom:30px;">
+      <div class="row">
+            <div class="col-md-12">
+                  <p class="total-price"> 
+                        <span>مبلغ نهایی: </span>
+                        {{ total_price }}
+                         </p>
+            </div>
+      </div>
+      <div class="row">
+            <div class="col-md-12">
+                  <hr>
+                  <form
       class=""
       action="{% url 'financial:pay' %}"
       method="POST"
+      style="width:100%"
     >
       {% csrf_token %}
       {% comment %} <input
         type="hidden"
+
         id="custId"
         name="prosupid"
         value="{{ supplier.id }}"
       > {% endcomment %}
 
-<h2> انتخاب آدرس: </h2>
+      <div class="col-md-12">
+            <div class="w3-bar w3-black">
+         <h4>
+            انتخاب آدرس
+                   
+               </h4>
+         
+               </div>
+         </div>
+              
 {% for address in  request.user.customer.address.all %}
-      <input type="radio" id="{{ address.id }}" name="address" value="{{ address.id }}">
+      <input  type="radio" id="{{ address.id }}" name="address" value="{{ address.id }}">
 <label for="{{ address.id }}">{{ address.address }}</label><br>
 {% endfor %}
-
-<h2> درگاه بانک: </h2>
+<div class="col-md-12">
+      <div class="w3-bar w3-black">
+   <h4>
+      درگاه بانک
+             
+         </h4>
+   
+         </div>
+   </div>
+        
+<div class="row">
 {% for paymeth in payment_methods %}
-      <input type="radio" id="{{ paymeth.method_title }}" name="payment_method" value="{{ paymeth.id }}">
-<label for="{{ paymeth.method_title }}">{{ paymeth.method_title }}</label><br>
+<div class="col-md-12">
+      <input  type="radio" id="{{ paymeth.method_title }}" name="payment_method" value="{{ paymeth.id }}">
+      <label for="{{ paymeth.method_title }}">{{ paymeth.method_title }}</label>
+</div>
+     
 {% endfor %}
-
-      <button type="submit">پرداخت</button>
+</div>
+      <button class="btn btn-success" style="float: left;" type="submit">پرداخت</button>
     </form>
+
+            </div>
+      </div>
+</div>
+
 
 
 {% endblock %}

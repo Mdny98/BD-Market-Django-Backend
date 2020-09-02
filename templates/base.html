@@ -175,7 +175,7 @@
                                     <a class="nav-link" href="{% url 'content:home' %}">صفحه اصلی</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="about.html">درباره ما</a>
+                                    <a class="nav-link" href="{% url 'content:aboutus' %}">درباره ما</a>
                                 </li>
                                 <!-- <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_1"
@@ -202,7 +202,7 @@
                                   >بلاگ <span class="sr-only">(current)</span></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="contact.html">تماس با ما</a>
+                                    <a class="nav-link" href="{% url 'content:contactus' %}">تماس با ما</a>
                                 </li>
                             </ul>
                         </div>
@@ -357,6 +357,7 @@
     <script src="{% static 'js/jquery.counterup.min.js' %}"></script>
     <script src="{% static 'js/waypoints.min.js' %}"></script>
     <script src="{% static 'js/contact.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
     <script src="{% static 'js/jquery.ajaxchimp.min.js' %}"></script>
     <script src="{% static 'js/jquery.form.js' %}"></script>
     <script src="{% static 'js/jquery.validate.min.js' %}"></script>

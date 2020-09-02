@@ -15,6 +15,13 @@ def get_item(dictionary, key):
     res = str(dictionary.get(key)[0])
     return res
 
+@register.filter
+def update_param(myurl, myextra):
+    if '?' in myurl:
+        res = f'{myurl}&page={myextra}'
+    else:
+        res = f'{myurl}?page={myextra}'
+    return res
 
 def home(request):
     if request.method == 'GET':
@@ -142,7 +149,7 @@ def productdetails(request, product_pk):
     
     this_product = Product.objects.get(pk=product_pk)
     this_product_suppliers = ProductSupplier.objects.filter(
-        product_id=this_product)
+        product_id=this_product, stock__gt=0)
     cat = this_product.subcategory_id
     pro4 = Product.objects.filter(subcategory_id=cat)[:4]
     if request.method == 'GET':

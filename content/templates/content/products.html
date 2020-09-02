@@ -163,7 +163,7 @@
 {% if all_products.has_other_pages %}
   <ul class="pagination">
     {% if all_products.has_previous %}
-      <li><a href="{{ request.get_full_path }}?page={{ all_products.previous_page_number }}">&laquo;</a></li>
+      <li><a href="{{ request.get_full_path|update_param:all_products.previous_page_number }}">&laquo;</a></li>
     {% else %}
       <li class="disabled"><span>&laquo;</span></li>
     {% endif %}
@@ -171,11 +171,11 @@
       {% if all_products.number == i %}
         <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
       {% else %}
-        <li><a href="{{ request.get_full_path }}?page={{ i }}">{{ i }}</a></li>
+        <li><a href="{{ request.get_full_path|update_param:i }}">{{ i }}</a></li>
       {% endif %}
     {% endfor %}
     {% if all_products.has_next %}
-      <li><a href="{{ request.get_full_path }}?page={{ all_products.next_page_number }}">&raquo;</a></li>
+      <li><a href="{{ request.get_full_path|update_param:all_products.next_page_number }}">&raquo;</a></li>
     {% else %}
       <li class="disabled"><span>&raquo;</span></li>
     {% endif %}

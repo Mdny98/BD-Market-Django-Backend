@@ -66,11 +66,12 @@ urlpatterns=[
     # در اینجا می تواند محصولی را اضافه نماید
     path('addstock/', views.stoockCreate.as_view(), name='add-stock'),
     # پس از اضافه کردن محصول در اینجا محصول را تایید نهایی می کند و مقادیر قیمت و تعداد که منحصر به فرد اوست را تغییر میدهد
+    # در ضمن فروشنده مستقیما اجناسی که در فروشگاه هستند را از این مسیر اعلام امادگی فروش کند ودیگر نیازی به تعریف جنس نیست
     path('confirmstock/', views.ConfrimCreate.as_view(), name='confirm-stock'),
     # در اینجا برای محصول ویژگی تعیین میکند
     path('addattribute/', views.AddAttribute.as_view(), name='addattr'),
     # در اینجا یک برند تعیین میکند
     path('addbrand/', views.addbrand.as_view(), name='addbrand'),
     # 
-    path('productattr/', views.ProductAttr.as_view(), name='ProductAttr'),
+    # path('productattr/', views.ProductAttr.as_view(), name='ProductAttr'),
 ]

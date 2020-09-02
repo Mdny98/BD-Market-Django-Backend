@@ -185,11 +185,11 @@ class AddAttribute(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('accounts:add-stock')
     template_name = "registration/AddAttribute.html"
 
-class ProductAttr(LoginRequiredMixin, CreateView):
-    model = ProductAttr
-    fields = ["value_type","int_value","text_value","bool_value","product_id",'attr_id']
-    success_url = reverse_lazy('accounts:add-stock')
-    template_name = "registration/ProductAttr.html"
+# class ProductAttr(LoginRequiredMixin, CreateView):
+#     model = ProductAttr
+#     fields = ["value_type","int_value","text_value","bool_value","product_id",'attr_id']
+#     success_url = reverse_lazy('accounts:add-stock')
+#     template_name = "registration/ProductAttr.html"
     
 
 
@@ -204,9 +204,6 @@ class addbrand(LoginRequiredMixin, CreateView):
 class ConfrimCreate(LoginRequiredMixin, CreateView):
     model = ProductSupplier
     fields = ['product_id', 'unit_price', 'stock']
-   
-
-
     template_name = "registration/confrmstock.html" 
     success_url = reverse_lazy('accounts:stock-list')
     def form_valid(self, form):
@@ -216,6 +213,12 @@ class ConfrimCreate(LoginRequiredMixin, CreateView):
             d.save()
             return super().form_valid(form)
         
+class editMojodiestock(LoginRequiredMixin,UpdateView):
+    model = ProductSupplier
+    fields = ['stock']
+    success_url = reverse_lazy('accounts:stock-list')
+    template_name = "registration/editojodistock.html"
+
 
 
 

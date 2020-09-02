@@ -114,7 +114,7 @@ class CustomerRegister(CreateView):
         user = form.save()
         sendConfirm(user)
         # login(self.request, user)
-        return redirect('/')
+        return redirect('accounts/afterrejister.html')
 
 class SupplierRegister(CreateView):
     model = User
@@ -125,7 +125,7 @@ class SupplierRegister(CreateView):
         user = form.save()
         sendConfirm(user)
         # login(self.request, user)
-        return redirect('/')
+        return redirect('accounts/afterrejister.html')
 
 
 def login_request(request):

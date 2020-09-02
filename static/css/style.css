@@ -2648,8 +2648,7 @@ box-shadow: 1px 1px 4px 2px #7b7b7b;
   color: #fff;
   margin-top: 6px;
   position: relative;
-  right: -23px;
-  width: 110%;
+ 
   outline: 1px solid #fff;
   outline-offset: -4px;
 }
@@ -2846,7 +2845,7 @@ box-shadow: 1px 1px 4px 2px #7b7b7b;
   padding: 35px;
   color: #fff;
   border-radius: 4px;
-  margin: 50px 0;
+  margin: 10px 0;
   /* background-color: #F89714; */
 
 }

@@ -1,9 +1,10 @@
 from django.shortcuts import render ,  HttpResponse, redirect
 from django.template.defaulttags import register
+from django.db.models import Q
 
 from .models import SubCategory, Product, Attribute
 from Supplier.models import ProductSupplier
-from .forms import CommentForm
+from .forms import CommentForm, SearchForm
 # Create your views here.
 
 @register.filter
@@ -140,6 +141,16 @@ def productdetails(request, product_pk):
         except ValueError:
             return render(request, 'content/productdetails.html', {'form':CommentForm(), 'error':'Bad data passed in!'})
         
+
+class SearchArticle(View):
+
+    def get(self, request, *args, **kwargs):
+        search_text = request.GET['q']
+        result = Product.objects.filter(
+            Q(product_name__icontains=search_text) |
+            Q(product_description__icontains=search_text)
+        ).distinct()
+        return render(request, 'search_result.html', {'search_result': result})
 
 
 def error_404(request, exception):

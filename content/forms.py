@@ -8,3 +8,7 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Feedback
         fields = ('comment', 'rate')
+
+class SearchForm(forms.Form):
+    search = forms.CharField(required=False,
+                             widget=forms.TextInput(attrs={'size': '40'}))

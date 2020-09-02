@@ -29,13 +29,12 @@
         <div class="col-lg-8 col-md-10 mx-auto text-justify">
           {{article.description  | safe }}
           
-          </div>
-          </div>
-          {% render_comments object request %}{# Render all the comments belonging to a passed object #}
-            {% include_static_jquery %}
-            {% include_bootstrap %}
+         {% render_comments object request %}
+          {% include_static_jquery %}
+          {% include_bootstrap %}
+        </div>
+      </div>
     </div>
   </article>
 {% endblock %}
-  <hr>
 

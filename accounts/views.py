@@ -100,7 +100,8 @@ class adrrsssdelete(LoginRequiredMixin, DeleteView):
 
 
 
-
+def registersendmail(request):
+    return render(request, 'accounts/afterrejister.html')
 
 def register(request):
     return render(request, 'accounts/register.html')
@@ -114,7 +115,7 @@ class CustomerRegister(CreateView):
         user = form.save()
         sendConfirm(user)
         # login(self.request, user)
-        return redirect('accounts/afterrejister.html')
+        return redirect('accounts:registersendmail')
 
 class SupplierRegister(CreateView):
     model = User
@@ -125,7 +126,7 @@ class SupplierRegister(CreateView):
         user = form.save()
         sendConfirm(user)
         # login(self.request, user)
-        return redirect('accounts/afterrejister.html')
+        return redirect('accounts:registersendmail')
 
 
 def login_request(request):

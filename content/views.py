@@ -27,6 +27,8 @@ def home(request):
     if request.method == 'GET':
         subs = SubCategory.objects.all()
 
+        last_product = Product.objects.all()[:4]
+
         def list_generator(subs, parent=None):
             lst = []
             try:
@@ -41,7 +43,7 @@ def home(request):
                 return HttpResponse('hi')
         lst = list_generator(subs)
         # print(f'list is {lst}')
-        return render(request, 'content/home.html', {'subs': lst})
+        return render(request, 'content/home.html', {'subs': lst, 'last_product':last_product})
     else:
         pass
 

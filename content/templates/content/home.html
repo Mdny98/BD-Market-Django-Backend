@@ -68,34 +68,20 @@
       <div class="col-md-12">
         <div class="product_list">
             <div class="row">
+
+{% for pro in last_product %}
+
                 <div class="col-lg-3 col-sm-6">
                     <div class="single_product_item">
-                        <img src="{% static 'img/product_list_1.png' %}" alt="#" class="img-fluid">
-                        <h5> <a href="single-product.html">بالشتک های طبی از جنس فوم</a> </h5>
-                        <p><span>قیمت :</span>25000 تومان</p>
+                        <img src="{{ pro.product_image.url }}" alt="#" class="img-fluid">
+                        <h5> <a href="{% url 'content:productdetails' pro.id %}">{{ pro.product_name }}</a> </h5>
+                        {% comment %} <p><span>قیمت :</span>25000 تومان</p> {% endcomment %}
                     </div>
                 </div>
-                <div class="col-lg-3 col-sm-6">
-                    <div class="single_product_item">
-                        <img src="{% static 'img/product_list_2.png' %}" alt="#" class="img-fluid">
-                        <h5> <a href="single-product.html">بالشتک  از جنس فوم</a> </h5>
-                        <p><span>قیمت :</span>25000 تومان</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <div class="single_product_item">
-                        <img src="{% static 'img/product_list_3.png' %}" alt="#" class="img-fluid">
-                        <h5> <a href="single-product.html">بالشتک  از جنس فوم</a> </h5>
-                        <p><span>قیمت :</span>25000 تومان</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                  <div class="single_product_item">
-                      <img src="{% static 'img/product_list_3.png' %}" alt="#" class="img-fluid">
-                      <h5> <a href="single-product.html">بالشتک  از جنس فوم</a> </h5>
-                      <p><span>قیمت :</span>25000 تومان</p>
-                  </div>
-              </div>
+              
+{% endfor %}
+
+
               </div></div></div>
     </div>
   </div>

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<body>
+    <section class="breadcrumb_part" style="margin-bottom: 0 !important;">
+      <div class="container">
+          <div class="row">
+              <div class="col-lg-12">
+                  <div class="breadcrumb_iner">
+                      <h2> درباره ما    </h2>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+    <section class="client_review">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="client_review_slider owl-carousel" dir="ltr">
+                    <div class="single_client_review" dir="rtl">
+                        <div class="client_img">
+                            <img src="{% static 'img/people3.jpg' %}" alt="#" class="img-fluid">
+                        </div>
+                        <p>اولین پروژه ای که از اجراش لذت بردم</p>
+                        <h5>کسری نجفی </h5>
+                    </div>
+                    <div class="single_client_review" dir="rtl">
+                        <div class="client_img">
+                            <img src="{% static 'img/people1.jpg' %}" alt="#" class="img-fluid">
+                        </div>
+                        <p>به نظر من این سایت استاندارد ها رو جابه جا کرده و چیزی بیشتر از لذت خرید برای ما به ارمغان میاره</p>
+                        <h5>آرمین عظیمی </h5>
+                    </div>
+                    <div class="single_client_review" dir="rtl">
+                        <div class="client_img">
+                            <img src="{% static 'img/people2.jpg' %}" alt="#" class="img-fluid">
+                        </div>
+                        <p>در روند این پروژه خیلی چیزها یاد گرفتم</p>
+                        <h5>محمد دنیوی </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+  <section class="parallex-section" style="background-image:url('{% static "img/about.jpg" %}')">
+  <!-- <img src="{% static 'img/about.jpg' %}" alt=""> -->
+  </section>
+
+  </body>
+
+{%endblock%}

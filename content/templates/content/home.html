@@ -1,33 +1,105 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block content %}
 
-
-{% block content %}
-
-<div>
-{{ subs|unordered_list }}
-    {% comment %} {% for sub in subs %}
-        {% if sub.inner_sub_id is NULL %}
-        <a href='#'>{{ sub.cat_name }}</a>
-        <ul>
-        {% for sub2 in subs %}
-            {% if sub2.inner_sub_id == sub %}
-                <li><a href="#">{{ sub2.cat_name }}</a></li>
-            {% endif %}
-        {% endfor %}
-        </ul>
-        {% endif %}
-    {% endfor %} {% endcomment %}
+<!-- <div>
+  {{ subs|unordered_list }} {% comment %} {% for sub in subs %} {% if
+  sub.inner_sub_id is NULL %}
+  <a href="#">{{ sub.cat_name }}</a>
+  <ul>
+    {% for sub2 in subs %} {% if sub2.inner_sub_id == sub %}
+    <li><a href="#">{{ sub2.cat_name }}</a></li>
+    {% endif %} {% endfor %}
+  </ul>
+  {% endif %} {% endfor %} {% endcomment %}
+</div> -->
+{% load static %}
+<img src="{% static 'img/slider.jpg' %}" class="slider-img" />
+<section class="feature_part section_padding bg-orange">
+  <div class="container">
+      <!-- <div class="row justify-content-between">
+          <div class="col-lg-6">
+              <div class="feature_part_tittle">
+                  <h3>با استفاده از مواد ارگانیک، محصولات استانداردی در اینجا تولید می شود.</h3>
+              </div>
+          </div>
+          <div class="col-lg-5">
+              <div class="feature_part_content">
+                  <p>شرکت ما با بهره گیری از استراتژی های مختلف و استفاده از مواد ارگانیک و طبیعی سعی در تولید محصولاتی با کیفیت و مطابق نیاز شما دارد.</p>
+              </div>
+          </div>
+      </div> -->
+      <div class="row justify-content-center">
+          <div class="col-lg-3 col-sm-6">
+              <div class="single_feature_part">
+                  <img src="{% static 'img/feature_icon_1.svg' %}">
+                  <h4>پشتیبانی کارت های اعتباری</h4>
+              </div>
+          </div>
+          <div class="col-lg-3 col-sm-6">
+              <div class="single_feature_part">
+                  <img src="{% static 'img/feature_icon_2.svg' %}">
+                  <h4>سفارش آنلاین</h4>
+              </div>
+          </div>
+          <div class="col-lg-3 col-sm-6">
+              <div class="single_feature_part">
+                  <img src="{% static 'img/feature_icon_3.svg' %}">
+                  <h4>تحویل رایگان</h4>
+              </div>
+          </div>
+          <div class="col-lg-3 col-sm-6">
+              <div class="single_feature_part">
+                  <img src="{% static 'img/feature_icon_4.svg' %}">
+                  <h4>محصولات همراه با هدیه</h4>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+<hr>
+<section class="ptop-35">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 pleft-0 pright-0">
+       
+                <div class="w3-bar w3-black">
+             <h4>آخرین محصولات 
+                       
+                   </h4>
+             
+                   </div>
     
+    </div>
+    <div class="row">
 
+      <div class="col-md-12">
+        <div class="product_list">
+            <div class="row">
+
+{% for pro in last_product %}
+
+                <div class="col-lg-3 col-sm-6">
+                    <div class="single_product_item">
+                        <img src="{{ pro.product_image.url }}" alt="#" class="img-fluid" style="height:200px">
+                        <h5> <a href="{% url 'content:productdetails' pro.id %}">{{ pro.product_name }}</a> </h5>
+                        {% comment %} <p><span>قیمت :</span>25000 تومان</p> {% endcomment %}
+                    </div>
+                </div>
+              
+{% endfor %}
+
+
+              </div></div></div>
+    </div>
+  </div>
+</section>
+
+{% comment %}
+<div>
+  <h3>address</h3>
+  <ul>
+    {% for elm in address%}
+    <li>city : {{elm.city}}</li>
+    {% endfor %}
+  </ul>
 </div>
-
-{% comment %} <div>
-    <h3>address</h3>
-    <ul>
-        {% for elm in address%}
-            <li>city : {{elm.city}} </li>
-        {% endfor %}
-    </ul>
-</div> {% endcomment %}
-
-{% endblock %}
+{% endcomment %} {% endblock %}

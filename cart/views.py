@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.db.models import F
+from django.contrib.auth.decorators import login_required
 
 from .models import Cart, OrderItem
 from Supplier.models import ProductSupplier
@@ -8,7 +9,7 @@ from Supplier.models import ProductSupplier
 
 from .models import Cart
 
-
+@login_required
 def showcart(request):
     if request.method == 'GET':
         current_customer = request.user.customer
@@ -55,6 +56,7 @@ def showcart(request):
 # def finalize_cart(request):
 #     if request.method == 'GET':
 
+@login_required
 def delete_order(request, order_pk):
     the_cart = request.user.customer.cart.get(status='u')
     order = get_object_or_404(OrderItem, pk=order_pk, cart_id=the_cart)

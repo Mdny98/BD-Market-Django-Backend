@@ -1,0 +1,204 @@
+{% extends 'base.html' %}
+{% block content %}
+<body>
+    <section class="breadcrumb_part">
+      <div class="container">
+          <div class="row">
+              <div class="col-lg-12">
+                  <div class="breadcrumb_iner">
+                      <h2>ارتباط با ما   </h2>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+  <div class="container mbottom-30">
+      <div class="row">
+          <div class="col-md-6">
+            <div id="map" style="height: 480px;"></div>
+            <script>
+              function initMap() {
+                var uluru = {
+                  lat: 35.7613822,
+                  lng: 51.3908761
+                };
+                var grayStyles = [{
+                    featureType: "all",
+                    stylers: [{
+                        saturation: -90
+                      },
+                      {
+                        lightness: 50
+                      }
+                    ]
+                  },
+                  {
+                    elementType: 'labels.text.fill',
+                    stylers: [{
+                      color: '#ccdee9'
+                    }]
+                  }
+                ];
+                var map = new google.maps.Map(document.getElementById('map'), {
+                  center: {
+                    lat: 35.7613822,
+                  lng: 51.3908761
+                  },
+                  zoom: 18,
+                //   styles: grayStyles,
+                  scrollwheel: false
+                });
+              }
+            </script>
+            <script
+              src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpfS1oRGreGSBU5HHjMmQ3o5NLw7VdJ6I&callback=initMap">
+            </script>
+    
+          </div>
+          <div class="col-md-6">
+            <div class="col-md-12">
+                <div class="w3-bar w3-black">
+             <h4>اطلاعات تماس
+                       
+                   </h4>
+             
+                   </div>
+             </div>
+                  
+                <div class="media contact-info">
+                  <span class="contact-info__icon"><i class="ti-home"></i></span>
+                  <div class="media-body">
+                    <h3>ایران ، تهران ، خیابان شیخ بهایی</h3>
+                   <p> خیابان امداد غربی , مپصا</p>
+                  </div>
+                </div>
+                <div class="media contact-info">
+                  <span class="contact-info__icon"><i class="ti-tablet"></i></span>
+                  <div class="media-body">
+                    <h3>1.....0912-495</h3>
+                    <p></p>
+                  </div>
+                </div>
+                <div class="media contact-info">
+                  <span class="contact-info__icon"><i class="ti-email"></i></span>
+                  <div class="media-body">
+                    <h3>babydebugersmarket@gmail.com</h3>
+                    <p>برای سفارش وبسایت از طریق ایمیل با ما در تماس باشید  </p>
+                  </div>
+            
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- <section class="contact-section section_padding">
+    <div class="container">
+      <div class="d-none d-sm-block mb-5 pb-4">
+        <div id="map" style="height: 480px;"></div>
+        <script>
+          function initMap() {
+            var uluru = {
+              lat: -25.363,
+              lng: 131.044
+            };
+            var grayStyles = [{
+                featureType: "all",
+                stylers: [{
+                    saturation: -90
+                  },
+                  {
+                    lightness: 50
+                  }
+                ]
+              },
+              {
+                elementType: 'labels.text.fill',
+                stylers: [{
+                  color: '#ccdee9'
+                }]
+              }
+            ];
+            var map = new google.maps.Map(document.getElementById('map'), {
+              center: {
+                lat: -31.197,
+                lng: 150.744
+              },
+              zoom: 9,
+              styles: grayStyles,
+              scrollwheel: false
+            });
+          }
+        </script>
+        <script
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpfS1oRGreGSBU5HHjMmQ3o5NLw7VdJ6I&callback=initMap">
+        </script>
+
+      </div>
+
+
+      <div class="row">
+        <div class="col-12">
+          <h2 class="contact-title">با ما در تماس باشید</h2>
+        </div>
+        <div class="col-lg-8">
+          <form class="form-contact contact_form" action="contact_process.php" method="post" id="contactForm"
+            novalidate="novalidate">
+            <div class="row"dir="rtl">
+              <div class="col-12">
+                <div class="form-group" dir="rtl">
+
+                  <textarea class="form-control w-100" name="message" id="message" cols="30" rows="9"
+                    onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Message'"
+                    placeholder='پیام خود را وارد کنید'></textarea>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <input class="form-control" name="name" id="name" type="text" onfocus="this.placeholder = ''"
+                    onblur="this.placeholder = 'Enter your name'" placeholder='نام '>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <input class="form-control" name="email" id="email" type="email" onfocus="this.placeholder = ''"
+                    onblur="this.placeholder = 'Enter email address'" placeholder='ایمیل'>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group">
+                  <input class="form-control" name="subject" id="subject" type="text" onfocus="this.placeholder = ''"
+                    onblur="this.placeholder = 'Enter Subject'" placeholder='موضوع'>
+                </div>
+              </div>
+            </div>
+            <div class="form-group mt-3">
+              <a href="#" class="btn_3 button-contactForm">ارسال پیام</a>
+            </div>
+          </form>
+        </div>
+        <div class="col-lg-4">
+          <div class="media contact-info">
+            <span class="contact-info__icon"><i class="ti-home"></i></span>
+            <div class="media-body">
+              <h3>ایران، شیراز.</h3>
+              <p>بلوار جمهوری</p>
+            </div>
+          </div>
+          <div class="media contact-info">
+            <span class="contact-info__icon"><i class="ti-tablet"></i></span>
+            <div class="media-body">
+              <h3>07132309534</h3>
+              <p>شنبه تا پنجشنبه یکسره</p>
+            </div>
+          </div>
+          <div class="media contact-info">
+            <span class="contact-info__icon"><i class="ti-email"></i></span>
+            <div class="media-body">
+              <h3>info@webrubik.com</h3>
+              <p>سوالات خود را از ما بپرسید!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section> -->
+{%endblock%}

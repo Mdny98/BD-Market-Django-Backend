@@ -52,6 +52,10 @@ INSTALLED_APPS = [
     'jalali_date',
     'crispy_forms',
     'django_gravatar',
+
+    
+    'rest_framework',
+    'api_service',
     'django_email_verification',
 ]
 
@@ -116,24 +120,11 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'db',
-#         'USER': 'admin',
-#         'PASSWORD': '1234',
-#         'HOST': '127.0.0.1',
-#         'PORT': '5432',
-#     }
-# }
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'kkpcfybt',
-#         'USER': 'kkpcfybt',
-#         'PASSWORD': 'JcgwBzS8SDWq81o58VorfaxfFkStNXaE',
-#         'HOST': 'ruby.db.elephantsql.com',
-#         'PORT': '5432',
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #     }
 # }
 
@@ -183,6 +174,8 @@ STATICFILES_DIRS = [
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+LOGIN_URL = '/login'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'

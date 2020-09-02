@@ -24,6 +24,7 @@ urlpatterns = [
     path('blog/', include('blog.urls'), name='blog'),
     #برای ارسال ایمیل فعالسازی اکانت
     path('email/', include(mail_urls)),
+    path('api/', include('api_service.urls')),
 ]
 
 # تو این قسمت ارور ۴۰۴ رو هندل میکنیم و جای ویوش رو میگیم

@@ -2,22 +2,33 @@
 
 {% block content %}
 {% load static %}
-
-<div class="container">
+<section class="breadcrumb_part">
+  <div class="container">
+      <div class="row">
+          <div class="col-lg-12">
+              <div class="breadcrumb_iner">
+                  <h2>سبد خرید</h2>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+<div class="container mbottom-40">
   <div class="row">
-
+<div class="col-md-12">
 {{ msg }}
 
   <form
-      class=""
+    style="width:100%"
       action="{% url 'financial:finalize_cart' %}"
       method="POST"
     >
+    <div class="row">
 {% csrf_token %}
     {% for order in current_cart.order.all %}
 
-    <div class="col-6">
-      <div class="list-cart">
+    <div class="col-md-6">
+      <div class="cart-items">
         <ul>
 
           <li>
@@ -46,7 +57,7 @@
                   >delete</button>
                 </form> {% endcomment %}
 
-                <a href="{% url 'cart:delete_order' order.id %}">حذف</a>
+                <a class="delete-a" href="{% url 'cart:delete_order' order.id %}">حذف</a>
 
                 <label for="{{ order.id }}">تعداد:</label>
                 <input type="number" id="{{ order.id }}" name="{{ order.id }}" min="1" max="{{ order.product_supplier_id.stock }}" value="{{ order.number }}">
@@ -62,7 +73,7 @@
     {% empty %}
     <p>سفارشی ثبت نکرده اید!</p>
     {% endfor %}
-
+  </div>
     
       {% comment %} {% csrf_token %} {% endcomment %}
       {% comment %} <input
@@ -73,14 +84,15 @@
       > {% endcomment %}
 
 {% if current_cart %}
-<button type="submit">نهایی شدن خرید</button>
+<hr>
+<button class="btn btn-success" style="float:left" type="submit">نهایی شدن خرید</button>
 {% endif %}
       
     </form>
 
 
   </div>
-
+</div>
 </div>
 
 

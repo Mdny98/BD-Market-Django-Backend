@@ -18,7 +18,7 @@ from customer.models import CustomerAddress
 from cart.models import Cart
 from django_email_verification import sendConfirm
 
-
+# توضیحات در قسمت یو ار ال امده است
 # قسمت ثبت نام
 # در اینجا صفحه ای هست که کاربر انتخاب میکنه فروشنده باشه یا خریدار
 def register(request):

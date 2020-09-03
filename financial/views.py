@@ -44,6 +44,11 @@ def finalize_cart(request):
 @login_required
 def pay(request):
     if request.method == 'POST':
+        try:
+            address_id = request.POST['address']
+        except:
+            payment_methods = PeymentMethod.objects.all
+            return render(request, 'financial/pay.html', {'payment_methods':payment_methods, 'err':'یک آدرس ثبت کنید'})
         payment_method_id = request.POST['payment_method']
         payment_method = PeymentMethod.objects.get(id=payment_method_id)
         current_customer = request.user.customer

@@ -58,7 +58,7 @@
          </div>
               
 <a href="{% url 'accounts:addrescostomeradd' %}?next={{request.path}}">افزودن آدرس جدید </a> <br>
-
+{{ err }}
 {% for address in  request.user.customer.address.all %}
 {% if forloop.first %}
       <input  type="radio" id="{{ address.id }}" name="address" value="{{ address.id }}" required>

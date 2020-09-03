@@ -78,11 +78,11 @@
 {% for pro in last_product %}
 
                 <div class="col-lg-3 col-sm-6">
-                    <div class="single_product_item">
+                    <a class="single_product_item" style="display:block" href="{% url 'content:productdetails' pro.id %}">
                         <img src="{{ pro.product_image.url }}" alt="#" class="img-fluid" style="height:200px">
-                        <h5> <a href="{% url 'content:productdetails' pro.id %}">{{ pro.product_name }}</a> </h5>
+                        <h5> <div >{{ pro.product_name }}</div> </h5>
                         {% comment %} <p><span>قیمت :</span>25000 تومان</p> {% endcomment %}
-                    </div>
+                    </a>
                 </div>
               
 {% endfor %}

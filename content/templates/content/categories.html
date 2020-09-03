@@ -163,7 +163,7 @@
 
                   {% for product in all_products %}
                   <div class="col-lg-4 col-sm-6">
-                    <div class="single_product_item">
+                    <a class="single_product_item" href="{% url 'content:productdetails' product.id %}" style="display:block">
                       {% if product.product_image %}
                       <img
                         src="{{ product.product_image.url }}"
@@ -172,9 +172,9 @@
                         style="height:180px"
                       >
                       {% endif %}
-                      <h5> <a href="{% url 'content:productdetails' product.id %}">{{ product.product_name }}</a> </h5>
+                      <h5> <div href="{% url 'content:productdetails' product.id %}">{{ product.product_name }}</div> </h5>
                       {% comment %} <p><span>قیمت :</span>25000 تومان</p> {% endcomment %}
-                    </div>
+                    </a>
                   </div>
                   {% endfor %}
 

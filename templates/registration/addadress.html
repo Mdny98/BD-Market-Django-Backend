@@ -11,7 +11,7 @@
 			<h3 class="card-title mb-0 float-left">افزودن ادرس</h3>
 		</div>
 		<div class="card-body">
-			<form method="post" enctype="multipart/form-data">{% csrf_token %}
+			<form method="post" action="">{% csrf_token %}
 				<div class="row">
 					<div class="col-12">
 						{{ form.address|as_crispy_field }}

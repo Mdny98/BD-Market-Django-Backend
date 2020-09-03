@@ -108,12 +108,22 @@ class addrescostomeradd(LoginRequiredMixin, CreateView):
     fields = ['address', 'city', 'postalcode']
     template_name = "registration/addadress.html" 
     success_url = reverse_lazy('accounts:addrescostomershow')
+
+    def get_context_data(self, **kwargs):
+        context=super(addrescostomeradd, self).get_context_data(**kwargs)
+        context[next]=self.request.GET['next']
+        return context
+
     def form_valid(self, form):
         d = form.save(commit=False)
         d.customer_id = self.request.user.customer
         d.save()
         return super().form_valid(form)
 
+
+    def get_success_url(self):
+        redirect_to=self.request.GET['next']
+        return redirect_to
 
 
 

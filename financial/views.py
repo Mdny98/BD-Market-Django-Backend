@@ -12,13 +12,17 @@ from customer.models import CustomerAddress
 
 @login_required
 def finalize_cart(request):
-    if request.method == 'POST':
-        payment_methods = PeymentMethod.objects.all
+    try:
         current_customer = request.user.customer
         current_cart = Cart.objects.get(customer_id=current_customer, status="u")
         orders = current_cart.order.all()
+    except:
+        return render(request, 'financial/pay.html', {'msg':'شما فاکتور ثبت شده ای ندارید'})
+
+    payment_methods = PeymentMethod.objects.all
+    total_price = 0
+    if request.method == 'POST':
                  
-        total_price = 0
         for order in orders:
             order.number = int(request.POST.get(str(order.id)))
             # print(order.number)
@@ -27,7 +31,15 @@ def finalize_cart(request):
             total_price += order.number * order.product_supplier_id.unit_price
             order.save()
 
-        return render(request, 'financial/pay.html', {'payment_methods':payment_methods, 'total_price':total_price})
+        return render(request, 'financial/pay.html', {'payment_methods':payment_methods,
+         'total_price':total_price})
+
+    else:
+        for order in orders:
+            total_price += order.number * order.product_supplier_id.unit_price
+
+        return render(request, 'financial/pay.html', {'payment_methods':payment_methods,
+            'total_price':total_price})
 
 @login_required
 def pay(request):

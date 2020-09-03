@@ -12,6 +12,14 @@
           </div>
       </div>
     </section>
+
+{% if msg %}
+<p>
+{{ msg }}
+</p>
+{% else %}
+
+
 <div class="container" style="margin-bottom:30px;">
       <div class="row">
             <div class="col-md-12">
@@ -49,7 +57,7 @@
                </div>
          </div>
               
-<a href="{% url 'accounts:addrescostomeradd' %}">افزودن آدرس جدید </a> <br>
+<a href="{% url 'accounts:addrescostomeradd' %}?next={{request.path}}">افزودن آدرس جدید </a> <br>
 
 {% for address in  request.user.customer.address.all %}
 {% if forloop.first %}
@@ -90,5 +98,5 @@
 </div>
 
 
-
+{% endif %}
 {% endblock %}

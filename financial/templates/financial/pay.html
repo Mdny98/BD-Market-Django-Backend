@@ -12,6 +12,14 @@
           </div>
       </div>
     </section>
+
+{% if msg %}
+<p>
+{{ msg }}
+</p>
+{% else %}
+
+
 <div class="container" style="margin-bottom:30px;">
       <div class="row">
             <div class="col-md-12">
@@ -49,8 +57,14 @@
                </div>
          </div>
               
+<a href="{% url 'accounts:addrescostomeradd' %}?next={{request.path}}">افزودن آدرس جدید </a> <br>
+{{ err }}
 {% for address in  request.user.customer.address.all %}
-      <input  type="radio" id="{{ address.id }}" name="address" value="{{ address.id }}">
+{% if forloop.first %}
+      <input  type="radio" id="{{ address.id }}" name="address" value="{{ address.id }}" required>
+      {% else %}
+      <input  type="radio" id="{{ address.id }}" name="address" value="{{ address.id }}" >
+      {% endif %}
 <label for="{{ address.id }}">{{ address.address }}</label><br>
 {% endfor %}
 <div class="col-md-12">
@@ -66,7 +80,11 @@
 <div class="row">
 {% for paymeth in payment_methods %}
 <div class="col-md-12">
-      <input  type="radio" id="{{ paymeth.method_title }}" name="payment_method" value="{{ paymeth.id }}">
+{% if forloop.first %}
+      <input  type="radio" id="{{ paymeth.method_title }}" name="payment_method" value="{{ paymeth.id }}" required>
+      {% else %}
+<input  type="radio" id="{{ paymeth.method_title }}" name="payment_method" value="{{ paymeth.id }}">
+      {% endif %}
       <label for="{{ paymeth.method_title }}">{{ paymeth.method_title }}</label>
 </div>
      
@@ -80,5 +98,5 @@
 </div>
 
 
-
+{% endif %}
 {% endblock %}

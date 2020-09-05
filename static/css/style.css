@@ -2639,7 +2639,7 @@ box-shadow: 1px 1px 4px 2px #7b7b7b;
   bottom: -20px;
   z-index: -10;
 }
-.single_product_item h5 a{
+.single_product_item h5 div{
   font-size: 12px;
   text-decoration: none;
   background-color: #5EB341;
@@ -2649,7 +2649,6 @@ box-shadow: 1px 1px 4px 2px #7b7b7b;
   margin-top: 6px;
   position: relative;
   min-height:50px;
- 
   outline: 1px solid #fff;
   outline-offset: -4px;
 }

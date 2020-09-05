@@ -1885,7 +1885,22 @@ ul {
   line-height: 16px;
   font-weight: 400;
 }
-
+.api-img{
+  text-decoration: none !important;
+    position: fixed;
+    left: 0px;
+    top: 100px;
+    text-align: center;
+    z-index: 100;
+    color: #347a01 !important;
+    padding: 5px 40px;
+    left: -16px;
+    font-weight: bold;
+    opacity: 0.9;
+    background-color: #ffc107;
+    border: 2px solid #f58f05;
+    border-radius: 5px;
+}
 .main_menu .main-menu-item ul li .nav-link:hover {
   color: #795376 !important;
 }

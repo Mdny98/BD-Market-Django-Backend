@@ -96,10 +96,10 @@ class CartView(viewsets.ModelViewSet):
                 except:
                     cart = Cart.objects.create(customer_id = user.customer, status='u')
                 try:
-                    
-                    if product_supplier_id in cart.order.all():
-                    OrderItem.objects.get(cart=cart, product_supplier_id=prosup)
-                    return Response(f"{prosup} added to your cart succesfully")
+
+                    if prosup in cart.order.all().values_list('product_supplier_id', flat=True):
+                        # OrderItem.objects.get(cart=cart, product_supplier_id=prosup)
+                        return Response(f"{prosup} is already in your cart")
                 except:
                     OrderItem.objects.create(cart=cart, product_supplier_id=prosup)
                     return Response(f"{prosup} added to your cart succesfully")

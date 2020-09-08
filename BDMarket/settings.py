@@ -59,6 +59,12 @@ INSTALLED_APPS = [
     'django_email_verification',
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+}
 
 AUTH_USER_MODEL = 'accounts.User'
 

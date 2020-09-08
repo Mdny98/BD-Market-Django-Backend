@@ -2,8 +2,10 @@ from rest_framework import serializers
 
 from content.models import (Product, SubCategory, Brand, Attribute, Feedback,
     ProductAttr)
-from accounts.models import Customer, User
-
+from accounts.models import Customer, User, Supplier
+from Supplier.models import ProductSupplier
+from customer.models import CustomerAddress
+from cart.models import Cart, OrderItem
 
 class BrandSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -14,9 +16,16 @@ class CatSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = SubCategory
         fields = '__all__'
+# class CatDetailSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = SubCategory
+#         fields = '__all__'
 
+# class CatListSerializer(serializers.HyperlinkedModelSerializer):
+#     class Meta:
+#         model = SubCategory
+#         fields = '__all__'
 class ProductSerializer(serializers.HyperlinkedModelSerializer):
-
     class Meta:
         model = Product
         fields = '__all__'
@@ -45,9 +54,41 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = '__all__'
 
-class CustomerSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
+class CustomerAddressSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Customer
+        model = CustomerAddress
         fields = '__all__'
 
+class CustomerSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+    # address = serializers.HyperlinkedRelatedField(view_name='customeraddress-detail',
+    #                                     many=True, queryset=CustomerAddress.objects.all())
+    address = CustomerAddressSerializer(many=True)
+    class Meta:
+        model = Customer
+        fields = ['address', 'phone_number', 'user', 'city']
+
+class SupplierSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+    class Meta:
+        model = Supplier
+        fields = '__all__'
+
+class ProductSupplierSerializer(serializers.HyperlinkedModelSerializer):
+    
+    class Meta:
+        model = ProductSupplier
+        fields = '__all__'
+
+
+class OrderItemSerializer(serializers.HyperlinkedModelSerializer):
+    
+    class Meta:
+        model = OrderItem
+        fields = '__all__'
+
+class CartSerializer(serializers.HyperlinkedModelSerializer):
+    order = OrderItemSerializer(many=True)
+    class Meta:
+        model = Cart
+        fields = ['url', 'customer_id', 'total_price', 'status', 'adresses', 'order']

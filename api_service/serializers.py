@@ -81,14 +81,24 @@ class ProductSupplierSerializer(serializers.HyperlinkedModelSerializer):
         fields = '__all__'
 
 
-class OrderItemSerializer(serializers.HyperlinkedModelSerializer):
-    
+class OrderItemSerializer(serializers.ModelSerializer):
+    cart_id = serializers.CharField(max_length=50, required=False)
     class Meta:
         model = OrderItem
         fields = '__all__'
+        # extra_kwargs = {'cart_id': {'required': False}}
+        # validators = []
+        # read_only_fields  = ('cart_id',)
 
 class CartSerializer(serializers.HyperlinkedModelSerializer):
     order = OrderItemSerializer(many=True)
     class Meta:
         model = Cart
         fields = ['url', 'customer_id', 'total_price', 'status', 'adresses', 'order']
+
+class AddToCartSerializer(serializers.ModelSerializer):
+    # product_supplier_id = serializers.CharField(max_length=100, required=True, help_text="please write only one color")
+    
+    class Meta:
+        model = OrderItem
+        fields = ('product_supplier_id')

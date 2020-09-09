@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import viewsets
 from rest_framework.authentication import BaseAuthentication, SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
-from .permissions import IsOwner
+from .permissions import IsCartOwner, IsOrderOwner
 
 from content.models import Product, SubCategory, Brand, Attribute, Feedback, ProductAttr
 from accounts.models import Customer, Supplier
@@ -15,7 +15,7 @@ from cart.models import Cart, OrderItem
 from .serializers import (ProductSerializer, CatSerializer, BrandSerializer,
         AttributeSerializer, FeedbackSerializer, ProductAttrSerializer, CustomerSerializer,
         CustomerAddressSerializer, SupplierSerializer, ProductSupplierSerializer,
-         CartSerializer, OrderItemSerializer)
+         CartSerializer, OrderItemSerializer, AddToCartSerializer)
 
 
 class ProductView(viewsets.ModelViewSet):
@@ -63,7 +63,7 @@ class ProductSupplierView(viewsets.ModelViewSet):
 
 class CartView(viewsets.ModelViewSet):
     authentication_classes = [SessionAuthentication]
-    permission_classes = [IsAuthenticated, IsOwner]
+    permission_classes = [IsAuthenticated, IsCartOwner]
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
 
@@ -78,33 +78,41 @@ class CartView(viewsets.ModelViewSet):
         else:
             return Cart.objects.filter(customer_id = self.request.user.customer)
 
-    def update(self, request):
+
+
+class OrderItemView(viewsets.ModelViewSet):
+    authentication_classes = [SessionAuthentication]
+    permission_classes = [IsAuthenticated, IsOrderOwner]
+    queryset = OrderItem.objects.all()
+    serializer_class = OrderItemSerializer
+
+    def get_queryset(self):
+        if self.request.user.is_superuser:
+            print('-------------------')
+            return OrderItem.objects.all()
+        else:
+            return OrderItem.objects.filter(cart_id__customer_id = self.request.user.customer)
+    
+    def create(self, request):
         serializer = self.serializer_class(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            user = request.user
-            prosup_id = serializer.validated_data.get("product_supplier_id")
-            # number = serializer.validated_data.get("number")
+        # if serializer.is_valid(raise_exception=True):
+        user = request.user
+        prosup = serializer.validated_data.get("product_supplier_id")
+        if not prosup.stock >= 1:
+            return Response("we do not have any ")
+        else:
             try:
-                prosup = ProductSupplier.objects.get(id = prosup_id)
-            except Exception as e:
-                return Response(str(e))
-            if not prosup.stock >= 1:
-                return Response(f"we do not have enough {prosup}")
+                cart = Cart.objects.get(customer_id = user.customer, status='u')
+            except:
+                cart = Cart.objects.create(customer_id = user.customer, status='u')
+            if prosup in cart.order.all().values_list('product_supplier_id', flat=True):
+                return Response(" is already in your cart")
             else:
-                try:
-                    cart = Cart.objects.get(customer_id = user.customer, status='u')
-                except:
-                    cart = Cart.objects.create(customer_id = user.customer, status='u')
-                try:
-
-                    if prosup in cart.order.all().values_list('product_supplier_id', flat=True):
-                        # OrderItem.objects.get(cart=cart, product_supplier_id=prosup)
-                        return Response(f"{prosup} is already in your cart")
-                except:
-                    OrderItem.objects.create(cart=cart, product_supplier_id=prosup)
-                    return Response(f"{prosup} added to your cart succesfully")
-
+                OrderItem.objects.create(cart=cart, product_supplier_id=prosup)
+                return Response(" added to your cart succesfully")
 
 class OrderItemView(viewsets.ModelViewSet):
     queryset = OrderItem.objects.all()
     serializer_class = OrderItemSerializer
+    authentication_classes = [SessionAuthentication]
+    permission_classes = [IsAuthenticated, IsOrderOwner]

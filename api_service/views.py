@@ -53,6 +53,18 @@ class CustomerView(viewsets.ModelViewSet):
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
 
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        # self.perform_update(serializer)
+        addresses = serializer.validated_data.get("address")
+        for address in addresses:
+            CustomerAddress.objects.create(customer_id=self.request.user.customer)
+        
+        return Response("پروفایل آپدیت شد")
+
 class SupplierView(viewsets.ModelViewSet):
     queryset = Supplier.objects.all()
     serializer_class = SupplierSerializer
@@ -83,19 +95,27 @@ class CartView(viewsets.ModelViewSet):
 class OrderItemView(viewsets.ModelViewSet):
     authentication_classes = [SessionAuthentication]
     permission_classes = [IsAuthenticated, IsOrderOwner]
-    queryset = OrderItem.objects.all()
-    serializer_class = OrderItemSerializer
+    # queryset = OrderItem.objects.all()
+    # serializer_class = OrderItemSerializer
+    
+
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return AddToCartSerializer
+        else:
+            return OrderItemSerializer
 
     def get_queryset(self):
         if self.request.user.is_superuser:
-            print('-------------------')
             return OrderItem.objects.all()
         else:
+            # print('-------------------')
             return OrderItem.objects.filter(cart_id__customer_id = self.request.user.customer)
     
     def create(self, request):
-        serializer = self.serializer_class(data=request.data)
+        serializer = self.get_serializer(data=request.data)
         # if serializer.is_valid(raise_exception=True):
+        serializer.is_valid(raise_exception=True)
         user = request.user
         prosup = serializer.validated_data.get("product_supplier_id")
         if not prosup.stock >= 1:
@@ -105,14 +125,15 @@ class OrderItemView(viewsets.ModelViewSet):
                 cart = Cart.objects.get(customer_id = user.customer, status='u')
             except:
                 cart = Cart.objects.create(customer_id = user.customer, status='u')
-            if prosup in cart.order.all().values_list('product_supplier_id', flat=True):
+            
+            if prosup.id in cart.order.all().values_list('product_supplier_id', flat=True):
                 return Response(" is already in your cart")
             else:
-                OrderItem.objects.create(cart=cart, product_supplier_id=prosup)
+                OrderItem.objects.create(cart_id=cart, product_supplier_id=prosup)
                 return Response(" added to your cart succesfully")
 
-class OrderItemView(viewsets.ModelViewSet):
-    queryset = OrderItem.objects.all()
-    serializer_class = OrderItemSerializer
-    authentication_classes = [SessionAuthentication]
-    permission_classes = [IsAuthenticated, IsOrderOwner]
+# class OrderItemView(viewsets.ModelViewSet):
+#     queryset = OrderItem.objects.all()
+#     serializer_class = OrderItemSerializer
+#     authentication_classes = [SessionAuthentication]
+#     permission_classes = [IsAuthenticated, IsOrderOwner]

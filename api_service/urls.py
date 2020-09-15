@@ -16,7 +16,7 @@ router.register('customer', views.CustomerView)
 router.register('supplier', views.SupplierView)
 router.register('productsupplier', views.ProductSupplierView)
 router.register('cart', views.CartView)
-router.register('orderitem', views.OrderItemView)
+router.register('orderitem', views.OrderItemView, basename='order')
 
 
 

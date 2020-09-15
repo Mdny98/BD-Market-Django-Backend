@@ -53,14 +53,16 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = '__all__'
+        read_only_fields  = ('username', 'email')
 
 class CustomerAddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomerAddress
         fields = '__all__'
+        read_only_fields  = ('customer_id',)
 
 class CustomerSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
+    user = UserSerializer(read_only=True)
     # address = serializers.HyperlinkedRelatedField(view_name='customeraddress-detail',
     #                                     many=True, queryset=CustomerAddress.objects.all())
     address = CustomerAddressSerializer(many=True)
@@ -90,6 +92,7 @@ class OrderItemSerializer(serializers.ModelSerializer):
         # validators = []
         # read_only_fields  = ('cart_id',)
 
+
 class CartSerializer(serializers.HyperlinkedModelSerializer):
     order = OrderItemSerializer(many=True)
     class Meta:
@@ -101,4 +104,4 @@ class AddToCartSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = OrderItem
-        fields = ('product_supplier_id')
+        fields = ('product_supplier_id',)
